@@ -25,6 +25,8 @@ Datasets/
 
 # Generated output (run pipeline to regenerate)
 phase1_output/
+phase3_embeddings/output/
+phase3_embeddings/models/
 
 # IDE / editor
 .cursor/
