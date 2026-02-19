@@ -1,0 +1,71 @@
+Phase 3 – Fine-tuning and Retrieval Results
+
+Dataset: IndicLegalQA Dataset_10K_Revised.json
+Model: BAAI/bge-small-en-v1.5 (fine-tuned)
+
+--------------------------------------------------
+Baseline (unfinetuned BGE, common across runs)
+--------------------------------------------------
+  IndicLegalQA_eval_cosine_accuracy@1:  0.4535
+  IndicLegalQA_eval_cosine_accuracy@3:  0.5695
+  IndicLegalQA_eval_cosine_accuracy@5:  0.6135
+  IndicLegalQA_eval_cosine_accuracy@10: 0.6735
+  IndicLegalQA_eval_cosine_map@100:     0.5296
+  IndicLegalQA_eval_cosine_mrr@10:      0.5233
+  IndicLegalQA_eval_cosine_ndcg@10:     0.5593
+  IndicLegalQA_eval_cosine_precision@10:0.0673
+  IndicLegalQA_eval_cosine_recall@10:   0.6735
+
+--------------------------------------------------
+Run 1 – Fine-tune (earlier “great” run)
+--------------------------------------------------
+  IndicLegalQA_eval_cosine_accuracy@1:  0.6475
+  IndicLegalQA_eval_cosine_accuracy@3:  0.7620
+  IndicLegalQA_eval_cosine_accuracy@5:  0.7940
+  IndicLegalQA_eval_cosine_accuracy@10: 0.8375
+  IndicLegalQA_eval_cosine_map@100:     0.7170
+  IndicLegalQA_eval_cosine_mrr@10:      0.7117
+  IndicLegalQA_eval_cosine_ndcg@10:     0.7422
+  IndicLegalQA_eval_cosine_precision@10:0.0838
+  IndicLegalQA_eval_cosine_recall@10:   0.8375
+
+  Comparison to baseline:
+    MRR@10:  baseline=0.5233 -> final=0.7117 (delta=+0.1884)
+    NDCG@10: baseline=0.5593 -> final=0.7422 (delta=+0.1829)
+    Recall@10: baseline=0.6735 -> final=0.8375 (delta=+0.1640)
+
+--------------------------------------------------
+Run 2 – Fine-tune (later, moderate-improvement run)
+--------------------------------------------------
+  (full metric block not captured; key IR metrics:)
+    IndicLegalQA_eval_cosine_mrr@10:   0.5972
+    IndicLegalQA_eval_cosine_ndcg@10:  0.6354
+    IndicLegalQA_eval_cosine_recall@10:0.7570
+
+  Comparison to baseline:
+    MRR@10:  baseline=0.5233 -> final=0.5972 (delta=+0.0739)
+    NDCG@10: baseline=0.5593 -> final=0.6354 (delta=+0.0761)
+    Recall@10: baseline=0.6735 -> final=0.7570 (delta=+0.0835)
+
+--------------------------------------------------
+Run 3 – Fine-tune (this run, best so far)
+--------------------------------------------------
+  IndicLegalQA_eval_cosine_accuracy@1:  0.7135
+  IndicLegalQA_eval_cosine_accuracy@3:  0.8145
+  IndicLegalQA_eval_cosine_accuracy@5:  0.8455
+  IndicLegalQA_eval_cosine_accuracy@10: 0.8845
+  IndicLegalQA_eval_cosine_map@100:     0.7753
+  IndicLegalQA_eval_cosine_mrr@10:      0.7713
+  IndicLegalQA_eval_cosine_ndcg@10:     0.7987
+  IndicLegalQA_eval_cosine_precision@10:0.0885
+  IndicLegalQA_eval_cosine_recall@10:   0.8845
+
+  Comparison to baseline:
+    MRR@10:  baseline=0.5233 -> final=0.7713 (delta=+0.2480)
+    NDCG@10: baseline=0.5593 -> final=0.7987 (delta=+0.2394)
+    Recall@10: baseline=0.6735 -> final=0.8845 (delta=+0.2110)
+
+Notes:
+- All fine-tuned runs improve over the baseline.
+- Run 3 currently corresponds to the model saved at phase3_embeddings/models/bge-legal.
+- For reproducibility, training used 2 epochs, lr=1e-5, batch_size=32, MultipleNegativesRankingLoss, and InformationRetrievalEvaluator on an 80/20 train/eval split.
