@@ -11,3 +11,10 @@ tqdm>=4.65.0
 datasets>=2.14.0
 transformers>=4.30.0
 huggingface-hub>=0.34.0,<1.0
+
+# Phase 4: Graph-Constrained RAG and UI
+neo4j>=5.0.0
+requests>=2.31.0
+langgraph>=0.2.0
+streamlit>=1.30.0
+python-dotenv>=1.0.0
