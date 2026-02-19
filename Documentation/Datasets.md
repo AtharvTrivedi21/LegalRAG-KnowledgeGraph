@@ -16,16 +16,7 @@ This document lists **only** the datasets that are **actually read or consumed**
 
 ---
 
-## 2. Supreme Court judgments (PDFs) (Phase 1)
-
-- **Path pattern:** `BASE_PATH/SC_EXTRACTED_DIR/<year>/*.pdf`, e.g. `Datasets/SC_Judgements-16-25/2016/*.pdf`. `SC_EXTRACTED_DIR` is set in `config.py` (default `SC_Judgements-16-25`).
-- **When used:** When `config.JUDGMENTS_SOURCE = "pdf"` and the extracted folder exists.
-- **Structure:** One folder per year (folder name = 4-digit year). PDF filename stem is used as `case_id`; text is extracted with pdfplumber.
-- **Schema (produced):** Each judgment becomes one row with `case_id`, `judgment_text`, `year` (from folder name).
-
----
-
-## 3. Act PDFs (Phase 1)
+## 2. Act PDFs (Phase 1)
 
 - **Paths:** Under `BASE_PATH`, filenames from `config.PDF_FILES`:
   - `Constitution Of India.pdf`
@@ -37,7 +28,7 @@ This document lists **only** the datasets that are **actually read or consumed**
 
 ---
 
-## 4. Phase 1 output CSVs (Phase 2 and Phase 3)
+## 3. Phase 1 output CSVs (Phase 2 and Phase 3)
 
 Produced by Phase 1 in `phase1_output/`. Consumed by Phase 2 (after copy to Neo4j `import/`) and by Phase 3 (read directly from `phase1_output/`).
 
@@ -54,7 +45,7 @@ Produced by Phase 1 in `phase1_output/`. Consumed by Phase 2 (after copy to Neo4
 
 ---
 
-## 5. IndicLegalQA Dataset_10K_Revised.json (Phase 3)
+## 4. IndicLegalQA Dataset_10K_Revised.json (Phase 3)
 
 - **Path:** `Datasets/IndicLegalQA Dataset_10K_Revised.json` (from `phase3_embeddings/config.INDIC_LEGAL_QA_PATH`).
 - **When used:** By `phase3_embeddings/finetune_bge.py` for fine-tuning BGE and evaluation. Not used by Phase 1, 2, or 4.
