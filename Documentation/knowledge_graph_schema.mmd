@@ -1,0 +1,30 @@
+erDiagram
+  Act ||--o{ Section : IN_ACT
+  Act ||--o{ Article : IN_ACT
+  Case }o--|| Section : CITES
+  Case }o--|| Article : CITES
+
+  Act {
+    string act_id
+    string act_name
+    string act_type
+    string source_file
+  }
+
+  Section {
+    string section_id
+    string section_number
+    string full_text
+  }
+
+  Article {
+    string article_id
+    string article_number
+    string full_text
+  }
+
+  Case {
+    string case_id
+    int year
+    string judgment_text
+  }

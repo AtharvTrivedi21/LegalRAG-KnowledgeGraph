@@ -35,6 +35,9 @@ phase3_embeddings/models/
 *.swp
 *.swo
 
+# Documentation (temp files from render_mermaid_to_png.py)
+Documentation/_mermaid_html/
+
 # OS
 .DS_Store
 Thumbs.db

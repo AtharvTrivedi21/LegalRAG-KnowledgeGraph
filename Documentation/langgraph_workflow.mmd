@@ -1,0 +1,6 @@
+flowchart LR
+  A[query_parser] -->|"Parse refs"| B[graph_retriever]
+  B -->|"Neo4j sections and cases"| C[query_rephrase]
+  C -->|"Rephrase"| D[vector_retriever]
+  D -->|"FAISS and constraints"| E[answer_generator]
+  E -->|"Ollama answer"| F[END]

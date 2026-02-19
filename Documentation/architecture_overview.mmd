@@ -1,0 +1,44 @@
+flowchart LR
+  subgraph inputs [Inputs]
+    CSV[judgments CSV]
+    PDFs[SC PDFs]
+    Acts[Act PDFs]
+  end
+
+  subgraph phase1 [Phase 1 Ingestion]
+    Load[Load judgments]
+    Extract[Extract acts/sections/articles]
+    Edges[Build citation edges]
+    Export[Export CSVs and plots]
+  end
+
+  subgraph phase2 [Phase 2 Neo4j]
+    Cypher[Cypher load]
+    KG[(Knowledge Graph)]
+  end
+
+  subgraph phase3 [Phase 3 Embeddings]
+    Chunk[Chunk corpus]
+    Finetune[Fine-tune BGE]
+    FAISS[FAISS index]
+  end
+
+  subgraph phase4 [Phase 4 RAG]
+    LangGraph[LangGraph workflow]
+    Ollama[Ollama LLM]
+  end
+
+  CSV --> Load
+  PDFs --> Load
+  Load --> Export
+  Acts --> Extract
+  Extract --> Export
+  Edges --> Export
+  Export --> Cypher
+  Export --> Chunk
+  Cypher --> KG
+  Chunk --> Finetune
+  Finetune --> FAISS
+  KG --> LangGraph
+  FAISS --> LangGraph
+  LangGraph --> Ollama
