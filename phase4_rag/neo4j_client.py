@@ -126,4 +126,3 @@ def close_driver() -> None:
     if _driver is not None:
         _driver.close()
         _driver = None
-

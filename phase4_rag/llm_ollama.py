@@ -42,9 +42,11 @@ def chat_completion(messages: List[ChatMessage]) -> str:
         "stream": False,
     }
     url = _build_url("/api/chat")
+    # Enforce minimum 180s so Streamlit/IDE env (e.g. OLLAMA_TIMEOUT=60) never causes read timeout
+    timeout = max(settings.ollama.request_timeout, 180)
 
     try:
-        resp = requests.post(url, json=payload, timeout=settings.ollama.request_timeout)
+        resp = requests.post(url, json=payload, timeout=timeout)
     except requests.RequestException as exc:
         raise OllamaError(f"Failed to reach Ollama at {url}: {exc}") from exc
 

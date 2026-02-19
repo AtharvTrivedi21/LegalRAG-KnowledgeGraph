@@ -51,4 +51,3 @@ def parse_query(text: str) -> ParsedQuery:
         section_numbers=section_nums,
         explicit_ids={},
     )
-

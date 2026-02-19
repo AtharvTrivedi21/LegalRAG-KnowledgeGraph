@@ -1,13 +1,7 @@
 from __future__ import annotations
 
 """
-Vector retrieval for Phase 4, reusing Phase 3 artifacts.
-
-This module:
-- Lazily loads the FAISS index, chunk metadata, and fine-tuned BGE model
-  via `phase3_embeddings.retrieve.load_index`.
-- Exposes `retrieve_chunks` which optionally applies graph constraints
-  (case_ids / section_ids / article_ids) before returning top-k chunks.
+Vector retrieval for Phase 4 V3: adds top_faiss_similarity for confidence guard.
 """
 
 from dataclasses import dataclass, field
@@ -15,7 +9,7 @@ from typing import Dict, Iterable, List, Optional, Set, Tuple
 
 from phase3_embeddings.retrieve import load_index, search
 
-from .config import settings
+from .config_v3 import settings
 
 
 @dataclass
@@ -36,21 +30,14 @@ _init_error: Optional[str] = None
 
 
 def init_vector_store() -> Tuple[bool, Optional[str]]:
-    """
-    Load FAISS index, metadata, and model once.
-
-    Returns (ok, error_message). On success, error_message is None.
-    """
     global _index, _metadata, _model, _init_error
-
     if _index is not None and _metadata is not None and _model is not None:
         return True, None
-
     try:
         _index, _metadata, _model = load_index()
         _init_error = None
         return True, None
-    except Exception as exc:  # file not found, model issues, faiss errors
+    except Exception as exc:
         _index = None
         _metadata = None
         _model = None
@@ -59,10 +46,6 @@ def init_vector_store() -> Tuple[bool, Optional[str]]:
 
 
 def vector_store_status() -> Dict[str, Optional[str]]:
-    """
-    Lightweight status helper for the UI to show whether the vector store
-    is ready.
-    """
     ok, _ = init_vector_store()
     return {
         "ok": ok,
@@ -72,12 +55,6 @@ def vector_store_status() -> Dict[str, Optional[str]]:
 
 
 def get_chunks_by_source_ids(source_ids: List[str], max_chunks: int = 10) -> List[Dict]:
-    """
-    Return chunks from the index whose source_id is in source_ids (e.g. when the
-    graph says "this article/section was asked for"). No semantic score; we assign
-    score=1.0 so they sort first. Use this to ensure the cited article/section text
-    is always in context even if semantic search ranks it low.
-    """
     ok, _ = init_vector_store()
     if not ok or not _metadata or not source_ids:
         return []
@@ -97,18 +74,12 @@ def _diversify_by_source_type(
     min_sections: int,
     min_articles: int,
 ) -> List[Dict]:
-    """
-    Ensure retrieved chunks include a mix of section and article chunks when available,
-    so the answer can cite applicable laws, not only cases. Picks best-by-score
-    per type up to min_* then fills remaining slots by score.
-    """
     by_type: Dict[str, List[Dict]] = {"section": [], "article": [], "case": []}
     for r in results:
         stype = r.get("source_type") or "case"
         if stype not in by_type:
             by_type[stype] = []
         by_type.setdefault(stype, []).append(r)
-
     chosen: List[Dict] = []
     seen_ids: Set[str] = set()
 
@@ -126,17 +97,14 @@ def _diversify_by_source_type(
                 chosen.append(r)
                 n += 1
 
-    # First: ensure minimum section and article chunks (so "Applicable laws" has content)
     add_best("section", min_sections)
     add_best("article", min_articles)
-    # Then: fill remaining slots by score (all types, no duplicates)
     rest = [r for r in results if r.get("chunk_id") not in seen_ids]
     rest_sorted = sorted(rest, key=lambda x: x.get("score", 0.0), reverse=True)
     for r in rest_sorted:
         if len(chosen) >= top_k:
             break
         chosen.append(r)
-
     return chosen[:top_k]
 
 
@@ -146,11 +114,9 @@ def _apply_constraints(
 ) -> List[Dict]:
     if constraints.is_empty:
         return results
-
     allowed_cases = set(constraints.allowed_case_ids)
     allowed_sections = set(constraints.allowed_section_ids)
     allowed_articles = set(constraints.allowed_article_ids)
-
     filtered: List[Dict] = []
     for r in results:
         stype = r.get("source_type")
@@ -161,7 +127,6 @@ def _apply_constraints(
             filtered.append(r)
         elif stype == "article" and sid in allowed_articles:
             filtered.append(r)
-
     return filtered
 
 
@@ -171,12 +136,8 @@ def retrieve_chunks(
     constraints: Optional[GraphConstraints] = None,
 ) -> Dict:
     """
-    Run semantic search and optionally apply graph constraints.
-
-    Returns a dict with:
-    - chunks: List[dict]  (each has chunk_id, source_type, source_id, text, score)
-    - used_constraints: bool
-    - used_fallback_unconstrained: bool
+    Returns dict with chunks, used_constraints, used_fallback_unconstrained,
+    top_faiss_similarity (max score from initial FAISS search).
     """
     ok, err = init_vector_store()
     if not ok:
@@ -184,6 +145,7 @@ def retrieve_chunks(
             "chunks": [],
             "used_constraints": False,
             "used_fallback_unconstrained": False,
+            "top_faiss_similarity": 0.0,
             "error": f"Vector store not available: {err}",
         }
 
@@ -191,13 +153,13 @@ def retrieve_chunks(
     used_constraints = constraints is not None and not constraints.is_empty
 
     if not used_constraints:
-        # Over-retrieve then diversify so we get sections/articles for "Applicable laws"
         k_over = min(
             top_k * getattr(settings.retrieval, "diversity_multiplier", 4),
             _index.ntotal if _index is not None else 100,
         )
         k_over = max(k_over, top_k)
         base_results = search(query, k=k_over, index=_index, metadata=_metadata, model=_model)
+        top_faiss_similarity = max((r.get("score", 0.0) for r in base_results), default=0.0)
         min_sec = getattr(settings.retrieval, "min_sections_per_query", 2)
         min_art = getattr(settings.retrieval, "min_articles_per_query", 2)
         diversified = _diversify_by_source_type(base_results, top_k, min_sec, min_art)
@@ -205,57 +167,42 @@ def retrieve_chunks(
             "chunks": diversified,
             "used_constraints": False,
             "used_fallback_unconstrained": False,
+            "top_faiss_similarity": top_faiss_similarity,
             "error": None,
         }
 
-    # Must-include: when the user asked for specific articles/sections, always
-    # pull those chunks from the index so the model sees the actual law text.
     must_include_ids = list(constraints.allowed_article_ids) + list(constraints.allowed_section_ids)
     must_include = get_chunks_by_source_ids(must_include_ids, max_chunks=10) if must_include_ids else []
     seen_chunk_ids = {c["chunk_id"] for c in must_include}
 
-    # Over-retrieve and filter down by constraints.
     k_base = max(top_k * settings.retrieval.constrained_multiplier, top_k)
     base_results = search(query, k=k_base, index=_index, metadata=_metadata, model=_model)
+    top_faiss_similarity = max((r.get("score", 0.0) for r in base_results), default=0.0)
     constrained = _apply_constraints(base_results, constraints)
-    # Add semantic hits that aren't already in must-include
     constrained = [r for r in constrained if r.get("chunk_id") not in seen_chunk_ids]
 
     if must_include or constrained:
-        # Prefer must-include (actual article/section text), then best semantic hits.
         combined = must_include + sorted(constrained, key=lambda r: r.get("score", 0.0), reverse=True)[: max(0, top_k - len(must_include))]
         return {
             "chunks": combined[:top_k],
             "used_constraints": True,
             "used_fallback_unconstrained": False,
+            "top_faiss_similarity": top_faiss_similarity,
             "error": None,
         }
 
-    # No hits that satisfy the constraint – fall back to unconstrained search
     fallback_results = search(query, k=top_k, index=_index, metadata=_metadata, model=_model)
+    fallback_top = max((r.get("score", 0.0) for r in fallback_results), default=0.0)
     return {
         "chunks": must_include + fallback_results[: max(0, top_k - len(must_include))],
         "used_constraints": True,
         "used_fallback_unconstrained": True,
+        "top_faiss_similarity": max(top_faiss_similarity, fallback_top),
         "error": None,
     }
 
 
 def group_by_source(chunks: Iterable[Dict]) -> Dict[str, Dict[str, Dict]]:
-    """
-    Group retrieved chunks by (source_type, source_id) for easier
-    prompt construction and UI display.
-
-    Returns a nested dict:
-    {
-      "case": {
-         "<case_id>": {"source_id": ..., "source_type": ..., "chunks": [...], "max_score": ...},
-         ...
-      },
-      "section": { ... },
-      "article": { ... },
-    }
-    """
     grouped: Dict[str, Dict[str, Dict]] = {}
     for ch in chunks:
         stype = ch.get("source_type") or "unknown"
@@ -263,17 +210,10 @@ def group_by_source(chunks: Iterable[Dict]) -> Dict[str, Dict[str, Dict]]:
         grouped.setdefault(stype, {})
         bucket = grouped[stype].setdefault(
             sid,
-            {
-                "source_type": stype,
-                "source_id": sid,
-                "chunks": [],
-                "max_score": float(ch.get("score", 0.0)),
-            },
+            {"source_type": stype, "source_id": sid, "chunks": [], "max_score": float(ch.get("score", 0.0))},
         )
         bucket["chunks"].append(ch)
         score = float(ch.get("score", 0.0))
         if score > bucket["max_score"]:
             bucket["max_score"] = score
-
     return grouped
-
