@@ -13,7 +13,7 @@ flowchart TB
         ChunkScript --> chunks_pkl[chunks.pkl]
     end
 
-    subgraph Finetune [Step 2: Mandatory Fine-tuning + Eval]
+    subgraph Finetune [Step 2: Fine-tuning + Eval]
         FinetuneScript[finetune_bge.py]
         IndicQA[IndicLegalQA_Dataset_10K_Revised.json]
         IndicQA --> FinetuneScript
