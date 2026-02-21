@@ -44,7 +44,6 @@ flowchart LR
   end
 
   CSV --> Load
-  PDFs --> Load
   Load --> Export
   Acts --> Extract
   Extract --> Export
