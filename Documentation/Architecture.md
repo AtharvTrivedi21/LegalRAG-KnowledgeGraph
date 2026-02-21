@@ -16,8 +16,7 @@ Phase 2 and Phase 3 are independent consumers of Phase 1 output. Phase 4 uses bo
 ```mermaid
 flowchart LR
   subgraph inputs [Inputs]
-    CSV[judgments CSV]
-    PDFs[SC PDFs]
+    CSV[Cases CSV]
     Acts[Act PDFs]
   end
 
