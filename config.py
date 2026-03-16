@@ -42,3 +42,12 @@ ACT_NAMES = {
     "bnss": "Bharatiya Nagrik Suraksha Sanhita",
     "bsa": "Bharatiya Sakshya Adhiniyam",
 }
+
+# --- Phase 1 v2 (preprocessing pipeline) ---
+PHASE1_V2_OUTPUT = Path("phase1_output_v2")
+PHASE1_V2_RAW_PDF_DIR = PHASE1_V2_OUTPUT / "raw_pdf_text"
+PHASE1_V2_STRUCTURED_DIR = PHASE1_V2_OUTPUT / "structured"
+
+# Central Acts index PDFs (optional; for act_index.csv)
+PDF_ACT_INDEX_ALPHABETICAL = "Albhabetical List of Central Acts.pdf"
+PDF_ACT_INDEX_CHRONOLOGICAL = "Chronological List of Central Acts.pdf"

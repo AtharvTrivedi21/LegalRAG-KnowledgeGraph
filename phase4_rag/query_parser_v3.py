@@ -5,7 +5,7 @@ Query parser for Phase 4 V3.
 
 Responsibilities:
 - Detect explicit references to Articles and Sections in the user query.
-- Detect Act mentions (BNS, BNSS, BSA, Constitution) for act-aware disambiguation.
+- Detect Act mentions (BNS, BNSS, BSA, Constitution) and map to canonical act_ids (BNS_2023, CONST_1950, etc.) for act-aware disambiguation.
 - Return a structured ParsedQuery object used by the LangGraph workflow.
 """
 
@@ -17,25 +17,26 @@ from typing import Dict, List, Optional
 ARTICLE_PATTERN = re.compile(r"Article\s+(\d+[A-Z]?)", flags=re.IGNORECASE)
 SECTION_PATTERN = re.compile(r"Section\s+(\d+(?:\(\d+\))?)", flags=re.IGNORECASE)
 
-# Act detection: canonical act_ids and patterns to detect them in text
+# Act detection: map to canonical act_ids used in Neo4j (Phase 1 v2 / PLAN_1)
+# BNS -> BNS_2023, Constitution -> CONST_1950, etc.
 ACT_ALIASES = {
-    "BNS": [
+    "BNS_2023": [
         r"\bBNS\b",
         r"bharatiya\s+nyaya\s+sanhita",
         r"bharatiya\s+nyaya\s+sanhita\s*\(?\s*bns\s*\)?",
     ],
-    "BNSS": [
+    "BNSS_2023": [
         r"\bBNSS\b",
         r"bharatiya\s+nagarik\s+suraksha\s+sanhita",
         r"bharatiya\s+nagrik\s+suraksha\s+sanhita",
         r"bharatiya\s+nagarik\s+suraksha\s+sanhita\s*\(?\s*bnss\s*\)?",
     ],
-    "BSA": [
+    "BSA_2023": [
         r"\bBSA\b",
         r"bharatiya\s+sakshya\s+adhiniyam",
         r"bharatiya\s+sakshya\s+adhiniyam\s*\(?\s*bsa\s*\)?",
     ],
-    "Constitution": [
+    "CONST_1950": [
         r"\bconstitution\s+of\s+india\b",
         r"article\s+\d+[A-Z]?\s+(?:of\s+)?(?:the\s+)?constitution",
         r"\bconstitution\b",

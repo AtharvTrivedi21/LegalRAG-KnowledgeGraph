@@ -28,6 +28,10 @@ phase1_output/
 phase3_embeddings/output/
 phase3_embeddings/models/
 
+# Large CSV data files (exceed GitHub 100 MB limit)
+phase1_output_v2/cases_sc.csv
+phase1_output_v2/cases_iltur.csv
+
 # IDE / editor
 .cursor/
 .idea/
