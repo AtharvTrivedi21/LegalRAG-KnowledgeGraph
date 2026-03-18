@@ -1,1 +1,11 @@
 section_id,def_id
+BNS_2023_s1,BNS_2023_DEF_offence
+BNS_2023_s2,BNS_2023_DEF_act
+BNS_2023_s2,BNS_2023_DEF_animal
+BNS_2023_s2,BNS_2023_DEF_child
+BNSS_2023_s2,BNSS_2023_DEF_audio_video_electronic
+BNSS_2023_s2,BNSS_2023_DEF_bail
+BNSS_2023_s2,BNSS_2023_DEF_bailable_offence
+BNSS_2023_s2,BNSS_2023_DEF_bail_bond
+BNSS_2023_s2,BNSS_2023_DEF_bond
+BNSS_2023_s2,BNSS_2023_DEF_charge

@@ -1,1 +1,21 @@
 def_id,term,defined_text,act_id,section_id
+BNS_2023_DEF_offence,offence,"every act committed outside India which, 
+if committed in India, would be punishable under this Sanhita. 
+A, who is a citizen of India, commits a murder in any place without and beyond India. 
+He can be tried and convicted of murder in any place in India in which he may be found.",BNS_2023,BNS_2023_s1
+BNS_2023_DEF_act,act,as well a series of acts as a single act;,BNS_2023,BNS_2023_s2
+BNS_2023_DEF_animal,animal,"any living creature, other than a human being;",BNS_2023,BNS_2023_s2
+BNS_2023_DEF_child,child,any person below the age of eighteen years;,BNS_2023,BNS_2023_s2
+BNSS_2023_DEF_audio_video_electronic,audio-video electronic,"shall include use of any communication device for the 
+purposes of video conferencing, recording of processes of identification, search and seizure or 
+evidence, transmission of electronic communication and for such other purposes and by such other 
+means as the State Government may, by rules provide;",BNSS_2023,BNSS_2023_s2
+BNSS_2023_DEF_bail,bail,"release of a person accused of or suspected of commission of an offence from the 
+custody of law upon certain conditions imposed by an officer or Court on execution by such person of 
+a bond or a bail bond;",BNSS_2023,BNSS_2023_s2
+BNSS_2023_DEF_bailable_offence,bailable offence,"an offence which is shown as bailable in the First Schedule, or which 
+is made bailable by any other law for the time being in force; and “non-bailable offence” means any 
+other offence;",BNSS_2023,BNSS_2023_s2
+BNSS_2023_DEF_bail_bond,bail bond,an undertaking for release with surety;,BNSS_2023,BNSS_2023_s2
+BNSS_2023_DEF_bond,bond,a personal bond or an undertaking for release without surety;,BNSS_2023,BNSS_2023_s2
+BNSS_2023_DEF_charge,charge,any head of charge when the charge contains more heads than one;,BNSS_2023,BNSS_2023_s2
