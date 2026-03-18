@@ -1,0 +1,38 @@
+"""
+Shared configuration for the BNS-Only RAG Comparison framework.
+All paths are relative to the project root (c:\\Users\\ATHARV\\LegalRAG).
+"""
+from pathlib import Path
+
+# Project root (two levels up from this file)
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
+# BNS-only FAISS index (built by build_bns_faiss.py)
+BNS_FAISS_INDEX_PATH = PROJECT_ROOT / "bns_comparison" / "faiss_bns_only" / "faiss.index"
+BNS_CHUNK_METADATA_PATH = PROJECT_ROOT / "bns_comparison" / "faiss_bns_only" / "chunk_metadata.pkl"
+
+# Fine-tuned BGE model (shared with main pipeline)
+FINE_TUNED_MODEL_DIR = PROJECT_ROOT / "phase3_embeddings" / "models" / "bge-legal"
+
+# v2 sections CSV (source of BNS sections)
+SECTIONS_CSV = PROJECT_ROOT / "phase1_output_v2" / "sections.csv"
+
+# Old-Work FAISS index (built by Old-Work/ingest_bns.py reimplemented below)
+OLD_WORK_FAISS_INDEX_PATH = PROJECT_ROOT / "bns_comparison" / "faiss_bns_only" / "old_work_faiss.index"
+OLD_WORK_CHUNK_METADATA_PATH = PROJECT_ROOT / "bns_comparison" / "faiss_bns_only" / "old_work_chunk_metadata.pkl"
+OLD_WORK_BNS_PDF = PROJECT_ROOT / "Old-Work" / "data" / "bns.pdf"
+
+# Results output
+RESULTS_DIR = PROJECT_ROOT / "bns_comparison" / "results"
+COMPARISON_CSV = RESULTS_DIR / "comparison_results.csv"
+
+# Ollama settings (shared)
+OLLAMA_BASE_URL = "http://localhost:11434"
+OLLAMA_LLM_MODEL = "llama3:8b"
+OLLAMA_EMBED_MODEL = "nomic-embed-text"
+OLLAMA_TIMEOUT = 300
+
+# Retrieval settings
+TOP_K = 8
+CHUNK_SIZE = 1000   # chars for Old-Work (matches original ingest_bns.py)
+CHUNK_OVERLAP = 200

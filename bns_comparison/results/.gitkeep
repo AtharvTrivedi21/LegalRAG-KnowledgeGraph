@@ -1,0 +1,2 @@
+# Comparison results are generated artifacts — not tracked in git.
+# Run: python -m bns_comparison.run_comparison

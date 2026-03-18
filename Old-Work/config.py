@@ -23,13 +23,13 @@ BASELINE_CONFIG = ModelConfig(
 
 # --- Future improved config (for later) ---
 IMPROVED_CONFIG = ModelConfig(
-    llm_model_name="llama3:8b-instruct",   # example; adjust to what you can run
+    llm_model_name="llama3:8b",
     embedding_model_name="nomic-embed-text",
-    config_name="improved_llama3_nomic",
+    config_name="llama3_nomic",
 )
 
-# Toggle here: start with baseline
-ACTIVE_CONFIG = BASELINE_CONFIG
+# Use llama3:8b for fair comparison with other systems
+ACTIVE_CONFIG = IMPROVED_CONFIG
 
 # Paths
 BNS_PDF_PATH = "data/bns.pdf"

@@ -1,0 +1,212 @@
+"""
+System 3 Adapter: Full-Pipeline-BNS
+- BNS sections from v2 structured CSV (100 sections)
+- Embeddings: fine-tuned BGE model
+- Retrieval: FAISS top-k=8 with diversity (min 3 sections)
+- Graph enrichment: Neo4j lookup of retrieved section IDs
+- LLM: llama3:8b via Ollama
+- Full improved prompts (BNS/BNSS/BSA aware, corpus description)
+"""
+import pickle
+import sys
+import time
+from pathlib import Path
+from typing import Any, Dict, List, Set
+
+import faiss
+import numpy as np
+from sentence_transformers import SentenceTransformer
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
+
+from bns_comparison.adapters.base import BaseAdapter
+from bns_comparison.adapters._ollama import ollama_chat, extract_section_numbers
+from bns_comparison.config import (
+    BNS_FAISS_INDEX_PATH,
+    BNS_CHUNK_METADATA_PATH,
+    FINE_TUNED_MODEL_DIR,
+    TOP_K,
+)
+
+REPHRASE_PROMPT = (
+    "You are an expert in Indian criminal law. "
+    "IMPORTANT: The Indian Penal Code (IPC), Code of Criminal Procedure (CrPC), and Indian Evidence Act (IEA) "
+    "have been REPEALED and replaced by the following NEW laws effective 2024: "
+    "Bharatiya Nyaya Sanhita 2023 (BNS) replaces IPC, "
+    "Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS) replaces CrPC, "
+    "Bharatiya Sakshya Adhiniyam 2023 (BSA) replaces IEA. "
+    "Rewrite the user's informal question or incident description into a concise, formal legal query "
+    "using the NEW codes (BNS/BNSS/BSA) and appropriate legal terminology. "
+    "Do NOT reference IPC, CrPC, or IEA sections. Do not answer the question, only rewrite it. "
+    "Keep any explicit references to Article or Section numbers unchanged.\n\n"
+    "User input:\n{user_query}\n\nFormal legal query:"
+)
+
+QA_SYSTEM = (
+    "You are a legal research assistant for Indian law. "
+    "Your knowledge base contains ONLY the Bharatiya Nyaya Sanhita 2023 (BNS_2023). "
+    "The Indian Penal Code (IPC) is REPEALED. Do NOT cite IPC sections — they no longer apply. "
+    "Answer the user's question using ONLY the provided context (BNS sections). "
+    "Cite the relevant section_id in your answer (e.g. 'Section 303, BNS_2023'). "
+    "Under 'Applicable BNS provisions', list every section from the context relevant to the question. "
+    "Do not fabricate citations not present in the context. "
+    "Structure your answer with: ## Summary, ## Applicable BNS provisions, "
+    "## Recommendation / next steps."
+)
+
+QA_USER = (
+    "User description: {user_query}\n\n"
+    "Formal legal query: {legal_query}\n\n"
+    "BNS context:\n{context}\n\n"
+    "Answer:"
+)
+
+
+def _try_neo4j_enrich(section_ids: List[str]) -> List[Dict]:
+    """Look up section metadata from Neo4j. Returns empty list if Neo4j unavailable."""
+    try:
+        from phase4_rag.neo4j_client_v3 import get_sections_by_ids
+        return get_sections_by_ids(section_ids)
+    except Exception:
+        return []
+
+
+class FullPipelineBNSAdapter(BaseAdapter):
+    """System 3: Full pipeline with BGE + FAISS + diversity + Neo4j graph enrichment."""
+
+    def __init__(self):
+        self._index = None
+        self._metadata: List[Dict] = []
+        self._model = None
+        self._loaded = False
+
+    @property
+    def system_name(self) -> str:
+        return "System3_FullPipelineBNS"
+
+    def _load(self) -> None:
+        if self._loaded:
+            return
+        if not BNS_FAISS_INDEX_PATH.exists():
+            raise FileNotFoundError(
+                f"BNS FAISS index not found at {BNS_FAISS_INDEX_PATH}. "
+                "Run: python -m bns_comparison.build_bns_faiss --system bge"
+            )
+        self._index = faiss.read_index(str(BNS_FAISS_INDEX_PATH))
+        with open(BNS_CHUNK_METADATA_PATH, "rb") as f:
+            self._metadata = pickle.load(f)
+        self._model = SentenceTransformer(str(FINE_TUNED_MODEL_DIR))
+        self._loaded = True
+
+    def _retrieve_diverse(self, query: str, k: int = TOP_K, min_sections: int = 3) -> List[Dict]:
+        """Retrieve with diversity — guarantee at least min_sections section chunks."""
+        self._load()
+        k_over = min(k * 10, self._index.ntotal)
+        q_emb = self._model.encode([query], normalize_embeddings=True).astype("float32")
+        scores, indices = self._index.search(q_emb, k_over)
+
+        all_results = []
+        for score, idx in zip(scores[0], indices[0]):
+            if idx < 0:
+                continue
+            meta = self._metadata[idx].copy()
+            meta["score"] = float(score)
+            all_results.append(meta)
+
+        # Guarantee min_sections section chunks in top-k
+        sections = [r for r in all_results if r.get("source_type") == "section"]
+        chosen: List[Dict] = []
+        seen_ids: Set[str] = set()
+
+        for r in sorted(sections, key=lambda x: x.get("score", 0.0), reverse=True):
+            if len(chosen) >= min_sections:
+                break
+            cid = r.get("chunk_id")
+            if cid not in seen_ids:
+                seen_ids.add(cid)
+                chosen.append(r)
+
+        rest = sorted(
+            [r for r in all_results if r.get("chunk_id") not in seen_ids],
+            key=lambda x: x.get("score", 0.0),
+            reverse=True,
+        )
+        for r in rest:
+            if len(chosen) >= k:
+                break
+            chosen.append(r)
+
+        return chosen[:k]
+
+    def answer_query(self, user_query: str) -> Dict[str, Any]:
+        t0 = time.time()
+
+        # Rephrase
+        t_rephrase_start = time.time()
+        legal_query = ollama_chat(
+            [{"role": "user", "content": REPHRASE_PROMPT.format(user_query=user_query)}]
+        )
+        rephrase_sec = time.time() - t_rephrase_start
+
+        # Retrieve with diversity
+        t_retrieval_start = time.time()
+        chunks = self._retrieve_diverse(legal_query, k=TOP_K, min_sections=3)
+
+        # Graph enrichment: look up section metadata from Neo4j
+        section_ids = list({c["source_id"] for c in chunks if c.get("source_type") == "section"})
+        graph_sections = _try_neo4j_enrich(section_ids)
+        graph_section_map = {s["section_id"]: s for s in graph_sections}
+        retrieval_sec = time.time() - t_retrieval_start
+
+        # Build context with act_id from graph enrichment
+        context_parts = []
+        for i, c in enumerate(chunks):
+            sid = c.get("source_id", "unknown")
+            act = c.get("act_id", "BNS_2023")
+            if sid in graph_section_map:
+                gs = graph_section_map[sid]
+                act = gs.get("act_id", act)
+                heading = gs.get("heading", "")
+                header = f"[SECTION {i+1}] {sid} (Act: {act})"
+                if heading:
+                    header += f" — {heading}"
+            else:
+                header = f"[SECTION {i+1}] {sid} (Act: {act})"
+            context_parts.append(f"{header}\n{c['text']}")
+        context = "\n\n".join(context_parts)
+
+        # Generate
+        t_gen_start = time.time()
+        answer = ollama_chat([
+            {"role": "system", "content": QA_SYSTEM},
+            {
+                "role": "user",
+                "content": QA_USER.format(
+                    user_query=user_query,
+                    legal_query=legal_query,
+                    context=context,
+                ),
+            },
+        ])
+        generation_sec = time.time() - t_gen_start
+
+        total_sec = time.time() - t0
+
+        return {
+            "system_name": self.system_name,
+            "rephrased_query": legal_query,
+            "answer": answer,
+            "retrieved_chunks": [
+                {"text": c["text"], "source_id": c.get("source_id", ""), "score": c.get("score", 0.0)}
+                for c in chunks
+            ],
+            "cited_sections": extract_section_numbers(answer),
+            "context_text": context,
+            "graph_sections": graph_sections,
+            "timings": {
+                "rephrase_sec": rephrase_sec,
+                "retrieval_sec": retrieval_sec,
+                "generation_sec": generation_sec,
+                "total_sec": total_sec,
+            },
+        }

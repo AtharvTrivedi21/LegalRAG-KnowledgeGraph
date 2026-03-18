@@ -1,0 +1,2 @@
+# FAISS index files are generated artifacts — not tracked in git.
+# Run: python -m bns_comparison.build_bns_faiss --system both
