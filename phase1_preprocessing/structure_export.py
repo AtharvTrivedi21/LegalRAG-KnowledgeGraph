@@ -93,6 +93,21 @@ def run_structure_parse_and_export(
     # Dedupe act_part (keep only act_id -> part_id)
     act_part_edges = [e for e in act_part_edges if e.get("part_id")]
 
+    def _dedupe_by(items: list[dict], key: str) -> list[dict]:
+        seen: set = set()
+        result = []
+        for item in items:
+            k = item[key]
+            if k not in seen:
+                seen.add(k)
+                result.append(item)
+        return result
+
+    # Constitution PDF repeats Part headers in TOC and body -- deduplicate
+    all_parts = _dedupe_by(all_parts, "part_id")
+    all_chapters = _dedupe_by(all_chapters, "chapter_id")
+    act_part_edges = _dedupe_by(act_part_edges, "part_id")
+
     # Write CSVs
     _write_csv(
         output_dir / "acts.csv",

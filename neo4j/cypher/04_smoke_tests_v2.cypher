@@ -88,8 +88,9 @@ RETURN 'Acts with no sections or articles' AS check, count(a) AS count;
 
 // ---- 6. Spot-check key paths ----
 
-// 6a. Definition path: Act -> Section -> Definition
-MATCH (a:Act {act_id:"BNS_2023"})-[:HAS_SECTION]->(s:Section)-[:DEFINES_TERM]->(d:Definition)
+// 6a. Definition path: Section -> IN_ACT -> Act (BNS/BNSS/BSA sections use IN_ACT not HAS_SECTION from Act)
+MATCH (s:Section)-[:IN_ACT]->(a:Act {act_id:"BNS_2023"})
+MATCH (s)-[:DEFINES_TERM]->(d:Definition)
 RETURN s.section_id, d.term LIMIT 10;
 
 // 6b. Part-Chapter path (only valid for BSA)
