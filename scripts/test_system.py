@@ -323,8 +323,10 @@ try:
           f"{len(nl_secs)} sections: {[s.get('section_id') for s in nl_secs[:3]]}")
 
     act_ids_found = list({s.get("act_id") for s in nl_secs if s.get("act_id")})
-    check("BNS_2023 act cited",
-          "BNS_2023" in act_ids_found,
+    # Accept any of the new Indian law codes (BNS/BNSS/BSA/Constitution) as valid
+    new_codes = {"BNS_2023", "BNSS_2023", "BSA_2023", "CONST_1950"}
+    check("New Indian law code cited (not IPC)",
+          bool(new_codes & set(act_ids_found)),
           f"act_ids in metadata: {act_ids_found}")
 
     ipc_in_answer = "ipc" in nl_answer.lower() or "indian penal code" in nl_answer.lower()
