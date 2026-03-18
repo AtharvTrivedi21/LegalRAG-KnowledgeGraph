@@ -15,6 +15,8 @@ from .query_parser_v3 import parse_query, ParsedQuery
 from .neo4j_client_v3 import (
     get_articles_by_numbers,
     get_sections_by_numbers,
+    get_sections_by_ids,
+    get_articles_by_ids,
     get_cases_citing_ids,
     Neo4jUnavailableError,
 )
@@ -124,9 +126,15 @@ def node_graph_retriever(state: WorkflowState) -> WorkflowState:
 
 
 REPHRASE_PROMPT = (
-    "You are an expert in Indian criminal law, Bharatiya Nyaya Sanhita (BNS), and Indian Constitution. "
+    "You are an expert in Indian criminal law. "
+    "IMPORTANT: The Indian Penal Code (IPC), Code of Criminal Procedure (CrPC), and Indian Evidence Act (IEA) "
+    "have been REPEALED and replaced by the following NEW laws effective 2024: "
+    "Bharatiya Nyaya Sanhita 2023 (BNS) replaces IPC, "
+    "Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS) replaces CrPC, "
+    "Bharatiya Sakshya Adhiniyam 2023 (BSA) replaces IEA. "
     "Rewrite the user's informal question or incident description into a concise, formal legal query "
-    "using appropriate legal terminology. Do not answer the question, only rewrite it. "
+    "using the NEW codes (BNS/BNSS/BSA) and appropriate legal terminology. "
+    "Do NOT reference IPC, CrPC, or IEA sections. Do not answer the question, only rewrite it. "
     "Keep any explicit references to Article or Section numbers unchanged.\n\n"
     "User input:\n{user_query}\n\nFormal legal query:"
 )
@@ -144,6 +152,48 @@ def node_query_rephrase(state: WorkflowState) -> WorkflowState:
     except OllamaError:
         state["legal_query"] = user_query
     return state
+
+
+def _enrich_graph_metadata_from_chunks(
+    state: WorkflowState, grouped_sources: Dict[str, Dict[str, Any]]
+) -> None:
+    """
+    For natural language queries (no explicit Section/Article refs), graph_metadata
+    will have empty sections and articles lists. After FAISS retrieval, look up the
+    retrieved section/article source_ids in Neo4j to populate graph_metadata.
+    This ensures the citation panels in the UI are filled for ALL query types.
+    """
+    graph_metadata = state.get("graph_metadata") or {"sections": [], "articles": [], "cases": []}
+
+    # Only enrich when graph retriever found nothing (natural language query)
+    already_has_sections = bool(graph_metadata.get("sections"))
+    already_has_articles = bool(graph_metadata.get("articles"))
+    if already_has_sections and already_has_articles:
+        return
+
+    try:
+        if not already_has_sections:
+            section_ids = list((grouped_sources.get("section") or {}).keys())
+            if section_ids:
+                sections = get_sections_by_ids(section_ids)
+                graph_metadata["sections"] = sections
+
+        if not already_has_articles:
+            article_ids = list((grouped_sources.get("article") or {}).keys())
+            if article_ids:
+                articles = get_articles_by_ids(article_ids)
+                graph_metadata["articles"] = articles
+
+        state["graph_metadata"] = graph_metadata
+
+        # Also update applicable_acts from enriched metadata
+        if not state.get("applicable_acts"):
+            state["applicable_acts"] = _collect_applicable_acts(
+                graph_metadata.get("sections", []),
+                graph_metadata.get("articles", []),
+            )
+    except Neo4jUnavailableError:
+        pass  # Non-fatal: citations won't show but answer still works
 
 
 def node_vector_retriever(state: WorkflowState) -> WorkflowState:
@@ -170,27 +220,43 @@ def node_vector_retriever(state: WorkflowState) -> WorkflowState:
         return state
 
     chunks = result.get("chunks", [])
+    grouped = group_by_source(chunks)
     state["retrieved_chunks"] = chunks
-    state["grouped_sources"] = group_by_source(chunks)
+    state["grouped_sources"] = grouped
     state["vector_error"] = None
     state["used_fallback_unconstrained"] = bool(result.get("used_fallback_unconstrained"))
+
+    # Enrich graph_metadata from FAISS results for natural language queries
+    _enrich_graph_metadata_from_chunks(state, grouped)
+
     return state
 
 
 def _build_system_prompt_v3() -> str:
     return (
         "You are a legal research assistant for Indian law. "
+        "Your knowledge base contains ONLY the following statutes: "
+        "Bharatiya Nyaya Sanhita 2023 (BNS_2023), "
+        "Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS_2023), "
+        "Bharatiya Sakshya Adhiniyam 2023 (BSA_2023), and "
+        "the Constitution of India (CONST_1950). "
+        "The Indian Penal Code (IPC), Code of Criminal Procedure (CrPC), and Indian Evidence Act (IEA) "
+        "are REPEALED. Do NOT cite IPC, CrPC, or IEA sections — they no longer apply. "
         "Answer the user's question using ONLY the provided context (cases, sections, constitutional articles). "
         "Cite the relevant section_id, article_id, or case_id in your answer. "
-        "Always include the parent Act name when citing sections or articles (e.g. 'Section 302, BNS (Bharatiya Nyaya Sanhita)' or 'Article 14, Constitution of India'). "
-        "Under 'Applicable laws / provisions', you MUST list and cite every section_id and article_id from the context that is relevant to the question, with their Act name. "
-        "Do not say 'none stated' or 'none explicitly stated' if the context contains any SECTION or ARTICLE text—identify and cite the applicable ones. "
+        "Always include the parent Act name when citing sections or articles "
+        "(e.g. 'Section 330, BNS_2023 (Bharatiya Nyaya Sanhita)' or 'Article 14, CONST_1950'). "
+        "Under 'Applicable laws / provisions', you MUST list and cite every section_id and article_id "
+        "from the context that is relevant to the question, with their Act name. "
+        "Do not say 'none stated' or 'none explicitly stated' if the context contains any SECTION or ARTICLE text"
+        "—identify and cite the applicable ones. "
         "Only if the context truly contains no sections or articles may you state that no applicable laws were provided. "
         "Do not fabricate citations or legal provisions not present in the context. "
-        "Structure your answer with these markdown headings: ## Summary, ## Applicable laws / provisions, ## Relevant case law (if any), ## Recommendation / next steps. "
+        "Structure your answer with these markdown headings: ## Summary, ## Applicable laws / provisions, "
+        "## Relevant case law (if any), ## Recommendation / next steps. "
         "Use brief bullets or short paragraphs under each. "
         "Do not include or repeat internal labels like [ARTICLE FROM KNOWLEDGE GRAPH] or [SECTION FROM KNOWLEDGE GRAPH] in your answer; "
-        "cite sources by article_id, section_id, or case_id with their Act (e.g. BNS_Sec_41, Constitution_Art_14).\n"
+        "cite sources by article_id, section_id, or case_id with their Act (e.g. BNS_2023_s330, CONST_1950_Art14).\n"
     )
 
 
@@ -238,9 +304,13 @@ def _build_context_block(grouped_sources: Dict[str, Dict[str, Any]], max_snippet
         for sid, info in by_id.items():
             if count >= max_snippets:
                 break
-            header = f"[{stype.upper()}] {sid} (max_score={info.get('max_score', 0.0):.3f})"
+            # Include act_id in the header so the LLM knows which Act each chunk belongs to
+            chunks = info.get("chunks", [])
+            act_id = chunks[0].get("act_id", "") if chunks else ""
+            act_suffix = f" Act: {act_id}" if act_id else ""
+            header = f"[{stype.upper()}] {sid}{act_suffix} (score={info.get('max_score', 0.0):.3f})"
             lines.append(header)
-            for ch in info.get("chunks", [])[:1]:
+            for ch in chunks[:1]:
                 text = ch.get("text", "")
                 if len(text) > 600:
                     text = text[:600] + "..."

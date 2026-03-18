@@ -35,8 +35,10 @@ class OllamaSettings:
 class RetrievalSettings:
     top_k: int = 8
     constrained_multiplier: int = 3
-    diversity_multiplier: int = 4
-    min_sections_per_query: int = 2
+    # With ~97% of chunks being cases, we need a large pool to guarantee
+    # section/article chunks appear in the top-k. 25 * 8 = 200 candidates.
+    diversity_multiplier: int = 25
+    min_sections_per_query: int = 3
     min_articles_per_query: int = 2
 
 
@@ -69,8 +71,8 @@ def load_settings() -> Phase4Settings:
     retrieval = RetrievalSettings(
         top_k=int(_env("PHASE4_TOP_K", "8")),
         constrained_multiplier=int(_env("PHASE4_CONSTRAINED_MULTIPLIER", "3")),
-        diversity_multiplier=int(_env("PHASE4_DIVERSITY_MULTIPLIER", "4")),
-        min_sections_per_query=int(_env("PHASE4_MIN_SECTIONS", "2")),
+        diversity_multiplier=int(_env("PHASE4_DIVERSITY_MULTIPLIER", "25")),
+        min_sections_per_query=int(_env("PHASE4_MIN_SECTIONS", "3")),
         min_articles_per_query=int(_env("PHASE4_MIN_ARTICLES", "2")),
     )
     return Phase4Settings(

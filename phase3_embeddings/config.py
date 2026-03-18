@@ -4,8 +4,8 @@ Paths, chunk params, model names, evaluation thresholds.
 """
 from pathlib import Path
 
-# Phase 1 output (corpus CSVs)
-PHASE1_OUTPUT = Path("phase1_output")
+# Phase 1 output (corpus CSVs) — v2 has correct section/article IDs matching Neo4j
+PHASE1_OUTPUT = Path("phase1_output_v2")
 
 # Phase 3 output directory
 OUTPUT_DIR = Path("phase3_embeddings/output")

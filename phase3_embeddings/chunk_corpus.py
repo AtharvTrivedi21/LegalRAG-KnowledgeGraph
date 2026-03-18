@@ -1,6 +1,6 @@
 """
 Chunk cases, sections, and articles from Phase 1 output into overlapping token-based chunks.
-Output: chunks.pkl with metadata (chunk_id, source_type, source_id, text).
+Output: chunks.pkl with metadata (chunk_id, source_type, source_id, act_id, text).
 """
 import pickle
 import re
@@ -31,11 +31,17 @@ def get_tokenizer():
 
 
 def chunk_text(
-    text: str, tokenizer, source_id: str, source_type: str, chunk_id_prefix: Optional[str] = None
+    text: str,
+    tokenizer,
+    source_id: str,
+    source_type: str,
+    act_id: Optional[str] = None,
+    chunk_id_prefix: Optional[str] = None,
 ) -> list[dict]:
     """
     Split text into overlapping chunks of ~CHUNK_SIZE tokens with ~CHUNK_OVERLAP overlap.
-    Returns list of dicts: {chunk_id, source_type, source_id, text}.
+    Returns list of dicts: {chunk_id, source_type, source_id, act_id, text}.
+    act_id is included so the retriever and LLM know which Act each chunk belongs to.
     """
     if not text or not str(text).strip():
         return []
@@ -45,16 +51,15 @@ def chunk_text(
     text = str(text).strip()
     tokens = tokenizer.encode(text, add_special_tokens=False)
 
+    base_meta = {
+        "source_type": source_type,
+        "source_id": source_id,
+        "act_id": act_id or "",
+    }
+
     if len(tokens) <= CHUNK_SIZE:
         chunk_id = f"{prefix}_chunk_0"
-        return [
-            {
-                "chunk_id": chunk_id,
-                "source_type": source_type,
-                "source_id": source_id,
-                "text": text,
-            }
-        ]
+        return [{**base_meta, "chunk_id": chunk_id, "text": text}]
 
     chunks = []
     start = 0
@@ -67,14 +72,7 @@ def chunk_text(
 
         if chunk_text_str.strip():
             chunk_id = f"{prefix}_chunk_{chunk_idx}"
-            chunks.append(
-                {
-                    "chunk_id": chunk_id,
-                    "source_type": source_type,
-                    "source_id": source_id,
-                    "text": chunk_text_str.strip(),
-                }
-            )
+            chunks.append({**base_meta, "chunk_id": chunk_id, "text": chunk_text_str.strip()})
             chunk_idx += 1
 
         start += STRIDE
@@ -92,45 +90,69 @@ def _sanitize_id(s: str) -> str:
 def main():
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    cases_path = PHASE1_OUTPUT / "cases.csv"
     sections_path = PHASE1_OUTPUT / "sections.csv"
     articles_path = PHASE1_OUTPUT / "articles.csv"
 
-    for p in [cases_path, sections_path, articles_path]:
+    # v2 uses two separate case files; fall back to single cases.csv for v1 compatibility
+    cases_iltur_path = PHASE1_OUTPUT / "cases_iltur_neo4j.csv"
+    cases_sc_path = PHASE1_OUTPUT / "cases_sc_neo4j.csv"
+    cases_legacy_path = PHASE1_OUTPUT / "cases.csv"
+
+    for p in [sections_path, articles_path]:
         if not p.exists():
             print(f"Error: {p} not found. Run Phase 1 first.")
             sys.exit(1)
+
+    has_v2_cases = cases_iltur_path.exists() or cases_sc_path.exists()
+    has_legacy_cases = cases_legacy_path.exists()
+    if not has_v2_cases and not has_legacy_cases:
+        print(f"Error: No cases CSV found in {PHASE1_OUTPUT}. Run Phase 1 first.")
+        sys.exit(1)
 
     print("Loading tokenizer...")
     tokenizer = get_tokenizer()
 
     all_chunks = []
 
-    # Cases
+    # Cases — combine v2 files or fall back to legacy cases.csv
     print("Chunking cases...")
-    cases_df = pd.read_csv(cases_path)
+    case_dfs = []
+    if has_v2_cases:
+        if cases_iltur_path.exists():
+            case_dfs.append(pd.read_csv(cases_iltur_path))
+            print(f"  Loaded {cases_iltur_path.name}")
+        if cases_sc_path.exists():
+            case_dfs.append(pd.read_csv(cases_sc_path))
+            print(f"  Loaded {cases_sc_path.name}")
+    else:
+        case_dfs.append(pd.read_csv(cases_legacy_path))
+        print(f"  Loaded {cases_legacy_path.name}")
+
+    cases_df = pd.concat(case_dfs, ignore_index=True)
     for _, row in tqdm(cases_df.iterrows(), total=len(cases_df), desc="Cases"):
         case_id = str(row["case_id"])
-        text = row["judgment_text"]
-        chunks = chunk_text(text, tokenizer, case_id, "case")
+        text = row.get("judgment_text", "")
+        chunks = chunk_text(text, tokenizer, case_id, "case", act_id=None)
         all_chunks.extend(chunks)
 
-    # Sections
+    # Sections — include act_id in metadata
     print("Chunking sections...")
     sections_df = pd.read_csv(sections_path)
     for _, row in tqdm(sections_df.iterrows(), total=len(sections_df), desc="Sections"):
         section_id = str(row["section_id"])
+        act_id = str(row.get("act_id", "")) if pd.notna(row.get("act_id", "")) else ""
         text = row["full_text"]
-        chunks = chunk_text(text, tokenizer, section_id, "section")
+        chunks = chunk_text(text, tokenizer, section_id, "section", act_id=act_id)
         all_chunks.extend(chunks)
 
-    # Articles
+    # Articles — include act_id in metadata
     print("Chunking articles...")
     articles_df = pd.read_csv(articles_path)
     for _, row in tqdm(articles_df.iterrows(), total=len(articles_df), desc="Articles"):
         article_id = str(row["article_id"])
+        act_id = str(row.get("act_id", "")) if pd.notna(row.get("act_id", "")) else ""
         text = row["full_text"]
-        chunks = chunk_text(text, tokenizer, article_id, "article")
+        chunks = chunk_text(text, tokenizer, article_id, "article", act_id=act_id)
         all_chunks.extend(chunks)
 
     # Ensure unique chunk_ids (in case source_id had duplicates)

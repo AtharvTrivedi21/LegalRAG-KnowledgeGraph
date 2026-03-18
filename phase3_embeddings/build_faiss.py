@@ -64,9 +64,15 @@ def main():
     faiss.write_index(index, str(FAISS_INDEX_PATH))
     print(f"Saved FAISS index to {FAISS_INDEX_PATH}")
 
-    # chunk_metadata: list of dicts parallel to index
+    # chunk_metadata: list of dicts parallel to index — include act_id for context building
     metadata = [
-        {"chunk_id": c["chunk_id"], "source_type": c["source_type"], "source_id": c["source_id"], "text": c["text"]}
+        {
+            "chunk_id": c["chunk_id"],
+            "source_type": c["source_type"],
+            "source_id": c["source_id"],
+            "act_id": c.get("act_id", ""),
+            "text": c["text"],
+        }
         for c in chunks
     ]
     with open(CHUNK_METADATA_PATH, "wb") as f:
