@@ -23,14 +23,15 @@ def get_articles_by_numbers(
     if not nums:
         return []
 
+    # Articles are linked via Act-[:HAS_ARTICLE]->Article (no IN_ACT on Article nodes)
     query = """
-    MATCH (ar:Article)-[:IN_ACT]->(a:Act)
+    MATCH (a:Act)-[:HAS_ARTICLE]->(ar:Article)
     WHERE ar.article_number IN $nums
       AND ($act_id IS NULL OR a.act_id = $act_id)
     RETURN ar.article_id AS article_id,
            ar.article_number AS article_number,
            a.act_id AS act_id,
-           a.act_name AS act_name,
+           a.short_title AS act_name,
            ar.full_text AS full_text
     """
     return _run_query(query, {"nums": nums, "act_id": act_id})
