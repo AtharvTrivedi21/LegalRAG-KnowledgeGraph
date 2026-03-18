@@ -9,17 +9,34 @@ import re
 from pathlib import Path
 from typing import Any
 
+# Guard: detect definition sections. Indian legal PDFs use "Sanhita" (BNS/BNSS)
+# and "Adhiniyam" (BSA) instead of "Act". The preamble always says
+# "In this Sanhita/Act/Adhiniyam, unless the context otherwise requires"
+# so matching both phrases anywhere in the section is sufficient.
 DEFINITION_SECTION_RE = re.compile(
-    r"[Ii]n this [Aa]ct.{0,80}(?:unless|—)",
+    r"[Ii]n this (?:[Aa]ct|[Ss]anhita|[Aa]dhiniyam)",
 )
-# "(a) "word" means ..." or "(1) "expression" includes ..."
+
+# Handles both straight ASCII quotes and Unicode curly/smart quotes.
+# Also handles "denotes" which BNS s.2 uses for some terms.
+_VERBS = r"(?:means|includes|denotes|shall mean|shall include)"
+
+# Quote character class built with explicit alternation to avoid range issues.
+# BNS/BNSS use U+201C (left double quotation mark) and U+201D (right double
+# quotation mark). BSA and Constitution may use straight " as well.
+_AQ = r'(?:\u201c|\u201d|\u2018|\u2019|"|\u2032|\u2033)'
+
+# Clause-numbered: (a) "word" means ... / (1) "expression" includes ...
 DEFINED_TERM_RE = re.compile(
-    r'[(\[]?\s*([a-z0-9]+)\s*[)\]]\s*["\']([^"\']+)["\']\s+(?:means|includes|shall mean|shall include)\s+(.+?)(?=\n\s*[(\[]\s*[a-z0-9]|$)',
+    rf'[(\[]?\s*([a-zA-Z0-9]+)\s*[)\]]\s*{_AQ}([^\u201c\u201d"\n]{{1,80}}){_AQ}\s+{_VERBS}\s+(.+?)(?=\n\s*[(\[]\s*[a-z0-9]|$)',
     re.DOTALL | re.IGNORECASE,
 )
-# Simpler: "word" means / "expression" includes
+
+# Primary: "word" means / "expression" includes — works on BNS/BNSS/BSA s.2
+# Sub-clauses are numbered like (1) "act" denotes... or lettered (a) "bail" means...
+# Lookahead stops at the next sub-clause opener or the start of another quoted term.
 QUOTED_TERM_RE = re.compile(
-    r'"([^"]+)"\s+(?:means|includes|shall mean|shall include)\s+(.+?)(?=\n\s*\([a-z]\)|\n\s*"\w|$)',
+    rf'{_AQ}([^\u201c\u201d"\n]{{1,80}}){_AQ}\s+{_VERBS}\s+(.+?)(?=\n\s*\([a-zA-Z0-9]+\)|\n\s*{_AQ}|$)',
     re.DOTALL | re.IGNORECASE,
 )
 
@@ -33,23 +50,26 @@ def extract_definitions_from_section(
     if not DEFINITION_SECTION_RE.search(section_text):
         return []
     definitions = []
-    # Split by (a), (b), (c) clauses
-    clauses = re.split(r'\n\s*\(([a-z])\)\s+', section_text)
-    for i, clause in enumerate(clauses):
-        if i > 0 and i % 2 == 1:
-            continue  # skip the letter we split on
-        for m in QUOTED_TERM_RE.finditer(clause):
-            term = m.group(1).strip()
-            defined_text = m.group(2).strip()[:5000]
-            term_slug = term.lower().replace(" ", "_").replace('"', "")
-            def_id = f"{act_id}_DEF_{term_slug}"
-            definitions.append({
-                "def_id": def_id,
-                "term": term,
-                "defined_text": defined_text,
-                "act_id": act_id,
-                "section_id": section_id,
-            })
+    seen_terms: set[str] = set()
+
+    # Apply QUOTED_TERM_RE directly over the full section text. The regex
+    # lookahead already stops at the next sub-clause marker, so splitting first
+    # is not necessary and can drop terms when clause markers are missing.
+    for m in QUOTED_TERM_RE.finditer(section_text):
+        term = m.group(1).strip()
+        defined_text = m.group(2).strip()[:5000]
+        if not term or term.lower() in seen_terms:
+            continue
+        seen_terms.add(term.lower())
+        term_slug = re.sub(r'[^a-z0-9]+', '_', term.lower()).strip('_')
+        def_id = f"{act_id}_DEF_{term_slug}"
+        definitions.append({
+            "def_id": def_id,
+            "term": term,
+            "defined_text": defined_text,
+            "act_id": act_id,
+            "section_id": section_id,
+        })
     return definitions
 
 
