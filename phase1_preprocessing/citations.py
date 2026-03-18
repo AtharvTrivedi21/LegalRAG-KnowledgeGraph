@@ -23,6 +23,12 @@ CROSS_ACT_REF_RE = re.compile(
     r'Indian Evidence Act|Constitution of India)',
     re.IGNORECASE,
 )
+# Cross-act Constitution article references: "article 21 of the Constitution"
+# The three 2023 acts reference the Constitution using "article" not "section".
+CROSS_ACT_ARTICLE_RE = re.compile(
+    r'(?:article|art\.)\s*(\d+[A-Z]?)\s+of\s+the\s+Constitution(?:\s+of\s+India)?',
+    re.IGNORECASE,
+)
 ACT_NAME_TO_ID = {
     "bharatiya nyaya sanhita": "BNS_2023",
     "bharatiya nagarik suraksha sanhita": "BNSS_2023",
@@ -79,6 +85,20 @@ def extract_references_from_section(
             "context": context[:500],
             "reference_type": "cross_act",
             "target_act_id": to_act_id,
+        })
+    # Cross-act Constitution article references: "article 21 of the Constitution"
+    for m in CROSS_ACT_ARTICLE_RE.finditer(section_text):
+        num = _normalize_section_num(m.group(1))
+        to_section_id = f"CONST_1950_Art{num}"
+        start = max(0, m.start() - 50)
+        end = min(len(section_text), m.end() + 50)
+        context = section_text[start:end].replace("\n", " ").strip()
+        cross.append({
+            "from_section_id": section_id,
+            "to_section_id": to_section_id,
+            "context": context[:500],
+            "reference_type": "cross_act",
+            "target_act_id": "CONST_1950",
         })
     return intra, cross
 

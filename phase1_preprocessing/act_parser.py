@@ -114,8 +114,58 @@ def _assign_chapter_part(full_text: str, sections: list[dict[str, Any]]) -> None
         pos = idx + 1 if idx >= 0 else pos
 
 
+def _assign_part_to_chapters(
+    full_text: str,
+    parts: list[dict[str, Any]],
+    chapters: list[dict[str, Any]],
+) -> None:
+    """
+    Assign each chapter to its parent part based on document position.
+    Walks the text sequentially: whenever a PART header is seen, all following
+    CHAPTER headers (until the next PART) belong to that part.
+    """
+    if not parts or not chapters:
+        return
+
+    # Build a sorted list of (text_position, part_id) from PART_RE matches
+    part_positions: list[tuple[int, str]] = []
+    for m in PART_RE.finditer(full_text):
+        num = m.group(1).strip()
+        part_id = f"{parts[0]['act_id']}_PART_{num}"
+        part_positions.append((m.start(), part_id))
+    part_positions.sort(key=lambda x: x[0])
+
+    if not part_positions:
+        return
+
+    # Build a sorted list of (text_position, chapter_id) from CHAPTER_RE matches
+    chapter_positions: list[tuple[int, str]] = []
+    for m in CHAPTER_RE.finditer(full_text):
+        num = m.group(1).strip()
+        chapter_id = f"{parts[0]['act_id']}_CH_{num}"
+        chapter_positions.append((m.start(), chapter_id))
+    chapter_positions.sort(key=lambda x: x[0])
+
+    # Map chapter_id -> part_id: for each chapter, the parent part is the last
+    # PART header that appears before the chapter in the document.
+    ch_to_part: dict[str, str] = {}
+    for ch_pos, ch_id in chapter_positions:
+        current_part_id = None
+        for p_pos, p_id in part_positions:
+            if p_pos <= ch_pos:
+                current_part_id = p_id
+            else:
+                break
+        if current_part_id:
+            ch_to_part[ch_id] = current_part_id
+
+    # Apply the mapping to the chapter dicts in-place
+    for ch in chapters:
+        ch["part_id"] = ch_to_part.get(ch["chapter_id"])
+
+
 def parse_parts_chapters(act_id: str, full_text: str) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-    """Extract Part and Chapter headers. Returns (parts, chapters)."""
+    """Extract Part and Chapter headers. Returns (parts, chapters) with part_id assigned."""
     parts = []
     chapters = []
     for m in PART_RE.finditer(full_text):
@@ -135,8 +185,10 @@ def parse_parts_chapters(act_id: str, full_text: str) -> tuple[list[dict[str, An
             "chapter_number": num,
             "chapter_title": title,
             "act_id": act_id,
-            "part_id": None,  # link later if we have part boundaries
+            "part_id": None,
         })
+    # Assign each chapter to its parent part by document position
+    _assign_part_to_chapters(full_text, parts, chapters)
     return parts, chapters
 
 
