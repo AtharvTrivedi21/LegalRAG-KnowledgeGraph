@@ -12,9 +12,13 @@ Prerequisites:
        python -m bns_comparison.build_bns_faiss --system both
     2. Ensure Ollama is running with llama3:8b and nomic-embed-text pulled
     3. Ensure Neo4j is running (for System 3; gracefully skipped if unavailable)
+
+Note: Each system is run in isolation (one at a time) to avoid GPU OOM when
+      SentenceTransformer and Ollama llama3:8b compete for GPU memory.
 """
 import argparse
 import csv
+import gc
 import sys
 import time
 import traceback
@@ -28,30 +32,29 @@ from bns_comparison.metrics import compute_metrics, summarize_metrics
 from bns_comparison.config import RESULTS_DIR, COMPARISON_CSV
 
 
+def _load_single_adapter(system_id: int):
+    """Import and instantiate a single adapter (one at a time to avoid GPU OOM)."""
+    if system_id == 1:
+        from bns_comparison.adapters.old_work import OldWorkAdapter
+        return OldWorkAdapter()
+    elif system_id == 2:
+        from bns_comparison.adapters.simple_bns import SimpleBNSAdapter
+        return SimpleBNSAdapter()
+    elif system_id == 3:
+        from bns_comparison.adapters.full_pipeline_bns import FullPipelineBNSAdapter
+        return FullPipelineBNSAdapter()
+    raise ValueError(f"Unknown system_id: {system_id}")
+
+
 def _load_adapters(system_ids: List[int]):
-    """Lazily import and instantiate the requested adapters."""
+    """Load all adapters (kept for backward compatibility)."""
     adapters = {}
-    if 1 in system_ids:
+    for sid in system_ids:
         try:
-            from bns_comparison.adapters.old_work import OldWorkAdapter
-            adapters[1] = OldWorkAdapter()
-            print("[Init] System 1 (Old-Work) loaded.")
+            adapters[sid] = _load_single_adapter(sid)
+            print(f"[Init] System {sid} loaded.")
         except Exception as e:
-            print(f"[WARN] System 1 failed to load: {e}")
-    if 2 in system_ids:
-        try:
-            from bns_comparison.adapters.simple_bns import SimpleBNSAdapter
-            adapters[2] = SimpleBNSAdapter()
-            print("[Init] System 2 (Simple-BNS) loaded.")
-        except Exception as e:
-            print(f"[WARN] System 2 failed to load: {e}")
-    if 3 in system_ids:
-        try:
-            from bns_comparison.adapters.full_pipeline_bns import FullPipelineBNSAdapter
-            adapters[3] = FullPipelineBNSAdapter()
-            print("[Init] System 3 (Full-Pipeline-BNS) loaded.")
-        except Exception as e:
-            print(f"[WARN] System 3 failed to load: {e}")
+            print(f"[WARN] System {sid} failed to load: {e}")
     return adapters
 
 
@@ -153,11 +156,6 @@ def main():
     print(f"\n[Comparison] Systems: {system_ids}")
     print(f"[Comparison] Test cases: {[c['id'] for c in cases]}")
 
-    adapters = _load_adapters(system_ids)
-    if not adapters:
-        print("[ERROR] No adapters loaded. Check FAISS indexes and Ollama.")
-        sys.exit(1)
-
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     all_rows: List[Dict] = []
 
@@ -165,19 +163,24 @@ def main():
         writer = csv.DictWriter(f, fieldnames=CSV_FIELDNAMES, extrasaction="ignore")
         writer.writeheader()
 
-        for sys_id, adapter in sorted(adapters.items()):
+        for sys_id in sorted(system_ids):
+            # Load one system at a time to avoid GPU OOM
             print(f"\n{'='*60}")
+            print(f"Loading System {sys_id}...")
+            try:
+                adapter = _load_single_adapter(sys_id)
+            except Exception as e:
+                print(f"[WARN] System {sys_id} failed to load: {e}")
+                continue
+
             print(f"Running {adapter.system_name} on {len(cases)} cases...")
             print(f"{'='*60}")
 
             for case in cases:
                 print(f"\n  [Case {case['id']}] {case['description'][:70]}...")
-                t_start = time.time()
                 result = _run_one(adapter, case)
-                elapsed = time.time() - t_start
 
                 if result is None:
-                    # Write a blank error row
                     error_row = {
                         "system_name": adapter.system_name,
                         "case_id": case["id"],
@@ -190,12 +193,14 @@ def main():
                     for fn in CSV_FIELDNAMES:
                         error_row.setdefault(fn, 0)
                     writer.writerow(error_row)
+                    f.flush()
                     all_rows.append(error_row)
                     continue
 
                 metrics = compute_metrics(case, result)
                 row = _build_csv_row(adapter.system_name, case, result, metrics)
                 writer.writerow(row)
+                f.flush()
                 all_rows.append(row)
 
                 print(
@@ -209,6 +214,12 @@ def main():
                     f"    cited={result.get('cited_sections', [])}  "
                     f"gold={case['expected_bns_sections']}"
                 )
+
+            # Explicitly unload the adapter to free memory before loading the next system
+            del adapter
+            gc.collect()
+            print(f"\n[System {sys_id}] Done. Memory released.")
+            time.sleep(5)  # Brief pause to let Ollama settle
 
     print(f"\n[Done] Results written to: {COMPARISON_CSV}")
     _print_summary_table(all_rows)
