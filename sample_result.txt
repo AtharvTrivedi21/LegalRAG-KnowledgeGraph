@@ -1,0 +1,82 @@
+(venv) C:\Users\ATHARV\LegalRAG>python -m bns_comparison.compare_one --query "Someone stole my phone"
+
+Query: Someone stole my phone
+=================================================================
+  SYSTEM 1: System1_OldWork
+=================================================================
+  Rephrased query:
+I request clarification on whether there has been a commission of the offence of theft as defined under Section 378 of the Indian Penal Code, 1860 (IPC), wherein a person has allegedly taken my personal property (a mobile phone) without my consent, resulting in a loss to me. I would appreciate guidance on the next steps to be taken in this regard.
+
+  Answer:
+Based on the provided Bharatiya Nyaya Sanhita (BNS) context and your formal legal query, I would like to address your concern.
+
+From the given BNS sections, it appears that theft is defined under Section 303 as:
+
+"Whoever, intending to take dishonestly any movable property out of the possession of any person without that person's consent, moves that property in order to such taking, is said to commit theft."
+
+Explanation 1 highlights that a thing attached to the earth is not movable property and cannot be stolen.
+
+In your situation, where someone stole your phone, it seems that the perpetrator intended to take your personal property (the mobile phone) without your consent. This meets the definition of theft under Section 303. The fact that the thief moved the phone in order to take it dishonestly also supports this conclusion.
+
+Therefore, I would say that there has been a commission of the offence of theft as defined under Section 378 of the Indian Penal Code (IPC).
+
+As for the next steps, you may wish to consider reporting the incident to the police and filing a complaint. Additionally, if the phone contains any important data or information, you may want to take measures to protect that data.
+
+Please note that this is just an AI-powered legal assistant's analysis based on the provided BNS context. If you require further guidance or specific advice tailored to your situation, I recommend consulting a human lawyer for personalized assistance.
+
+=================================================================
+  SYSTEM 2: System2_SimpleBNS
+=================================================================
+  Rephrased query:
+Can I seek an order under Section 2(1) of the Bharatiya Nyaya Sanhita 2023 (BNS) for the retrieval and restoration of my personal property, specifically a mobile phone, which was allegedly stolen by an unknown individual? Additionally, can I request guidance on the procedures to be followed under Article 12 of 
+the Bharatiya Sakshya Adhiniyam 2023 (BSA) for collecting and preserving evidence related to this incident?
+
+  Answer:
+## Summary:
+
+You have lost your phone and are seeking guidance on whether you can seek an order under Section 2(1) of the Bharatiya Nyaya Sanhita 2023 (BNS) for the retrieval and restoration of your personal property, specifically a mobile phone. Additionally, you would like to know the procedures to be followed under Article 12 of the Bharatiya Sakshya Adhiniyam 2023 (BSA) for collecting and preserving evidence related to this incident.
+
+## Applicable BNS provisions:
+
+Section 5 of the BNS defines theft as the act of moving property with the intention of taking it dishonestly without the owner's consent. Since you have lost 
+your phone, it is possible that someone has taken it without your consent, which may constitute an act of theft.
+
+However, Section 1 of the BNS provides that every person shall be liable to punishment under this Sanhita for every act or omission contrary to its provisions, committed within India. As you are seeking guidance on retrieving and restoring your stolen property, it is unclear whether the BNS would apply in this situation.
+
+## Recommendation:
+
+Given the ambiguity surrounding the application of the Bharatiya Nyaya Sanhita 2023 (BNS) in this case, I recommend that you seek legal advice from a qualified attorney or legal expert familiar with Indian law. They can help you navigate the relevant provisions and determine the best course of action to recover your stolen phone.
+
+In terms of collecting and preserving evidence related to this incident, Article 12 of the Bharatiya Sakshya Adhiniyam 2023 (BSA) provides procedures for gathering and safeguarding evidence. A qualified attorney or legal expert can guide you through these processes to ensure that any potential evidence is properly 
+collected and preserved.
+
+It is important to note that the BNS only applies within India, and any acts committed outside of Indian territory may be subject to different laws and regulations.
+
+
+=================================================================
+  SYSTEM 3: System3_FullPipelineBNS
+=================================================================
+  Rephrased query:
+    "Whoever commits an act of theft by taking away a mobile device belonging to another person without their consent, shall be subject to prosecution under Bharatiya Nyaya Sanhita 2023. Under Article 12(1) of BNS, it is hereby requested that the authorities investigate and take necessary action against the perpetrator who committed this offense. Further, Article 15(2) of BNSS requests that a complaint be filed and a case registered under relevant provisions of Bharatiya Nagarik Suraksha Sanhita 2023."
+
+  Answer:
+## Summary:
+
+You have reported that your phone has been stolen. According to the Bharatiya Nyaya Sanhita 2023 (BNS_2023), theft is defined as taking away movable property 
+without the owner's consent, with the intention of depriving them of it.
+
+## Applicable BNS provisions:
+
+* Section 303(1) and (2), BNS_2023: Theft; Definition of theft
+* Section 305, BNS_2023: Theft in a dwelling house, or means of transportation or place of worship, etc.
+* Section 304, BNS_2023: Snatching
+
+## Recommendation / next steps:
+
+Based on the reported incident, it is recommended that you file a complaint with the authorities and register a case under the relevant provisions of Bharatiya Nagarik Suraksha Sanhita 2023. The authorities will investigate the matter and take necessary action against the perpetrator.
+
+As per Section 303(1) and (2), BNS_2023, to establish theft, it is essential to show that the phone was taken away without your consent, with the intention of depriving you of it. Additionally, as per Section 305, BNS_2023, if the theft occurred in a dwelling house, means of transportation, or place of worship, the punishment may extend up to seven years.
+
+In this scenario, snatching (Section 304, BNS_2023) might be applicable, as the phone was taken away suddenly and quickly from your possession. The punishment for snatching is imprisonment for a term which may extend up to three years, and fine.
+
+It is crucial to provide any available evidence, such as security footage or witness statements, to support your complaint and facilitate the investigation.

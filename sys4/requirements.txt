@@ -1,0 +1,2 @@
+# Extra deps for sys4 only (install on top of project root requirements.txt)
+rank-bm25>=0.2.2
