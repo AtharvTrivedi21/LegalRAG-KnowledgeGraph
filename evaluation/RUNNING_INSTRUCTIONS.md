@@ -35,11 +35,23 @@ python -m bns_comparison.build_bns_faiss --system bge
 
 This runs the full RAG pipeline (rephrase + retrieve + generate + self-eval) for each of the 100 test cases and saves results incrementally.
 
+### Option A: Using Groq Cloud (RECOMMENDED — ~15-20 minutes)
+
+Set your free Groq API key (get one at https://console.groq.com):
+```bash
+set GROQ_API_KEY=gsk_your-key-here
+python -m evaluation.run_system3_100
+```
+
+Uses the same llama3-8b model but hosted on Groq's fast hardware. Free tier: 30 req/min, 14,400 req/day.
+
+### Option B: Using local Ollama (~7-10 hours)
+
 ```bash
 python -m evaluation.run_system3_100
 ```
 
-**Expected runtime:** ~7-10 hours (each case takes ~4-6 minutes on average).
+**Expected runtime (Groq): ~15-20 minutes. Expected runtime (local Ollama): ~7-10 hours.**
 
 **Terminal output:** Shows progress for every case with ETA, metrics, and percentage complete.
 
@@ -108,7 +120,8 @@ python -m evaluation.analysis
 |------|---------|---------|--------|
 | Prereq | `ollama pull llama3:8b` | ~5 min | Model downloaded |
 | Prereq | `ollama pull nomic-embed-text` | ~1 min | Model downloaded |
-| Step 1 | `python -m evaluation.run_system3_100` | ~7-10 hrs | `system3_raw_results.jsonl` |
+| Step 1 (Groq) | `set GROQ_API_KEY=... && python -m evaluation.run_system3_100` | ~15-20 min | `system3_raw_results.jsonl` |
+| Step 1 (local) | `python -m evaluation.run_system3_100` | ~7-10 hrs | `system3_raw_results.jsonl` |
 | Step 2 | Cursor agent OR `python -m evaluation.evaluate_gpt4` | ~5-10 min | `gpt4_eval_results.csv` |
 | Step 3 | `python -m evaluation.analysis` | ~1 sec | `final_evaluation.csv` |
 

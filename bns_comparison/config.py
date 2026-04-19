@@ -32,6 +32,12 @@ OLLAMA_LLM_MODEL = "llama3:8b"
 OLLAMA_EMBED_MODEL = "nomic-embed-text"
 OLLAMA_TIMEOUT = 300
 
+# Groq Cloud settings (set GROQ_API_KEY env var to use Groq instead of local Ollama)
+import os
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")
+GROQ_MODEL = "llama3-8b-8192"  # same weights as llama3:8b
+GROQ_RPM_LIMIT = 30  # free tier: 30 requests per minute
+
 # Retrieval settings
 TOP_K = 8
 CHUNK_SIZE = 1000   # chars for Old-Work (matches original ingest_bns.py)
