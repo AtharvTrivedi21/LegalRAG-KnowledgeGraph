@@ -1,0 +1,25 @@
+system_name,case_id,case_description,offense_category,rephrased_query,cited_sections,gold_sections,section_precision,section_recall,section_f1,correct_act_cited,ipc_reference_count,fabricated_section_count,grounding_score,hallucination_flag,rephrase_latency_sec,retrieval_latency_sec,generation_latency_sec,total_latency_sec,offense_category_hit,offense_keyword_coverage,completeness_score,key_issue_coverage,answer_relevance_score,context_relevance_score,answer_length_words,has_safety_disclaimer
+System4_LQRAG_Graph,1,Someone stole my mobile phone from my pocket in a crowded bus.,theft,"Petition for Investigation and Prosecution:
+
+To the Hon'ble Authorities under Bharatiya Nyaya Sanhita 2023 (BNS),
+
+Complainant's Statement:
+
+I, [Name], hereby file this complaint alleging that my mobile phone was stolen from my person while I was on a crowded bus. The incident occurred on [Date and Time] at approximately [Location]. I had the phone in my pocket when someone took it without my consent.
+
+Prayer:
+
+Under Article 3 of Bharatiya Nyaya Sanhita 2023 (BNS), I request that an investigation be conducted to identify, apprehend, and prosecute the perpetrator(s) for the offence of Theft.",305,303|304,0.0,0.0,0.0,1,0,0,1.0,0,88.815,126.665,1399.52,1614.999,1,0.4,0.0,0.0,0.1852,0.0296,47,0
+System4_LQRAG_Graph,2,A man entered my house at night by breaking the door and took my jewelry.,housebreaking and theft,"Query:
+
+""Pursuant to Article 15 of Bharatiya Nyaya Sanhita 2023 (BNS), it is alleged that a male perpetrator, acting with criminal intent, forcibly entered my residence during the nighttime hours by damaging the entrance door and thereafter took possession of my valuables comprising jewelry. I request guidance on the appropriate course of action to seek legal recourse against the accused and secure restitution for the committed offense.""",209|329,330|331|333|334|303,0.0,0.0,0.0,0,3,0,1.0,0,102.093,2.676,586.109,690.878,1,0.3333,0.3,0.6,0.0851,0.0808,208,0
+System4_LQRAG_Graph,3,My neighbor keeps threatening to beat me if I use the common parking area.,criminal intimidation,"Here is a rewritten formal legal query using the Bharatiya Nyaya Sanhita (BNS) and Bharatiya Nagarik Suraksha Sanhita (BNSS):
+
+""Is my neighbor's alleged threat to inflict bodily harm upon me if I utilize the shared parking space actionable under BNS, specifically Article 10(1), pertaining to criminal intimidation? Furthermore, does this constitute a violation of my rights as a citizen, as enshrined in BNSS, particularly Section 5(2), regarding freedom from fear and violence?""",209|200|84|1,351|356,0.0,0.0,0.0,1,0,0,1.0,0,28.91,2.345,265.896,297.151,1,0.6,0.3636,0.75,0.0576,0.1048,276,0
+System4_LQRAG_Graph,4,Two people started fighting on the street and one hit the other with a stick causing injuries.,assault and causing hurt,ERROR,,115|116|351,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+System4_LQRAG_Graph,5,A person sent me abusive and vulgar messages repeatedly on WhatsApp.,harassment and obscene messages,ERROR,,296|356|351,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+System4_LQRAG_Graph,6,Someone forged my signature on a cheque and withdrew money from my account.,forgery and cheque fraud,ERROR,,318|319|336,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+System4_LQRAG_Graph,7,My landlord locked me out of my rented room without any notice and kept my belongings inside.,unlawful eviction / wrongful confinement,ERROR,,126|329|351,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+System4_LQRAG_Graph,8,A group of people damaged my shop during a protest by throwing stones and breaking the glass.,mischief and property damage,ERROR,,324|326|336|337,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+System4_LQRAG_Graph,9,A stranger keeps calling and sending messages threatening to burn my shop if I do not pay him money.,extortion / criminal intimidation,ERROR,,308|309|356,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+System4_LQRAG_Graph,10,Someone hacked my social media account and posted offensive content using my name.,cybercrime / hacking and defamation,ERROR,,318|319|356,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0

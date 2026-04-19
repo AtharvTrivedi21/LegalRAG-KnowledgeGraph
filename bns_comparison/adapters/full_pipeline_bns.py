@@ -8,6 +8,8 @@ System 3 Adapter: Full-Pipeline-BNS
 - Full improved prompts (BNS/BNSS/BSA aware, corpus description)
 """
 import pickle
+import os
+import re
 import sys
 import time
 from pathlib import Path
@@ -47,8 +49,9 @@ QA_SYSTEM = (
     "Your knowledge base contains ONLY the Bharatiya Nyaya Sanhita 2023 (BNS_2023). "
     "The Indian Penal Code (IPC) is REPEALED. Do NOT cite IPC sections — they no longer apply. "
     "Answer the user's question using ONLY the provided context (BNS sections). "
-    "Cite the relevant section_id in your answer (e.g. 'Section 303, BNS_2023'). "
-    "Under 'Applicable BNS provisions', list every section from the context relevant to the question. "
+    "In 'Applicable BNS provisions', cite ONLY sections that appear in context headers as [BNS Section NNN]. "
+    "Use the format 'Section NNN' (example: Section 303). "
+    "Under 'Applicable BNS provisions', list every relevant context section exactly once. "
     "Do not fabricate citations not present in the context. "
     "Structure your answer with: ## Summary, ## Applicable BNS provisions, "
     "## Recommendation / next steps."
@@ -60,6 +63,37 @@ QA_USER = (
     "BNS context:\n{context}\n\n"
     "Answer:"
 )
+
+EVAL_USER = (
+    "You review a draft legal answer. Context headers use the exact form [BNS Section NUMBER].\n\n"
+    "Reply with EXACTLY three lines in this format:\n"
+    "GROUNDED: YES or NO\n"
+    "IPC: YES or NO\n"
+    "RELEVANT: YES or NO\n\n"
+    "GROUNDED is YES only if every Section number cited in ANSWER appears in CONTEXT headers.\n"
+    "IPC is YES if answer cites IPC/CrPC/IEA or treats repealed codes as current law.\n\n"
+    "CONTEXT:\n{ctx}\n\n"
+    "ANSWER:\n{answer}\n"
+)
+
+
+def _section_num_from_source_id(sid: str) -> str:
+    m = re.search(r"_s(\d+[A-Za-z]?)$", sid or "")
+    return m.group(1) if m else ""
+
+
+def _parse_eval(text: str) -> tuple[bool, bool, bool]:
+    grounded_ok, ipc_ok, relevant_ok = True, True, True
+    for line in (text or "").splitlines():
+        s = line.strip()
+        us = s.upper()
+        if us.startswith("GROUNDED:"):
+            grounded_ok = s.split(":", 1)[-1].strip().upper().startswith("YES")
+        elif us.startswith("IPC:"):
+            ipc_ok = s.split(":", 1)[-1].strip().upper().startswith("NO")
+        elif us.startswith("RELEVANT:"):
+            relevant_ok = s.split(":", 1)[-1].strip().upper().startswith("YES")
+    return grounded_ok, ipc_ok, relevant_ok
 
 
 def _try_neo4j_enrich(section_ids: List[str]) -> List[Dict]:
@@ -79,6 +113,7 @@ class FullPipelineBNSAdapter(BaseAdapter):
         self._metadata: List[Dict] = []
         self._model = None
         self._loaded = False
+        self._fast_mode = os.getenv("SYS3_FAST_MODE", "").strip().lower() in {"1", "true", "yes", "on"}
 
     @property
     def system_name(self) -> str:
@@ -142,11 +177,14 @@ class FullPipelineBNSAdapter(BaseAdapter):
     def answer_query(self, user_query: str) -> Dict[str, Any]:
         t0 = time.time()
 
-        # Rephrase
+        # Rephrase (skip in fast mode to cut one LLM call)
         t_rephrase_start = time.time()
-        legal_query = ollama_chat(
-            [{"role": "user", "content": REPHRASE_PROMPT.format(user_query=user_query)}]
-        )
+        if self._fast_mode:
+            legal_query = user_query
+        else:
+            legal_query = ollama_chat(
+                [{"role": "user", "content": REPHRASE_PROMPT.format(user_query=user_query)}]
+            )
         rephrase_sec = time.time() - t_rephrase_start
 
         # Retrieve with diversity
@@ -163,16 +201,17 @@ class FullPipelineBNSAdapter(BaseAdapter):
         context_parts = []
         for i, c in enumerate(chunks):
             sid = c.get("source_id", "unknown")
+            snum = _section_num_from_source_id(sid)
             act = c.get("act_id", "BNS_2023")
             if sid in graph_section_map:
                 gs = graph_section_map[sid]
                 act = gs.get("act_id", act)
                 heading = gs.get("heading", "")
-                header = f"[SECTION {i+1}] {sid} (Act: {act})"
+                header = f"[BNS Section {snum}] {sid} (Act: {act})"
                 if heading:
                     header += f" — {heading}"
             else:
-                header = f"[SECTION {i+1}] {sid} (Act: {act})"
+                header = f"[BNS Section {snum}] {sid} (Act: {act})"
             context_parts.append(f"{header}\n{c['text']}")
         context = "\n\n".join(context_parts)
 
@@ -189,6 +228,37 @@ class FullPipelineBNSAdapter(BaseAdapter):
                 ),
             },
         ])
+
+        if not self._fast_mode:
+            # Quality mode: one self-check pass and optional rewrite.
+            eval_text = ollama_chat(
+                [
+                    {
+                        "role": "user",
+                        "content": EVAL_USER.format(ctx=context[:7000], answer=answer),
+                    }
+                ]
+            )
+            grounded_ok, ipc_ok, relevant_ok = _parse_eval(eval_text)
+            if not (grounded_ok and ipc_ok and relevant_ok):
+                feedback = []
+                if not grounded_ok:
+                    feedback.append("Cite ONLY section numbers present in [BNS Section NNN] headers.")
+                if not ipc_ok:
+                    feedback.append("Do not cite IPC/CrPC/IEA; use only BNS sections from context.")
+                if not relevant_ok:
+                    feedback.append("Focus directly on the user incident and legal applicability.")
+                answer = ollama_chat([
+                    {"role": "system", "content": QA_SYSTEM},
+                    {
+                        "role": "user",
+                        "content": QA_USER.format(
+                            user_query=user_query,
+                            legal_query=legal_query,
+                            context=context,
+                        ) + "\n\nRewrite the full answer. " + " ".join(feedback),
+                    },
+                ])
         generation_sec = time.time() - t_gen_start
 
         total_sec = time.time() - t0

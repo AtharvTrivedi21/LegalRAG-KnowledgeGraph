@@ -97,7 +97,7 @@ CSV_FIELDNAMES = [
 ]
 
 
-def _print_summary_table(all_rows: List[Dict]) -> None:
+def _print_summary_table(all_rows: List[Dict], case_count: int) -> None:
     """Print a per-system average metrics table to the terminal."""
     systems = {}
     for row in all_rows:
@@ -113,7 +113,7 @@ def _print_summary_table(all_rows: List[Dict]) -> None:
     col_w = 28
     header = f"{'Metric':<{col_w}}" + "".join(f"{s:<{col_w}}" for s in systems)
     print("\n" + "=" * (col_w * (1 + len(systems))))
-    print("COMPARISON SUMMARY (averages across 10 test cases)")
+    print(f"COMPARISON SUMMARY (averages across {case_count} test cases)")
     print("=" * (col_w * (1 + len(systems))))
     print(header)
     print("-" * (col_w * (1 + len(systems))))
@@ -130,6 +130,7 @@ def _print_summary_table(all_rows: List[Dict]) -> None:
 
 
 def main():
+    t_run_start = time.time()
     parser = argparse.ArgumentParser(description="Run BNS RAG comparison")
     parser.add_argument(
         "--systems",
@@ -167,17 +168,22 @@ def main():
             # Load one system at a time to avoid GPU OOM
             print(f"\n{'='*60}")
             print(f"Loading System {sys_id}...")
+            t_sys_start = time.time()
+            t_load_start = time.time()
             try:
                 adapter = _load_single_adapter(sys_id)
             except Exception as e:
                 print(f"[WARN] System {sys_id} failed to load: {e}")
                 continue
+            load_sec = time.time() - t_load_start
 
             print(f"Running {adapter.system_name} on {len(cases)} cases...")
+            print(f"Load time: {load_sec:.2f}s")
             print(f"{'='*60}")
 
             for case in cases:
                 print(f"\n  [Case {case['id']}] {case['description'][:70]}...")
+                t_case_start = time.time()
                 result = _run_one(adapter, case)
 
                 if result is None:
@@ -195,6 +201,8 @@ def main():
                     writer.writerow(error_row)
                     f.flush()
                     all_rows.append(error_row)
+                    case_wall = time.time() - t_case_start
+                    print(f"    case_wall_time={case_wall:.2f}s (failed)")
                     continue
 
                 metrics = compute_metrics(case, result)
@@ -202,6 +210,7 @@ def main():
                 writer.writerow(row)
                 f.flush()
                 all_rows.append(row)
+                case_wall = time.time() - t_case_start
 
                 print(
                     f"    sec_f1={metrics['section_f1']:.2f}  "
@@ -211,6 +220,14 @@ def main():
                     f"latency={metrics['total_latency_sec']:.1f}s"
                 )
                 print(
+                    f"    timing_breakdown: load(reused) + "
+                    f"rephrase={metrics['rephrase_latency_sec']:.2f}s, "
+                    f"retrieval={metrics['retrieval_latency_sec']:.2f}s, "
+                    f"generation={metrics['generation_latency_sec']:.2f}s, "
+                    f"case_total={metrics['total_latency_sec']:.2f}s, "
+                    f"case_wall={case_wall:.2f}s"
+                )
+                print(
                     f"    cited={result.get('cited_sections', [])}  "
                     f"gold={case['expected_bns_sections']}"
                 )
@@ -218,11 +235,15 @@ def main():
             # Explicitly unload the adapter to free memory before loading the next system
             del adapter
             gc.collect()
+            sys_total = time.time() - t_sys_start
             print(f"\n[System {sys_id}] Done. Memory released.")
+            print(f"[System {sys_id}] total_time={sys_total:.2f}s (including load + all cases)")
             time.sleep(5)  # Brief pause to let Ollama settle
 
     print(f"\n[Done] Results written to: {COMPARISON_CSV}")
-    _print_summary_table(all_rows)
+    run_total = time.time() - t_run_start
+    print(f"[Done] End-to-end total_time={run_total:.2f}s")
+    _print_summary_table(all_rows, case_count=len(cases))
 
 
 if __name__ == "__main__":

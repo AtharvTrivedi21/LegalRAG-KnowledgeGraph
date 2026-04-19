@@ -167,7 +167,16 @@ class LQRAGAdapter(BaseAdapter):
         texts = [m.get("text") or "" for m in self._metadata]
         self._bm25_corpus_tokens = [_tokenize(t) for t in texts]
         self._bm25 = BM25Okapi(self._bm25_corpus_tokens)
-        self._cross_encoder = CrossEncoder(CROSS_ENCODER_MODEL, device="cpu")
+        # Avoid long first-run hangs from remote model downloads; gracefully fallback
+        # to fused ranking if the cross-encoder is not already available locally.
+        try:
+            self._cross_encoder = CrossEncoder(
+                CROSS_ENCODER_MODEL,
+                device="cpu",
+                local_files_only=True,
+            )
+        except Exception:
+            self._cross_encoder = None
         self._loaded = True
 
     def _dense_top_indices(self, query: str, k: int) -> List[int]:
@@ -185,7 +194,9 @@ class LQRAGAdapter(BaseAdapter):
         return [int(i) for i in order if i < len(self._metadata)]
 
     def _rerank_candidates(self, query: str, indices: List[int]) -> List[Tuple[int, float]]:
-        assert self._cross_encoder is not None and self._metadata is not None
+        assert self._metadata is not None
+        if self._cross_encoder is None:
+            return []
         pairs = []
         for idx in indices:
             text = self._metadata[idx].get("text") or ""
@@ -206,6 +217,9 @@ class LQRAGAdapter(BaseAdapter):
         fused_pool = sorted(rrf_scores.keys(), key=lambda i: rrf_scores[i], reverse=True)[:RERANK_POOL]
 
         reranked = self._rerank_candidates(legal_query, fused_pool)
+        if not reranked:
+            # Fallback path when cross-encoder is unavailable: keep fused ranking order.
+            reranked = [(idx, rrf_scores.get(idx, 0.0)) for idx in fused_pool]
 
         all_results: List[Dict] = []
         for idx, ce_score in reranked:
