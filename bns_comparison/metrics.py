@@ -1,11 +1,12 @@
 """
 Comprehensive metric computation for the BNS-Only RAG Comparison.
 
-Four dimensions:
-  1. Accuracy   - section precision/recall/F1, correct act cited
-  2. Hallucination - IPC references, fabricated sections, grounding score
-  3. Speed      - rephrase/retrieval/generation/total latency
-  4. Answer Quality - offense hit, completeness, relevance, safety disclaimer
+Five dimensions:
+  1. Retrieval   - hit rate, MRR (based on retrieved chunks vs gold sections)
+  2. Accuracy    - section precision/recall/F1, correct act cited
+  3. Hallucination - IPC references, fabricated sections, grounding score
+  4. Speed       - rephrase/retrieval/generation/total latency
+  5. Answer Quality - offense hit, completeness, relevance, safety disclaimer
 """
 import re
 from typing import Dict, List, Set, Any
@@ -56,6 +57,15 @@ def _overlap_ratio(source: Set[str], target: Set[str]) -> float:
     return len(source & target) / len(source)
 
 
+_SOURCE_ID_SECTION_RE = re.compile(r"_s(\d+[A-Za-z]?)$")
+
+
+def _section_num_from_source_id(sid: str) -> str:
+    """Extract section number from source_id like 'BNS_2023_s303' -> '303'."""
+    m = _SOURCE_ID_SECTION_RE.search(sid or "")
+    return m.group(1).upper() if m else ""
+
+
 def _is_valid_bns_section(num_str: str) -> bool:
     """Return True if the section number is plausibly within BNS range (1-358)."""
     try:
@@ -99,6 +109,24 @@ def compute_metrics(case: Dict, result: Dict) -> Dict[str, Any]:
         section_f1 = 2 * section_precision * section_recall / (section_precision + section_recall)
     else:
         section_f1 = 0.0
+
+    # --- 1b. Retrieval metrics (Hit Rate, MRR) ---
+    retrieved_chunks: List[Dict] = result.get("retrieved_chunks", [])
+    retrieved_section_nums = []
+    for chunk in retrieved_chunks:
+        snum = _section_num_from_source_id(chunk.get("source_id", ""))
+        if snum:
+            retrieved_section_nums.append(snum)
+
+    # Hit Rate: 1 if ANY gold section appears in retrieved chunks
+    hit_rate = int(bool(gold_sections & set(retrieved_section_nums)))
+
+    # MRR: 1/rank of the first gold section found in retrieval order
+    mrr = 0.0
+    for rank, snum in enumerate(retrieved_section_nums, start=1):
+        if snum in gold_sections:
+            mrr = 1.0 / rank
+            break
 
     # correct_act_cited: answer mentions BNS but NOT IPC/CrPC/IEA
     answer_lower = answer.lower()
@@ -184,6 +212,9 @@ def compute_metrics(case: Dict, result: Dict) -> Dict[str, Any]:
     has_safety_disclaimer = int(any(p in answer_lower for p in safety_phrases))
 
     return {
+        # Retrieval
+        "hit_rate": hit_rate,
+        "mrr": round(mrr, 4),
         # Accuracy
         "section_precision": round(section_precision, 4),
         "section_recall": round(section_recall, 4),
