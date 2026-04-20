@@ -43,7 +43,7 @@ phase1_output_v2/cases_sc.csv
 phase1_output_v2/cases_iltur.csv
 
 # IDE / editor
-.cursor/
+# .cursor/
 .idea/
 .vscode/
 *.swp
