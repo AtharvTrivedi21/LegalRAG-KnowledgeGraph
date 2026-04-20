@@ -3,9 +3,15 @@ Shared configuration for the BNS-Only RAG Comparison framework.
 All paths are relative to the project root (c:\\Users\\ATHARV\\LegalRAG).
 """
 from pathlib import Path
+try:
+    from dotenv import load_dotenv
+except Exception:
+    load_dotenv = None
 
 # Project root (two levels up from this file)
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if load_dotenv is not None:
+    load_dotenv(PROJECT_ROOT / ".env")
 
 # BNS-only FAISS index (built by build_bns_faiss.py)
 BNS_FAISS_INDEX_PATH = PROJECT_ROOT / "bns_comparison" / "faiss_bns_only" / "faiss.index"
@@ -35,9 +41,21 @@ OLLAMA_LLM_MODEL = "llama3:8b"
 OLLAMA_EMBED_MODEL = "nomic-embed-text"
 OLLAMA_TIMEOUT = 300
 
-# Groq Cloud settings (set GROQ_API_KEY env var to use Groq instead of local Ollama)
+# Groq Cloud settings (single key or rotating pool: GROQ_API_KEY_1..N)
 import os
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")
+GROQ_API_KEYS = [
+    v for v in (
+        os.environ.get("GROQ_API_KEY_1", "").strip(),
+        os.environ.get("GROQ_API_KEY_2", "").strip(),
+        os.environ.get("GROQ_API_KEY_3", "").strip(),
+        os.environ.get("GROQ_API_KEY_4", "").strip(),
+        os.environ.get("GROQ_API_KEY_5", "").strip(),
+    )
+    if v
+]
+if not GROQ_API_KEYS and GROQ_API_KEY:
+    GROQ_API_KEYS = [GROQ_API_KEY]
 GROQ_MODEL = "llama-3.1-8b-instant"  # same family as llama3:8b (Llama 3.1 8B)
 GROQ_RPM_LIMIT = 30  # free tier: 30 requests per minute
 
