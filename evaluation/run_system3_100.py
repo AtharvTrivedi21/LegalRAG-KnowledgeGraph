@@ -18,6 +18,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+# Load .env so GROQ_API_KEY is picked up automatically
+try:
+    from dotenv import load_dotenv
+    load_dotenv(Path(__file__).resolve().parent.parent / ".env")
+except ImportError:
+    pass
+
 from bns_comparison.test_cases import TEST_CASES
 from bns_comparison.metrics import compute_metrics
 from bns_comparison.adapters.full_pipeline_bns import FullPipelineBNSAdapter
@@ -41,11 +48,11 @@ CSV_FIELDNAMES = [
 ]
 
 
-def _load_completed_ids() -> set:
+def _load_completed_ids(raw_results_path: Path) -> set:
     """Read already-completed case IDs from the JSONL file."""
     completed = set()
-    if SYSTEM3_RAW_RESULTS.exists():
-        with open(SYSTEM3_RAW_RESULTS, "r", encoding="utf-8") as f:
+    if raw_results_path.exists():
+        with open(raw_results_path, "r", encoding="utf-8") as f:
             for line in f:
                 line = line.strip()
                 if not line:
@@ -58,13 +65,13 @@ def _load_completed_ids() -> set:
     return completed
 
 
-def _export_metrics_csv():
+def _export_metrics_csv(raw_results_path: Path, metrics_csv_path: Path):
     """Read all JSONL results and export rule-based metrics to CSV."""
-    if not SYSTEM3_RAW_RESULTS.exists():
+    if not raw_results_path.exists():
         return
 
     rows = []
-    with open(SYSTEM3_RAW_RESULTS, "r", encoding="utf-8") as f:
+    with open(raw_results_path, "r", encoding="utf-8") as f:
         for line in f:
             line = line.strip()
             if not line:
@@ -87,32 +94,46 @@ def _export_metrics_csv():
 
     rows.sort(key=lambda r: r["case_id"])
 
-    with open(SYSTEM3_METRICS_CSV, "w", newline="", encoding="utf-8") as f:
+    with open(metrics_csv_path, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=CSV_FIELDNAMES, extrasaction="ignore")
         writer.writeheader()
         writer.writerows(rows)
 
-    print(f"\n[Export] Metrics CSV written: {SYSTEM3_METRICS_CSV} ({len(rows)} rows)")
+    print(f"\n[Export] Metrics CSV written: {metrics_csv_path} ({len(rows)} rows)")
 
 
 def main():
     parser = argparse.ArgumentParser(description="Run System 3 on 100 test cases")
     parser.add_argument("--start", type=int, default=1, help="Start case ID (inclusive)")
     parser.add_argument("--end", type=int, default=100, help="End case ID (inclusive)")
+    parser.add_argument(
+        "--raw-results",
+        type=Path,
+        default=SYSTEM3_RAW_RESULTS,
+        help="Path to JSONL raw results file (default: evaluation.config.SYSTEM3_RAW_RESULTS)",
+    )
+    parser.add_argument(
+        "--metrics-csv",
+        type=Path,
+        default=SYSTEM3_METRICS_CSV,
+        help="Path to metrics CSV output file (default: evaluation.config.SYSTEM3_METRICS_CSV)",
+    )
     args = parser.parse_args()
 
     cases = [c for c in TEST_CASES if args.start <= c["id"] <= args.end]
-    completed = _load_completed_ids()
+    completed = _load_completed_ids(args.raw_results)
 
     remaining = [c for c in cases if c["id"] not in completed]
     print(f"[System3-100] Total cases: {len(cases)}, Already done: {len(completed)}, Remaining: {len(remaining)}")
 
     if not remaining:
         print("[System3-100] All cases complete. Exporting metrics CSV...")
-        _export_metrics_csv()
+        _export_metrics_csv(args.raw_results, args.metrics_csv)
         return
 
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+    args.raw_results.parent.mkdir(parents=True, exist_ok=True)
+    args.metrics_csv.parent.mkdir(parents=True, exist_ok=True)
 
     print("[System3-100] Loading System 3 adapter...")
     adapter = FullPipelineBNSAdapter()
@@ -164,7 +185,7 @@ def main():
             "wall_time_sec": round(wall_time, 2),
         }
 
-        with open(SYSTEM3_RAW_RESULTS, "a", encoding="utf-8") as f:
+        with open(args.raw_results, "a", encoding="utf-8") as f:
             f.write(json.dumps(record, ensure_ascii=False) + "\n")
 
         metrics = compute_metrics(case, result)
@@ -187,9 +208,9 @@ def main():
     print(f"[System3-100] ALL RUNS COMPLETE")
     print(f"  Total time: {total_elapsed/60:.1f} minutes")
     print(f"  Avg per case: {total_elapsed/len(remaining):.1f}s")
-    print(f"  Raw results: {SYSTEM3_RAW_RESULTS}")
+    print(f"  Raw results: {args.raw_results}")
     print(f"{'='*60}")
-    _export_metrics_csv()
+    _export_metrics_csv(args.raw_results, args.metrics_csv)
 
 
 if __name__ == "__main__":

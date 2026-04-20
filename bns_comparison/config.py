@@ -12,7 +12,10 @@ BNS_FAISS_INDEX_PATH = PROJECT_ROOT / "bns_comparison" / "faiss_bns_only" / "fai
 BNS_CHUNK_METADATA_PATH = PROJECT_ROOT / "bns_comparison" / "faiss_bns_only" / "chunk_metadata.pkl"
 
 # Fine-tuned BGE model (shared with main pipeline)
-FINE_TUNED_MODEL_DIR = PROJECT_ROOT / "phase3_embeddings" / "models" / "bge-legal"
+# FINE_TUNED_MODEL_DIR = PROJECT_ROOT / "phase3_embeddings" / "models" / "bge-legal"
+# FINE_TUNED_MODEL_DIR = PROJECT_ROOT / "phase3_embeddings" / "models" / "bge-legal-bns"
+# FINE_TUNED_MODEL_DIR = PROJECT_ROOT / "phase3_embeddings" / "models" / "bge-legal-bns-mapping"
+FINE_TUNED_MODEL_DIR = PROJECT_ROOT / "phase3_embeddings" / "bge-legal-bns-groq"
 
 # v2 sections CSV (source of BNS sections)
 SECTIONS_CSV = PROJECT_ROOT / "phase1_output_v2" / "sections.csv"
@@ -35,7 +38,7 @@ OLLAMA_TIMEOUT = 300
 # Groq Cloud settings (set GROQ_API_KEY env var to use Groq instead of local Ollama)
 import os
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")
-GROQ_MODEL = "llama3-8b-8192"  # same weights as llama3:8b
+GROQ_MODEL = "llama-3.1-8b-instant"  # same family as llama3:8b (Llama 3.1 8B)
 GROQ_RPM_LIMIT = 30  # free tier: 30 requests per minute
 
 # Retrieval settings

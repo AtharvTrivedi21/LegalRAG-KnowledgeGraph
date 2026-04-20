@@ -1,6 +1,14 @@
 """
-Mandatory BGE fine-tuning with IndicLegalQA and evaluation.
+BGE fine-tuning with IndicLegalQA and/or BNS synthetic pairs.
 Uses MultipleNegativesRankingLoss and InformationRetrievalEvaluator.
+
+Supports dataset modes:
+  --dataset indiclegal    : original IndicLegalQA only (default)
+  --dataset bns_synthetic : BNS synthetic pairs only (Exp 7)
+  --dataset combined      : both datasets merged (Exp 7B)
+  --dataset bns_mapping   : IPC->BNS mapping-derived retrieval pairs
+  --dataset complaint_bns : complaint-style BNS pairs
+  --dataset complaint_bns_hardneg : complaint triplets with hard negatives
 """
 import argparse
 import json
@@ -13,6 +21,15 @@ from sentence_transformers import SentenceTransformer, losses
 from sentence_transformers.evaluation import InformationRetrievalEvaluator
 from sentence_transformers.trainer import SentenceTransformerTrainer
 from sentence_transformers.training_args import BatchSamplers, SentenceTransformerTrainingArguments
+import torch
+
+# Compatibility shim for transformers/accelerate versions where Trainer calls
+# optimizer.train()/optimizer.eval(), but torch.optim optimizers do not expose
+# those methods.
+if not hasattr(torch.optim.Optimizer, "train"):
+    setattr(torch.optim.Optimizer, "train", lambda self: None)
+if not hasattr(torch.optim.Optimizer, "eval"):
+    setattr(torch.optim.Optimizer, "eval", lambda self: None)
 
 # Add project root for imports
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -25,6 +42,16 @@ from phase3_embeddings.config import (
     METRICS_SATISFACTORY,
     RANDOM_SEED,
     TRAIN_EVAL_SPLIT,
+)
+
+BNS_SYNTHETIC_PATH = Path(__file__).resolve().parent / "bns_synthetic_pairs.jsonl"
+BNS_MAPPING_PATH = Path(__file__).resolve().parent / "bns_mapping_pipeline" / "bns_mapping_pairs.jsonl"
+BNS_GROQ_SYNTHETIC_PATH = Path(__file__).resolve().parent / "bns_groq_synthetic_pairs.jsonl"
+COMPLAINT_BNS_PAIRS_PATH = (
+    Path(__file__).resolve().parent / "dataset_experiments_v2" / "datasets" / "complaint_bns_pairs.jsonl"
+)
+COMPLAINT_BNS_TRIPLETS_PATH = (
+    Path(__file__).resolve().parent / "dataset_experiments_v2" / "datasets" / "complaint_bns_hardneg_triplets.jsonl"
 )
 
 
@@ -42,6 +69,55 @@ def load_indic_legal_qa(path: Path) -> list[dict]:
     return pairs
 
 
+def load_bns_synthetic(path: Path) -> list[dict]:
+    """Load BNS synthetic JSONL and return list of {question, answer}."""
+    pairs = []
+    with open(path, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            obj = json.loads(line)
+            q = obj.get("query", "").strip()
+            a = obj.get("positive", "").strip()
+            if q and a:
+                pairs.append({"question": q, "answer": a})
+    return pairs
+
+
+def load_bns_mapping(path: Path) -> list[dict]:
+    """Load IPC->BNS mapping JSONL and return list of {question, answer}."""
+    pairs = []
+    with open(path, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            obj = json.loads(line)
+            q = obj.get("query", "").strip()
+            a = obj.get("positive", "").strip()
+            if q and a:
+                pairs.append({"question": q, "answer": a})
+    return pairs
+
+
+def load_triplets(path: Path) -> list[dict]:
+    """Load JSONL triplets and return list of {question, answer, negative}."""
+    triples = []
+    with open(path, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            obj = json.loads(line)
+            q = obj.get("query", "").strip()
+            a = obj.get("positive", "").strip()
+            n = obj.get("negative", "").strip()
+            if q and a and n:
+                triples.append({"question": q, "answer": a, "negative": n})
+    return triples
+
+
 def split_train_eval(pairs: list, split: float = 0.8, seed: int = 42):
     """Split into train and eval with fixed seed."""
     import random
@@ -53,7 +129,14 @@ def split_train_eval(pairs: list, split: float = 0.8, seed: int = 42):
     return shuffled[:n_train], shuffled[n_train:]
 
 
-def build_ir_evaluator(eval_pairs: list) -> InformationRetrievalEvaluator:
+def _trim_text(s: str, max_chars: int) -> str:
+    s = (s or "").strip()
+    if len(s) <= max_chars:
+        return s
+    return s[:max_chars].rsplit(" ", 1)[0].strip()
+
+
+def build_ir_evaluator(eval_pairs: list, name: str = "eval") -> InformationRetrievalEvaluator:
     """Build InformationRetrievalEvaluator from eval (question, answer) pairs."""
     queries = {}
     corpus = {}
@@ -70,7 +153,7 @@ def build_ir_evaluator(eval_pairs: list) -> InformationRetrievalEvaluator:
         queries=queries,
         corpus=corpus,
         relevant_docs=relevant_docs,
-        name="IndicLegalQA_eval",
+        name=name,
         mrr_at_k=[10],
         ndcg_at_k=[10],
         accuracy_at_k=[1, 3, 5, 10],
@@ -115,32 +198,135 @@ def check_metrics_satisfactory(metrics: dict):
 def main():
     parser = argparse.ArgumentParser(description="Fine-tune BGE on IndicLegalQA with evaluation")
     parser.add_argument("--epochs", type=int, default=2, help="Number of training epochs (reduced to avoid overfitting)")
-    parser.add_argument("--batch-size", type=int, default=32, help="Training batch size")
+    parser.add_argument("--batch-size", type=int, default=8, help="Training batch size")
     parser.add_argument("--output-dir", type=Path, default=FINE_TUNED_MODEL_DIR)
     parser.add_argument("--eval-every", type=int, default=1, help="Evaluate every N epochs (0=only at end)")
     parser.add_argument("--lr", type=float, default=1e-5, help="Learning rate (lower to reduce overfitting)")
+    parser.add_argument(
+        "--dataset",
+        choices=[
+            "indiclegal",
+            "bns_synthetic",
+            "combined",
+            "bns_mapping",
+            "bns_groq_synthetic",
+            "combined_groq",
+            "complaint_bns",
+            "complaint_bns_hardneg",
+        ],
+        default="indiclegal",
+        help="Training dataset mode",
+    )
     args = parser.parse_args()
 
-    if not INDIC_LEGAL_QA_PATH.exists():
-        print(f"Error: IndicLegalQA dataset not found at {INDIC_LEGAL_QA_PATH}")
-        print("Please ensure Datasets/IndicLegalQA Dataset_10K_Revised.json exists.")
+    if not torch.cuda.is_available():
+        print("ERROR: CUDA is not available in this environment.")
+        print("Please install CUDA-enabled PyTorch in this virtual environment.")
         sys.exit(1)
+    print(f"Using CUDA device: {torch.cuda.get_device_name(0)}")
 
-    print("Loading IndicLegalQA...")
-    pairs = load_indic_legal_qa(INDIC_LEGAL_QA_PATH)
-    print(f"Loaded {len(pairs)} question-answer pairs")
+    pairs = []
+    triplets = []
 
-    train_pairs, eval_pairs = split_train_eval(pairs, TRAIN_EVAL_SPLIT, RANDOM_SEED)
+    if args.dataset in ("indiclegal", "combined"):
+        if not INDIC_LEGAL_QA_PATH.exists():
+            print(f"Error: IndicLegalQA dataset not found at {INDIC_LEGAL_QA_PATH}")
+            sys.exit(1)
+        indic_pairs = load_indic_legal_qa(INDIC_LEGAL_QA_PATH)
+        print(f"Loaded {len(indic_pairs)} IndicLegalQA pairs")
+        pairs.extend(indic_pairs)
+
+    if args.dataset in ("bns_synthetic", "combined"):
+        if not BNS_SYNTHETIC_PATH.exists():
+            print(f"Error: BNS synthetic pairs not found at {BNS_SYNTHETIC_PATH}")
+            print("Run: python -m phase3_embeddings.build_synthetic_jsonl")
+            sys.exit(1)
+        bns_pairs = load_bns_synthetic(BNS_SYNTHETIC_PATH)
+        print(f"Loaded {len(bns_pairs)} BNS synthetic pairs")
+        pairs.extend(bns_pairs)
+
+    if args.dataset == "bns_mapping":
+        if not BNS_MAPPING_PATH.exists():
+            print(f"Error: BNS mapping pairs not found at {BNS_MAPPING_PATH}")
+            print("Run: python -m phase3_embeddings.bns_mapping_pipeline.build_mapping_pairs")
+            sys.exit(1)
+        map_pairs = load_bns_mapping(BNS_MAPPING_PATH)
+        print(f"Loaded {len(map_pairs)} BNS mapping pairs")
+        pairs.extend(map_pairs)
+
+    if args.dataset in ("bns_groq_synthetic", "combined_groq"):
+        if not BNS_GROQ_SYNTHETIC_PATH.exists():
+            print(f"Error: BNS Groq synthetic pairs not found at {BNS_GROQ_SYNTHETIC_PATH}")
+            print("Run: python -m phase3_embeddings.generate_groq_synthetic")
+            sys.exit(1)
+        groq_pairs = load_bns_synthetic(BNS_GROQ_SYNTHETIC_PATH)
+        print(f"Loaded {len(groq_pairs)} BNS Groq synthetic pairs")
+        pairs.extend(groq_pairs)
+
+    if args.dataset == "combined_groq":
+        if not INDIC_LEGAL_QA_PATH.exists():
+            print(f"Error: IndicLegalQA dataset not found at {INDIC_LEGAL_QA_PATH}")
+            sys.exit(1)
+        indic_pairs = load_indic_legal_qa(INDIC_LEGAL_QA_PATH)
+        print(f"Loaded {len(indic_pairs)} IndicLegalQA pairs")
+        pairs.extend(indic_pairs)
+
+    if args.dataset == "complaint_bns":
+        if not COMPLAINT_BNS_PAIRS_PATH.exists():
+            print(f"Error: complaint pairs not found at {COMPLAINT_BNS_PAIRS_PATH}")
+            print("Run: python -m phase3_embeddings.dataset_experiments_v2.build_complaint_training_data")
+            sys.exit(1)
+        complaint_pairs = load_bns_synthetic(COMPLAINT_BNS_PAIRS_PATH)
+        print(f"Loaded {len(complaint_pairs)} complaint BNS pairs")
+        pairs.extend(complaint_pairs)
+
+    if args.dataset == "complaint_bns_hardneg":
+        if not COMPLAINT_BNS_TRIPLETS_PATH.exists():
+            print(f"Error: complaint triplets not found at {COMPLAINT_BNS_TRIPLETS_PATH}")
+            print("Run: python -m phase3_embeddings.dataset_experiments_v2.build_complaint_training_data")
+            sys.exit(1)
+        triplets = load_triplets(COMPLAINT_BNS_TRIPLETS_PATH)
+        print(f"Loaded {len(triplets)} complaint hard-negative triplets")
+
+    # Complaint narratives are very long; trim them for stability on Windows CPU training.
+    if args.dataset in ("complaint_bns", "complaint_bns_hardneg"):
+        for p in pairs:
+            p["question"] = _trim_text(p["question"], 600)
+            p["answer"] = _trim_text(p["answer"], 1800)
+        for t in triplets:
+            t["question"] = _trim_text(t["question"], 600)
+            t["answer"] = _trim_text(t["answer"], 1800)
+            t["negative"] = _trim_text(t["negative"], 1800)
+
+    if args.dataset == "complaint_bns_hardneg":
+        print(f"Total training triplets: {len(triplets)}")
+    else:
+        print(f"Total training pairs: {len(pairs)}")
+
+    if args.dataset == "complaint_bns_hardneg":
+        train_pairs, eval_pairs = split_train_eval(triplets, TRAIN_EVAL_SPLIT, RANDOM_SEED)
+    else:
+        train_pairs, eval_pairs = split_train_eval(pairs, TRAIN_EVAL_SPLIT, RANDOM_SEED)
     print(f"Train: {len(train_pairs)}, Eval: {len(eval_pairs)}")
 
-    # Build Dataset for MultipleNegativesRankingLoss (anchor, positive columns)
-    train_dataset = Dataset.from_dict({
-        "anchor": [p["question"] for p in train_pairs],
-        "positive": [p["answer"] for p in train_pairs],
-    })
+    # Build train dataset
+    if args.dataset == "complaint_bns_hardneg":
+        train_dataset = Dataset.from_dict({
+            "anchor": [p["question"] for p in train_pairs],
+            "positive": [p["answer"] for p in train_pairs],
+            "negative": [p["negative"] for p in train_pairs],
+        })
+        eval_for_ir = [{"question": p["question"], "answer": p["answer"]} for p in eval_pairs]
+    else:
+        train_dataset = Dataset.from_dict({
+            "anchor": [p["question"] for p in train_pairs],
+            "positive": [p["answer"] for p in train_pairs],
+        })
+        eval_for_ir = eval_pairs
 
-    # Build evaluator
-    evaluator = build_ir_evaluator(eval_pairs)
+    # Build evaluator with dataset-specific name
+    eval_name = f"{args.dataset}_eval"
+    evaluator = build_ir_evaluator(eval_for_ir, name=eval_name)
 
     # Load base model
     print(f"Loading base model: {BGE_MODEL}")
@@ -155,7 +341,10 @@ def main():
     print()
 
     # Loss
-    train_loss = losses.MultipleNegativesRankingLoss(model=model)
+    if args.dataset == "complaint_bns_hardneg":
+        train_loss = losses.TripletLoss(model=model)
+    else:
+        train_loss = losses.MultipleNegativesRankingLoss(model=model)
 
     # Training arguments
     # Use checkpoint_dir for intermediate checkpoints; final model saved to output_dir
@@ -174,7 +363,7 @@ def main():
         batch_sampler=BatchSamplers.NO_DUPLICATES,
         # Use best eval checkpoint instead of final (avoids overfit last epoch)
         load_best_model_at_end=True,
-        metric_for_best_model="IndicLegalQA_eval_cosine_recall@10",
+        metric_for_best_model=f"{eval_name}_cosine_recall@10",
         greater_is_better=True,
     )
 
