@@ -1,0 +1,672 @@
+case_id,case_description,offense_category,rephrased_query,cited_sections,gold_sections,hit_rate,mrr,section_precision,section_recall,section_f1,correct_act_cited,ipc_reference_count,fabricated_section_count,grounding_score,hallucination_flag,rephrase_latency_sec,retrieval_latency_sec,generation_latency_sec,total_latency_sec,offense_category_hit,offense_keyword_coverage,completeness_score,key_issue_coverage,answer_relevance_score,context_relevance_score,answer_length_words,has_safety_disclaimer
+1,Someone stole my mobile phone from my pocket in a crowded bus.,theft,"Pursuant to the Bharatiya Nyaya Sanhita 2023 (BNS), I seek clarification on the following matter:
+
+Whether the offence of theft, as defined under Article 256 of BNS, has been committed when a person, without the consent of the owner, dishonestly misappropriated my mobile phone from my person, in contravention of Section 2(c) of BNS, in a public place, specifically a crowded bus.
+
+Moreover, I request guidance on the procedure to be followed under the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS) to report this incident and initiate an investigation, as per Article 17 of BNSS.",2|303|304,303|304,1,0.5,0.6667,1.0,0.8,1,0,0,0.6667,0,0.908,3.355,40.353,44.616,1,0.6,0.6,0.8,0.0495,0.1113,263,0
+2,A man entered my house at night by breaking the door and took my jewelry.,housebreaking and theft,"A complaint is hereby lodged under the Bharatiya Nyaya Sanhita 2023 (BNS) for an alleged commission of the offence of housebreaking by night with the intention to commit theft, punishable under Article 321(1)(a) BNS. 
+
+The complainant requests that the following action be taken under the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS):
+
+1. Registration of an FIR (First Information Report) under the relevant section of BNSS for investigation into the alleged incident.
+2. Conducting an investigation into the circumstances surrounding the alleged housebreaking and theft, as per the provisions of BNSS.
+3. Identifying and apprehending the accused, as per the provisions of BNSS, and producing them before a Magistrate for further proceedings, if deemed necessary.
+
+The complainant requests that the evidence collected during the investigation be examined under the provisions of the Bharatiya Sakshya Adhiniyam 2023 (BSA), specifically the rules governing admissibility, relevancy, and weightage of evidence, as per Article 205 BSA.",330|332|331,330|331|333|334|303,1,0.25,0.6667,0.4,0.5,1,0,0,1.0,0,0.86,0.116,101.35,102.326,1,0.6667,0.3,0.6,0.0333,0.0674,230,0
+3,My neighbor keeps threatening to beat me if I use the common parking area.,criminal intimidation,"Query: 
+
+Pursuant to Article 304(1) of the Bharatiya Nyaya Sanhita 2023 (BNS), I seek to invoke your jurisdiction in respect of a complaint against my neighbor, who allegedly commits an act of criminal intimidation, as per the provisions of Article 121(2) of BNS, by repeatedly threatening to physically assault me, specifically if I utilize the shared parking area.
+
+In this regard, I request you to consider registering a First Information Report (Article 51(3), Bharatiya Nagarik Suraksha Sanhita 2023, BNSS) and initiate an investigation into the matter.
+
+Further, I request that you consider admitting the evidence of these threats, as per the provisions of Section 11(1)(b) of the Bharatiya Sakshya Adhiniyam 2023 (BSA), including the oral statements and any other relevant documentation or testimony that may be adduced.
+
+Please advise on the necessary steps to be taken in this matter.",292|51|309|303|121|11|129,351|356,0,0.0,0.0,0.0,0.0,1,0,0,0.5714,0,0.83,0.12,49.407,50.357,1,0.6,0.2727,0.75,0.0325,0.078,271,0
+4,Two people started fighting on the street and one hit the other with a stick causing injuries.,assault and causing hurt,"Complaint under Section 321 of the Bharatiya Nyaya Sanhita 2023 (BNS) - Causing grievous hurt by dangerous weapons or means - against unknown person(s).
+
+Pursuant to Section 2 of the Bharatiya Sakshya Adhiniyam 2023 (BSA), the complainant seeks production of any evidence that may be relevant to the incident, including but not limited to:
+
+- Any eyewitness accounts or statements;
+- Physical traces of the altercation;
+- Medical reports regarding the injuries sustained by the victim;
+- Security footage or any other form of visual evidence;
+- Any other relevant information or material that may aid in the investigation.
+
+Furthermore, the complainant requests that the investigating officer exercise their powers as per Section 59 of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS) to identify and apprehend the perpetrator(s) of the alleged offense, and to conduct a thorough investigation to establish the facts of the case as per Section 159 of the BNSS.",117|59|2|321|121|122|118|159,115|116|351,0,0.0,0.0,0.0,0.0,1,0,0,0.5,0,3.42,0.099,95.441,98.959,1,0.5,0.3333,1.0,0.0698,0.0732,178,0
+5,A person sent me abusive and vulgar messages repeatedly on WhatsApp.,harassment and obscene messages,"Complaint under Section 5(1)(b) of the Bharatiya Nyaya Sanhita 2023 (BNS) for Cyber Harassment, and Section 20 of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS) for causing mental agony and distress through electronic communication.
+
+Whether the accused individual has committed the offence of 'Cyber Harassment' as defined under BNS, and whether a prima facie case has been made out for registering a criminal complaint under the said Act, and whether the same can be taken cognizance of under Section 20 of the BNSS, thereby enabling the initiation of proceedings under the said Act.
+
+Please note: I have created a query as per the NEW codes, however the specific laws and sections mentioned may not be actual sections from the NEW codes.",5|296|353|20|4|1,296|356|351,1,0.25,0.1667,0.3333,0.2222,1,0,0,0.8333,0,4.682,0.103,79.424,84.209,1,0.6667,0.6,1.0,0.0645,0.1006,230,0
+6,Someone forged my signature on a cheque and withdrew money from my account.,forgery and cheque fraud,"Pursuant to Article 123 of the Bharatiya Nyaya Sanhita 2023, I hereby submit the following complaint:
+
+""To the Honorable Magistrate, 
+
+I, [Your Name], being the lawful holder of a bank account, have been duped by an individual who has committed the offence of forging my signature on a cheque (as defined under Article 201, Bharatiya Nyaya Sanhita 2023) and thereby caused an illegal withdrawal of funds from my account (as per Article 204, Bharatiya Nyaya Sanhita 2023).
+
+I request that an FIR be registered under Article 123, Bharatiya Nyaya Sanhita 2023, and further investigation be conducted in accordance with Article 45 of the Bharatiya Nagarik Suraksha Sanhita 2023 to identify the person responsible for this crime.
+
+I request that the necessary evidence be collected and preserved under Article 17 of the Bharatiya Sakshya Adhiniyam 2023, and that the prosecution of the offender be initiated as per the provisions of Article 90 of the Bharatiya Nyaya Sanhita 2023.
+
+I humbly submit this complaint with the hope that it will be duly investigated and necessary action will be taken to bring the perpetrator to justice.""
+
+Please note that the rewritten query is based on the hypothetical scenario provided and should not be used in actual legal proceedings.",338|341|335|314|247|1,318|319|336,0,0.0,0.0,0.0,0.0,1,0,0,1.0,0,0.859,0.152,65.272,66.283,1,0.6667,0.3636,0.75,0.0625,0.0934,262,0
+7,My landlord locked me out of my rented room without any notice and kept my belongings inside.,unlawful eviction / wrongful confinement,"Pursuant to the Bharatiya Nyaya Sanhita 2023, this office seeks clarification on the applicability of Section 19(1) of the BNS, which states, 'Whoever intentionally obstructs or interferes with the lawful use or occupation of any immovable property, shall be punished...' 
+
+Furthermore, under the provisions of the Bharatiya Nagarik Suraksha Sanhita 2023, we seek guidance on the procedures to be followed when a person is denied access to their rented property, specifically in relation to Article 17(3) of the BNSS, which outlines the duties of a landlord in such instances.
+
+Additionally, under the Bharatiya Sakshya Adhiniyam 2023, we request elucidation on the admissibility of evidence in cases of alleged trespass and denial of access to property, specifically the interpretation of Article 34(2) of the BSA, which deals with the burden of proof in establishing a person's title to property.",292|111|19|334,126|329|351,0,0.0,0.0,0.0,0.0,1,0,0,0.75,0,0.721,0.119,68.178,69.018,0,0.4,0.7273,1.0,0.0732,0.1681,352,0
+8,A group of people damaged my shop during a protest by throwing stones and breaking the glass.,mischief and property damage,"Petition for Enquiry and Prosecution under the provisions of Section 125, Sub-section (i)(a), Bharatiya Nyaya Sanhita 2023 (BNS) - Offences relating to public tranquility, and Section 127, Sub-section (iii)(c), Bharatiya Nyaya Sanhita 2023 (BNS) - Offences relating to property damage, and Article 35, Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS) - Investigation and Inquiry Procedure.
+
+Seeking relief under the provisions of Section 32, Bharatiya Sakshya Adhiniyam 2023 (BSA) - Presumption as to Gazette, news paper report and other documents, to establish the culpability of the perpetrators.
+
+Prayer for directions to the Investigating Officer to gather evidence, identify and apprehend the accused, and for further proceedings in accordance with law.",127|125|32|197|4|113|1|111,324|326|336|337,0,0.0,0.0,0.0,0.0,1,0,0,0.625,0,6.564,0.094,92.564,99.221,0,0.2,0.7778,1.0,0.1064,0.0722,233,0
+9,A stranger keeps calling and sending messages threatening to burn my shop if I do not pay him money.,extortion / criminal intimidation,"Pursuant to the Bharatiya Nyaya Sanhita 2023, I request that you consider the following:
+
+Whether the actions of the stranger constitute an offence under Article 320 ('Threat of Extermination') of the Bharatiya Nyaya Sanhita 2023, and if so, what are the corresponding rights of the complainant as per Article 321 ('Power of Police to Register an FIR') of the Bharatiya Nagarik Suraksha Sanhita 2023.
+
+Additionally, what are the relevant provisions under the Bharatiya Sakshya Adhiniyam 2023, specifically Section 27 ('Relevancy of Facts'), Section 28 ('Relevancy of Documents'), and Section 41 ('Relevancy of Electronic Messages'), in relation to the electronic messages and calls received by the complainant, and how can such evidence be utilized to support the complaint filed pursuant to Article 321 of the Bharatiya Nagarik Suraksha Sanhita 2023?",292|353|1|111,308|309|356,0,0.0,0.0,0.0,0.0,1,0,0,1.0,0,9.605,0.092,82.828,92.525,1,0.6,0.2727,0.5,0.0986,0.0664,174,0
+10,Someone hacked my social media account and posted offensive content using my name.,cybercrime / hacking and defamation,"Pursuant to Article 123(1)(b) of the Bharatiya Nyaya Sanhita 2023, I seek clarification on the following:
+
+Is a person liable to be prosecuted under the provisions of BNS, 2023, for the commission of the offence of 'Cyber Fraud' (Article 219(a)) or 'Public Mischief' (Article 221(2)(i)), given that an individual has hacked into my social media account and posted offensive content using my name, thereby causing harm to my reputation (Articles 225(1) and 226(3))?
+
+Furthermore, I request guidance on the procedures to be followed under the Bharatiya Nagarik Suraksha Sanhita 2023, 2023, for registering a complaint and obtaining a First Information Report (FIR), as well as the subsequent steps to be taken for investigation and trial (Article 45 of BNSS, 2023).
+
+In this regard, I also seek clarification on the admissibility of digital evidence under the Bharatiya Sakshya Adhiniyam 2023, particularly with regards to the authentication of digital records and the use of electronic evidence in court (Article 15 of BSA, 2023).",221|303|226|225|353|1|111,318|319|356,1,0.5,0.0,0.0,0.0,1,0,0,0.5714,0,14.976,0.127,101.593,116.697,1,0.1667,0.3636,0.75,0.0849,0.05,310,0
+11,During a land dispute my uncle stabbed my father multiple times with a knife and he died on the spot.,murder,"Petition for Prosecution under Section 297 of the Bharatiya Nyaya Sanhita 2023 (BNS) - Murder by causing bodily injury resulting in death.
+
+Whether the act of my uncle, causing multiple stab wounds to my father with a knife resulting in his immediate death, constitutes an offence under Section 297 of the BNS, thereby entitling me to file a complaint under Section 154 of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), and seeking registration of a First Information Report (FIR) in this matter?
+
+Furthermore, I seek clarification on the admissibility of evidence under the provisions of the Bharatiya Sakshya Adhiniyam 2023 (BSA) regarding:
+
+1. The eyewitness accounts of the incident, as per Article 12 of BSA, relating to the testimony of relevant witnesses.
+2. The medical reports and autopsy examination under Article 15 of BSA, to determine the cause and manner of my father's death.
+3. The recovery of the knife used in the commission of the offence, as per Article 20 of BSA, for its potential use as evidence in the trial.
+
+Please provide guidance on the procedures to be followed under BNSS for the registration of the FIR and the subsequent investigation, as well as the rules of evidence to be applied in the trial under BSA.",297|109|5|154,101|103,0,0.0,0.0,0.0,0.0,1,0,0,0.5,0,7.002,0.143,88.032,95.177,1,0.2,0.375,0.6667,0.0538,0.0603,204,1
+12,A man poured acid on a woman's face after she rejected his marriage proposal and she later succumbed to injuries.,murder and acid attack,"Pursuant to the provisions of the Bharatiya Nyaya Sanhita 2023 (BNS), it is requested to determine whether the perpetrator has committed an offence under Article 321 (Offence of voluntarily causing grievous hurt by use of acid or other corrosive substances) of the BNS.
+
+Furthermore, in accordance with the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), it is sought to investigate and prosecute the perpetrator under Article 56 (Investigation of cognizable offences) and Article 62 (Procedure for investigation of offences under BNS).
+
+Additionally, under the Bharatiya Sakshya Adhiniyam 2023 (BSA), it is necessary to establish the facts surrounding the incident, including the circumstances of the rejection of the marriage proposal and its relevance to the offence committed, for the purposes of determining the guilt of the accused.",1|118|124|122,101|103|124,1,0.25,0.25,0.3333,0.2857,1,0,0,1.0,0,0.993,2.96,61.14,65.093,1,0.6,0.4286,1.0,0.1714,0.0784,157,0
+13,My neighbor hit my brother on the head with an iron rod during a heated argument; he is in ICU and may not survive.,attempt to murder,"Pursuant to the provisions of the Bharatiya Nyaya Sanhita 2023 (BNS), a complaint is being lodged against the neighbor for allegedly committing a cognizable offence under Article 324 (Hurt by dangerous weapons or means) of the BNS, in connection with the incident that occurred during a heated argument. 
+
+The incident details are as follows: the neighbor physically assaulted my brother, causing grievous bodily harm, which has resulted in my brother being admitted to the Intensive Care Unit (ICU) in a critical condition, and there is a possibility that he may not survive.
+
+Pursuant to Article 159 of the BNSS, a First Information Report (FIR) is hereby sought to be registered against the neighbor, and under the provisions of Article 167 of the BNSS, it is requested that the police take immediate action to investigate this matter and apprehend the accused.
+
+Additionally, pursuant to Article 51 of the Bharatiya Sakshya Adhiniyam 2023 (BSA), the medical records and other relevant evidence related to my brother's injuries and treatment are hereby sought to be attached to the FIR, for the purpose of establishing the extent of the physical harm caused to my brother.",324|47|48,109|117|118,0,0.0,0.0,0.0,0.0,1,0,0,0.6667,0,22.693,0.13,71.482,94.305,1,0.4,0.0833,0.25,0.0851,0.0495,213,0
+14,"Two men got into a drunken fight and one pushed the other off a bridge, causing his death.",culpable homicide,"Preliminary Inquiry: 
+
+In the wake of an alleged contravention of Article 321 (1) (a) of the Bharatiya Nyaya Sanhita 2023, a complaint is filed against the accused for the alleged commission of offences under Article 212 (1) (a) BNS, specifically Section 212 (1)(a)(i) (Homicide by negligent act) and possible additional charges.
+
+Pursuant to Article 21 (1) (1) of the Bharatiya Nagarik Suraksha Sanhita 2023, it is requested that an investigation be conducted and the accused be apprehended, pending further proceedings.
+
+As per Article 15 (1) (1) of the Bharatiya Sakshya Adhiniyam 2023, evidence shall be gathered and presented to the court to establish the guilt or innocence of the accused. 
+
+Further inquiry and investigation are required to ascertain the facts of the case and determine the course of action to be taken against the accused.",5|1|109|209|230|212,100|105,0,0.0,0.0,0.0,0.0,1,0,0,0.8333,0,0.879,0.116,90.752,91.747,1,0.8,0.3,0.5,0.1912,0.0746,149,0
+15,A bus driver was driving recklessly at high speed and ran over a pedestrian who died on the spot.,death by negligence,"Pursuant to Article 34 of the Bharatiya Nyaya Sanhita 2023 (BNS), a formal complaint is submitted against the bus driver under Section 305 (Causing death by rash or negligent act with intent to cause harm) and/or Section 304-A (Causing death by rash or negligent act) of BNS. 
+
+Furthermore, under the provisions of Article 45 of Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), a Magistrate's inquiry is requested to be initiated to determine the facts and circumstances surrounding the incident, and ascertain the extent of the bus driver's liability under Section 176 (Magistrate's inquiry in cases of unnatural deaths) of BNSS.
+
+Additionally, under the provisions of Article 67 of Bharatiya Sakshya Adhiniyam 2023 (BSA), the prosecution is required to establish the culpability of the bus driver by adducing relevant evidence, including eyewitness accounts and forensic analysis, to prove the commission of the alleged offense under Section 9 (Burden of proof) of BSA.",4|305|5|106|304|356|199|1|209|176,106|281,1,0.25,0.1,0.5,0.1667,1,0,0,0.7,0,3.171,0.121,84.568,87.86,1,0.8,0.4545,0.5,0.11,0.0904,291,0
+16,A wife was continuously tortured by her husband and in-laws for dowry; she was found hanging in her room within two years of marriage.,dowry death,"What are the legal consequences and potential charges against the husband and in-laws, under BNS, BNSS, and BSA, for the alleged commission of the offence of dowry torture and harassment resulting in the death of their wife, as per Article 498A of BNS, within a period of two years from the date of marriage, as per Article 11 of BNS, and in light of the provisions relating to suicide and inquest as per Article 117 of BNS and Chapter VII of BNSS? 
+
+Additionally, considering the role of the husband and in-laws in the deceased's death, what are the rights and entitlements of the wife's family under BSA, particularly in relation to the admissibility of evidence and the burden and standard of proof, as per Article 45 of BSA, and what are the potential consequences for non-compliance or obstruction of the investigation under Article 83 of BNSS?",55|113|82|80|46|85,80|85|86,1,0.5,0.3333,0.6667,0.4444,1,0,0,1.0,0,5.959,0.109,54.755,60.823,1,0.8333,0.8,1.0,0.1101,0.1321,412,0
+17,A teenager posted on social media encouraging her classmate to commit suicide; the classmate later took her own life.,abetment of suicide,"Pursuant to Article 321(1) of the Bharatiya Nyaya Sanhita 2023 (BNS), a legal query is framed as follows:
+
+Can the accused teenager, under Section 306(2) of BNS, be held liable for abetting the classmate's suicide, considering that the classmate later took her own life following the teenager's alleged incitement on social media? 
+
+Furthermore, Section 197(3) of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS) necessitates an investigation into the circumstances surrounding this incident. Under what provisions of BNSS can the investigating officer proceed to gather evidence and initiate action against the accused teenager?
+
+Concurrently, under Section 29(5) of the Bharatiya Sakshya Adhiniyam 2023 (BSA), what types of electronic records, such as social media posts, would be admissible as evidence in this case, and under what conditions can they be used to establish the accused's intent and culpability?",4|6|356|8|229|1|113|306|46|78,108|107,0,0.0,0.0,0.0,0.0,1,0,0,0.7,0,3.986,0.098,98.93,103.014,1,0.4,0.1667,0.5,0.088,0.1475,439,0
+18,A life-convict on parole got into a fight and strangled another person to death.,murder by life-convict,"Petition for Cognizance and Prosecution under the Bharatiya Nyaya Sanhita 2023 (BNS):
+
+Whether the life-convict, being on parole under Section 123 of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), has committed the offence of culpable homicide not amounting to murder under Article 302 of the BNS, by intentionally causing the death of another person through strangulation, thereby attracting penal consequences under Article 302 and/or Article 304 of the BNS?",110|101|105|104|62,101|104,1,0.1667,0.4,1.0,0.5714,1,0,0,1.0,0,8.897,0.063,74.509,83.469,1,0.6,0.6667,1.0,0.0674,0.1477,287,0
+19,A man fired his licensed gun at his business partner during a heated dispute but the bullet missed narrowly.,attempt to murder,"Pursuant to the Bharatiya Nyaya Sanhita 2023, a case is hereby registered regarding an alleged commission of the offence under Article 302 of the Bharatiya Nyaya Sanhita 2023, which deals with the act endangering life or personal safety of others, in relation to the incident where a licensed firearm was discharged, narrowly missing the victim (his business partner), during a heated dispute. 
+
+Further, in accordance with the Bharatiya Nagarik Suraksha Sanhita 2023, an application is made under Section 197 of the Bharatiya Nagarik Suraksha Sanhita 2023, for police investigation into the said incident, to determine the culpability of the accused and to gather evidence for further legal proceedings.
+
+Additionally, under the Bharatiya Sakshya Adhiniyam 2023, a request is made for the preservation and collection of physical evidence, including the firearm used in the incident, and any other relevant material that may have bearing on the case, to be preserved and produced as evidence in accordance with the provisions of the said Act.",109|230|48,109|130,1,0.125,0.3333,0.5,0.4,1,0,0,1.0,0,6.63,0.104,46.467,53.201,1,0.2,0.4545,0.75,0.1075,0.1114,218,0
+20,A cook mixed rat poison into the food served at a party and three guests died after consuming it.,murder by poisoning,"Pursuant to Article 201(2) of the Bharatiya Nyaya Sanhita 2023 (BNS), it is respectfully submitted that an incident of alleged culpable homicide not amounting to murder (Section 299/302 of BNS) occurred at a party where the cook allegedly administered a lethal substance, namely rat poison, to the food served, resulting in the demise of three guests. The question is whether the cook can be held liable under Section 299/302 of BNS for the deaths of the three guests, and if so, what is the appropriate penalty under Article 201(3) of BNS. Furthermore, it is requested to consider the applicability of Section 53 of BNS, relating to abetment, and Section 54 of BNS, relating to criminal conspiracy, in this matter.",4|101|55|51|109|46|299,101|103|123,1,0.125,0.1429,0.3333,0.2,1,0,0,0.8571,0,4.164,0.088,98.948,103.199,1,0.6667,0.3,0.5,0.1023,0.1253,300,0
+21,My 8-year-old son was taken away by unknown persons from outside his school and we received a ransom call demanding ten lakh rupees.,kidnapping for ransom,"Pursuant to the provisions of Bharatiya Nyaya Sanhita 2023 (BNS), I hereby submit the following complaint:
+
+That on [date of incident], my minor son, aged 8 years, was forcibly taken away by unknown perpetrators from outside his educational institution. Subsequently, we received a ransom call demanding an amount of ten lakh rupees. I request that this matter be investigated and necessary action taken to secure the safe return of my son.
+
+In accordance with Article 13 of Bharatiya Sakshya Adhiniyam 2023 (BSA), I hereby request that any information or evidence related to this incident be collected and preserved.
+
+Pursuant to the provisions of Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), I request that immediate police action be initiated to locate the whereabouts of my son and apprehend the perpetrators involved in this incident.",139|111|309,137|138|308,0,0.0,0.0,0.0,0.0,1,0,0,1.0,0,5.379,0.099,52.613,58.091,1,0.6,0.3333,0.75,0.2073,0.0621,195,0
+22,A young woman was lured with a fake job offer and trafficked to another state where she was forced into prostitution.,human trafficking,"Pursuant to the provisions of the Bharatiya Nyaya Sanhita 2023 (BNS), I seek clarification on the following:
+
+1. Whether the act of inducing a young woman with a false promise of employment constitutes an offence under Article 123(1)(d) BNS, namely, inducing or enticing any person to go to any place for the purpose of prostitution?
+2. Whether the subsequent transportation of the victim to another state without her consent amounts to an offence under Article 141(2)(e) BNS, namely, moving or disposing of any person for the purpose of prostitution?
+3. Whether the victim's forced involvement in prostitution constitutes an offence under Article 153(1)(f) BNS, namely, compelling any person to do any work or service against his will?
+4. Pursuant to the provisions of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), what are the procedures for registering an FIR and conducting an investigation in this case, particularly considering the jurisdiction of the police in the state where the victim was trafficked?
+5. Under the Bharatiya Sakshya Adhiniyam 2023 (BSA), what is the admissibility of electronic evidence, such as mobile phone records and online transactions, in establishing the sequence of events and the complicity of the perpetrators?
+
+I request a detailed response to these queries in light of the prevailing laws.",123|139|98|1|144|153|46|141|99,138|144|98,1,0.25,0.2222,0.6667,0.3333,1,0,0,0.6667,0,12.493,0.133,91.392,104.017,1,0.8,0.3333,0.75,0.1074,0.1178,311,0
+23,A gang kidnapped children from railway stations and maimed them to use for organized begging.,kidnapping and maiming for begging,"Pursuant to Article 12, Section 2 of the Bharatiya Nyaya Sanhita 2023 (BNS), it is hereby alleged that a criminal conspiracy as per Article 14, Section 3 has been orchestrated by a gang, whereby they have kidnapped minor children (as per Article 2, Section 8 of the BNS) from railway stations (public places as per Article 2, Section 11) with the intent to maim them, and then utilize them for organized begging (a form of forced labor as per Article 16, Section 6 of the BNS), thereby committing the offence of 'Trafficking in Persons' as defined under Article 17, Section 2. 
+
+Furthermore, the above actions also amount to an act of 'Cruelty' as defined under Article 10, Section 5 of the BNS. 
+
+It is requested to investigate and determine whether the accused have committed the aforesaid offences, and to take necessary action as per Article 31, Section 9 of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS) for the prosecution of the offenders.
+
+Pursuant to Article 24, Section 2 of the Bharatiya Sakshya Adhiniyam 2023 (BSA), it is requested to gather evidence, including testimony, documents, and other materials, in relation to the above allegations.",4|139|111|61|148|46,137|139|95,1,0.1429,0.1667,0.3333,0.2222,1,0,0,1.0,0,4.668,0.146,94.579,99.393,1,0.8333,0.4545,0.75,0.1061,0.0752,143,0
+24,My teenage daughter was taken away by a man she met online without my knowledge or consent.,kidnapping from lawful guardianship,"Application for assistance under the provisions of the Bharatiya Nyaya Sanhita 2023 (BNS), specifically Section 12(1)(a) of the BNS, to invoke the jurisdiction of the competent Magistrate under the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS) to initiate proceedings against the perpetrator for the alleged offence of 'Abduction by a person who is not a family member' under Section 17(1)(b) and 'Unlawful Custody' under Section 21(2) of the BNS.
+
+Additionally, an application may be made for the grant of an 'Order of Protection' under Section 43(3) of the BNSS to secure the safe return of the minor and prevent any further harm or harassment.
+
+Further, an inquiry may be initiated under the provisions of the Bharatiya Sakshya Adhiniyam 2023 (BSA) to determine the admissibility and relevance of digital evidence, including online communication records and other documents, in establishing the facts of the case.
+
+Please note that this is a formal request for legal assistance and not a substitute for professional legal advice.",139|21|265|17|263|43|62,137|138,0,0.0,0.0,0.0,0.0,1,0,0,0.5714,0,4.864,0.139,74.829,79.831,1,0.8,0.5,1.0,0.0924,0.0977,347,0
+25,An auto-rickshaw driver forcibly took a woman passenger to an isolated area against her will.,abduction,"**Complaint under the Bharatiya Nyaya Sanhita 2023 (BNS)**
+
+**Incident Description:**
+On [date], a woman passenger was abducted by an auto-rickshaw driver who forcibly took her to an isolated area against her consent.
+
+**Query for Investigation:**
+
+Under Article 321 of the Bharatiya Nyaya Sanhita 2023 (BNS), did the auto-rickshaw driver commit the offence of ""Abduction"" as defined in Article 322(1)(a) of BNS, by taking the woman passenger to an isolated area without her consent?
+
+**Query for Trial:**
+
+Is the auto-rickshaw driver liable for the offence of ""Abduction"" under Article 322 of BNS, as the prosecution has established that the woman passenger was taken to an isolated area against her will, thereby violating her personal liberty as guaranteed under Article 14 of the Constitution of India?
+
+**Query for Admissibility of Evidence:**
+
+Pursuant to Article 55 of the Bharatiya Sakshya Adhiniyam 2023 (BSA), is the testimony of the woman passenger admissible as primary evidence under Article 56(1)(a) of BSA, despite the passage of time, as it directly relates to the incident in question?
+
+**Query for Procedure under Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS):**
+
+Has the auto-rickshaw driver been taken into custody as per Article 101(1) of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), and has an FIR been registered under Article 102(1) of BNSS, detailing the incident and the relevant provisions of the BNS allegedly violated?",47|137|48,138|127|74,0,0.0,0.0,0.0,0.0,1,0,0,1.0,0,11.308,0.227,72.021,83.556,1,0.6,0.1429,0.25,0.1528,0.063,168,0
+26,A child under ten was stolen from her parents at a mela and later found being sold to a couple in another city.,kidnapping and selling of child,"Pursuant to the provisions of the Bharatiya Nyaya Sanhita 2023 (BNS), Section 365, 'Kidnapping from lawful guardianship', and Section 366, 'Buying or selling a minor for purposes of marriage', the following query is raised:
+
+What are the penal consequences for the accused individuals, including those who facilitated the crime, under BNS for kidnapping a child below ten years of age from her lawful guardians (parents) at a public gathering (mela) and subsequently selling her to another couple in a different city, in contravention of Article 21 of the Constitution of India, which guarantees the right to life and personal liberty?
+
+Additionally, under the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), what are the procedural safeguards for the protection of the minor victim and her family, and what are the rights and entitlements of the complainants in the investigation and trial process, especially in relation to the reporting of the offence under Article 39A of the Constitution of India, which mandates the State to ensure that children are given opportunities and facilities to develop in a healthy manner?
+
+Moreover, under the Bharatiya Sakshya Adhiniyam 2023 (BSA), what are the admissibility and relevance of digital evidence, including videos, photographs, and witness statements, in establishing the guilt of the accused and the circumstances of the offence, particularly in the context of Section 65 of the BSA, which deals with the admissibility of electronic records?",4|139|366|1|137|309|365,97|98|137,1,0.1429,0.1429,0.3333,0.2,1,0,2,0.7143,0,5.72,0.147,86.691,92.558,1,0.6,0.5,0.75,0.0297,0.0977,262,0
+27,A factory owner brought migrant workers from Bihar with false promises and made them work without pay under locked conditions.,unlawful compulsory labour,"Pursuant to Article 15 of Bharatiya Nyaya Sanhita 2023 (BNS), a complaint is made of alleged commission of the offence of ""Exploitation of Vulnerable Person"" and/or ""Unlawful Confinement"" as defined under the Act. 
+
+Under the circumstances, it is alleged that the factory owner did, in violation of Article 10 of BNS, willfully and deceitfully induce migrant workers from Bihar with promises of employment and remuneration, with the intention of subjecting them to forced labour as defined under Article 12 of BNS. 
+
+Furthermore, it is alleged that the said factory owner did, in contravention of Article 21 of BNS, confine the migrant workers in locked conditions without their free will, thereby denying them their liberty and personal freedom as guaranteed under the Act.
+
+The complainant requests an investigation under Article 42 of Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS) to determine the truth of the allegations and to take necessary actions as provided under the Act to prevent and punish the said offences.
+
+To facilitate a thorough investigation, the complainant respectfully requests the Court to order the production of relevant evidence as defined under Article 17 of Bharatiya Sakshya Adhiniyam 2023 (BSA) and to direct the examination of witnesses as set forth under Article 23 of BSA.",2|111|1|354|314,146|144|127,0,0.0,0.0,0.0,0.0,1,0,0,1.0,0,5.39,0.162,61.512,67.064,1,0.8,0.6667,1.0,0.1058,0.0764,202,0
+28,A man kidnapped his ex-wife's 6-year-old child from her home and fled to a different state.,kidnapping from lawful guardianship,"Pursuant to Article 22 of the Bharatiya Nyaya Sanhita 2023 (BNS), please determine whether the offence of wrongful confinement under Section 3(1)(a) of BNS has been committed, as the 6-year-old child was forcibly taken away from his mother's lawful custody. Furthermore, under Article 21 of BNSS, what is the legal procedure to be followed to effect the arrest and extradition of the perpetrator from the other state, and what search and seizure mechanisms can be employed to recover the child from the perpetrator's custody?
+
+Additionally, in light of Article 25 of the Bharatiya Sakshya Adhiniyam 2023 (BSA), identify the relevant legal presumptions and inferences that may be drawn from the facts of this case, such as the presumption of guilt under Section 25(1)(a) of BSA and the burden of proof on the perpetrator, and provide guidance on the admissibility of evidence, including statements made by the child to the mother or other witnesses.",263|127|253|3,137|329,0,0.0,0.0,0.0,0.0,1,0,0,0.75,0,4.275,0.1,102.514,106.889,1,0.4,0.4,1.0,0.1316,0.1093,325,0
+29,Several girls from a village were promised nursing jobs abroad but were taken to a city and forced into the flesh trade.,trafficking for sexual exploitation,"Pursuant to Section 321 (Trafficking of persons for sexual exploitation) of the Bharatiya Nyaya Sanhita 2023 (BNS), a complaint is filed under the provisions of Section 154 of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS) for the registration of an FIR against the perpetrators. 
+
+In this regard, it is requested to summon the victims and the accused under Section 61 of the BNSS for deposition. The statements of the victims and other relevant witnesses may be recorded under Article 43 of the Bharatiya Sakshya Adhiniyam 2023 (BSA) to gather evidence of the crime. Further, the court may direct the investigation agency to collect and preserve physical evidence, including documents, photographs, and other materials, in accordance with the provisions of Article 57 of the BSA.",61|321|154,144|98|138,0,0.0,0.0,0.0,0.0,1,0,0,0.0,1,5.846,0.078,46.939,52.863,1,0.2,0.1,0.5,0.18,0.0379,100,0
+30,A couple bought a 4-year-old boy from an orphanage caretaker who had no authority to sell children.,buying child for exploitation,"Pursuant to Article 123(1)(a) of the Bharatiya Nyaya Sanhita 2023, it is requested to determine whether the couple is liable under Section 315 of the BNS for knowingly purchasing a minor from an unauthorised person, who is thereby guilty of Section 317 of the BNS. Furthermore, pursuant to Article 34 of the Bharatiya Nagarik Suraksha Sanhita 2023, it is sought to know the admissibility of evidence under the BSA in proving the unauthorised person's lack of authority to sell the minor, as well as the couple's cognisance of the same, thereby establishing their complicity under the BNS.",4|317|111|339|314,99|97,0,0.0,0.0,0.0,0.0,1,0,0,0.8,0,2.932,0.082,93.841,96.855,1,0.6,0.2857,1.0,0.1579,0.0581,256,0
+31,Three men on a motorcycle snatched my gold chain while I was walking on the road and one of them showed a knife.,robbery / snatching,"Pursuant to Article 321, Section 3 of the Bharatiya Nyaya Sanhita 2023 (BNS), I seek clarification on the potential liability of the perpetrators in relation to the alleged commission of offences under Article 151 (theft) and Article 326 (extortion or putting a person in fear of injury in order to commit extortion) of the BNS.
+
+Further, I seek guidance on the applicability of Article 235 of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS) in relation to the registration of a First Information Report (FIR) and the subsequent investigation into the alleged incident.
+
+Additionally, I seek to know the applicability of Article 147 of the Bharatiya Sakshya Adhiniyam 2023 (BSA) in relation to the admissibility of evidence comprising the testimony of eyewitnesses and the presence of a knife as an exhibit, as well as any potential implications of Section 5 of the BSA regarding the use of circumstantial evidence.",111|5|1|303|113|46,309|304|303,1,0.125,0.1667,0.3333,0.2222,1,0,0,0.8333,0,5.398,0.093,104.177,109.667,1,0.6,0.4444,1.0,0.113,0.0752,315,0
+32,"A gang of seven armed men broke into a jewellery shop at night, tied up the watchman, and looted all the gold and cash.",dacoity,"**Petition for Investigation and Prosecution**
+
+To the Honourable Magistrate under Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS),
+
+**Incident Description**:
+
+On a date to be determined, at approximately [insert time], a burglary was committed at a jewellery shop located at [insert address]. The perpetrators, described as a gang of seven armed men, forcibly entered the premises and proceeded to restrain the watchman, who was subsequently bound and rendered incapable of resisting their actions. Subsequently, the perpetrators perpetrated an act of theft, removing gold and cash from the shop.
+
+**Enquiry and Action Required**:
+
+Pursuant to Article 23(1) of Bharatiya Nyaya Sanhita 2023 (BNS), I request that an investigation be conducted into the above-mentioned incident under Section 13 of BNSS. Given the presence of seven perpetrators and the circumstances surrounding the incident, I respectfully request that the perpetrators be charged under Section 5(1) of BNS, specifically with the offence of 'Burglary and Theft by a Gang', as defined under Section 5(2) of BNS.
+
+**Evidentiary Support**:
+
+In support of this petition, I request that the investigation proceed with the collection of evidence, including:
+
+- Witness testimonies, including that of the restrained watchman
+- Physical evidence, including any fingerprints, DNA profiles, or other identifiable markers found at the scene
+- Security footage, if available
+- Any other relevant information that may aid in the identification and prosecution of the perpetrators
+
+**Request for Protection and Witness Protection**:
+
+In light of the brazen nature of this crime and the involvement of a gang, I respectfully request that the Honourable Magistrate take necessary steps to ensure the safety and security of the shop's owner, the restrained watchman, and any other witnesses who may be called to testify. Pursuant to Section 17 of BNSS, I request that the Honourable Magistrate take steps to protect the identities and safety of the witnesses.
+
+**Conclusion**:
+
+In conclusion, I respectfully request that the Honourable Magistrate take immediate action to investigate this incident, identify the perpetrators, and ensure that they are brought to justice under the laws of Bharatiya Nyaya Sanhita 2023 (BNS) and Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS). In accordance with Bharatiya Sakshya Adhiniyam 2023 (BSA), I request that the evidence collected during the investigation be preserved and presented in a manner that is admissible in court.
+
+**Respectfully submitted**,
+
+[Your Name]",78|111|5|1|109|303|46|309,310|311|127,0,0.0,0.0,0.0,0.0,1,0,0,0.875,0,7.676,0.235,110.268,118.179,1,0.6,0.2143,0.6,0.1474,0.0907,283,0
+33,A local goon demands monthly protection money from shopkeepers in my area and beats those who refuse to pay.,extortion,"Pursuant to Article 5(1) of the Bharatiya Nyaya Sanhita 2023 (BNS), I seek clarification on the legality of the actions perpetrated by the individual demanding and extorting 'protection money' from shopkeepers, and the subsequent infliction of physical harm upon those who refuse to comply, thereby allegedly committing offenses under Article 12(2)(a) of the BNS.
+
+Furthermore, I inquire as to the applicability of Article 21(3) of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS) to this situation, specifically with regards to the powers of law enforcement agencies to investigate and apprehend the accused perpetrator under Section 96 of the BNSS. 
+
+Additionally, I seek guidance on the admissibility of evidence under Article 14(2) of the Bharatiya Sakshya Adhiniyam 2023 (BSA) that may be obtained from the complainants, witnesses, and any other relevant parties involved in the incident, to ascertain the veracity of the allegations and facilitate a just trial under the BNS.",4|96|111|5|356|1|314,308|115|351,0,0.0,0.0,0.0,0.0,1,0,0,0.8571,0,5.611,0.112,101.783,107.505,1,0.6,0.2,0.75,0.092,0.0533,242,0
+34,"While returning from an ATM at night, two people held me at gunpoint and took away all my cash and debit card.",robbery with deadly weapon,"Pursuant to Article 123 of the Bharatiya Nyaya Sanhita 2023 (BNS), I request clarification regarding the applicability of Section 384 (""Extortion by putting a person in fear of death or grievous hurt"") in the instant case, where two individuals, allegedly armed with a firearm, restrained me against my will and forcibly confiscated my cash and debit card at night. Further, I seek guidance on the procedure to be followed under Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS) for registering a complaint and obtaining a First Information Report (FIR) in light of Section 2(d) (""Information relating to an offence"") of the Act. Additionally, I would like to know the admissibility of evidence under Bharatiya Sakshya Adhiniyam 2023 (BSA) in relation to the circumstances surrounding the incident, particularly with regard to the identification of the perpetrators and the recovery of the stolen items.",2|111|229|384|209,309|311|312,0,0.0,0.0,0.0,0.0,1,0,1,0.6,0,20.884,0.105,101.547,122.537,1,0.6,0.2,0.5,0.0734,0.0798,231,0
+35,"A group of dacoits attacked a village, looted houses, and assaulted several villagers causing serious injuries.",dacoity with attempt to cause death or grievous hurt,"In light of the recent amendments to the Bharatiya Nyaya Sanhita 2023 (BNS) and Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), we seek clarification on the following:
+
+Pursuant to Article 121 of the BNS, which defines dacoity, whether the group of individuals in question constitutes an unlawful assembly under Section 121(2) BNS, thereby attracting the provisions of Section 121(3) BNS, which pertains to the punishment for dacoity.
+
+Additionally, under the BNSS, whether the acts of looting and assault committed by the group against the villagers amount to a cognizable offence under Section 190 BNSS, thereby warranting immediate arrest and investigation under the provisions of Section 55 BNSS.
+
+Furthermore, we inquire about the admissibility of evidence in this case, particularly in light of Article 27 of the Bharatiya Sakshya Adhiniyam 2023 (BSA), which deals with the burden of proof in cases of collective criminal liability.",311|1|310|58|312|254,310|311|117,1,0.5,0.3333,0.6667,0.4444,1,0,0,1.0,0,0.974,0.112,94.496,95.582,1,1.0,0.6667,1.0,0.1062,0.1364,349,0
+36,Someone showed me a knife in a train and forcibly took my laptop bag and wallet.,robbery in means of transportation,"Petition for Registration of Offence and Investigation under the Bharatiya Nyaya Sanhita 2023 (BNS) and the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS).
+
+To the Hon'ble Magistrate,
+
+I, [Your Name], being the victim of a criminal offence, submit this petition under Article 10 of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS) seeking registration of an FIR and initiation of investigation into the commission of a cognizable offence as defined under Section 4(1)(a) of the Bharatiya Nyaya Sanhita 2023 (BNS).
+
+On [Date], while I was travelling by train, the accused person, unknown to me, forcibly took my laptop bag and wallet after displaying a knife, thereby committing an act of extortion and causing a threat to my life and safety under Section 5 of the Bharatiya Nyaya Sanhita 2023 (BNS).
+
+Pursuant to Section 5 of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), I request that an FIR be registered and an investigation be conducted under the supervision of a Magistrate, as per Section 16 of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS).
+
+I request that the investigation be conducted under the provisions of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS) and the evidence be collected and preserved in accordance with the provisions of the Bharatiya Sakshya Adhiniyam 2023 (BSA).
+
+I pray that this petition be treated as a public interest litigation and that the Hon'ble Magistrate may pass such orders as deemed fit and proper in the circumstances of the case.
+
+Verification: I, [Your Name], being the victim, hereby verify the contents of this petition and declare that the information furnished is true to the best of my knowledge and belief.
+
+Signature: [Your Signature]
+Date: [Date]",4|5|56|109|46|62,309|134|305,0,0.0,0.0,0.0,0.0,1,0,0,1.0,0,5.099,0.166,90.158,95.423,1,0.5,0.0909,0.25,0.069,0.0964,224,0
+37,"A person claiming to be a police officer stopped my car, showed a fake ID, and demanded cash to let me go without a 'challan'.",extortion by impersonation of public servant,"Pursuant to Article 121 of the Bharatiya Nyaya Sanhita 2023 (BNS), I hereby submit the following formal legal query:
+
+Whether the act of the individual, posing as a police officer, displaying a counterfeit official identification (Article 123, BNS) and extorting cash in lieu of issuing a challan, constitutes the offence of impersonation under Article 135 of the BNS and/or the offence of extortion under Article 139 of the BNS, as per BNSS, 2023.
+
+Furthermore, I seek to invoke Article 217 of the BNSS, 2023, to enquire as to whether the actions of the aforementioned individual fall within the definition of 'public servant' under the said legislation, and whether they have committed the offence of 'breach of public duty' under Article 141 of the BNS.
+
+In addition, under Section 12 of the Bharatiya Sakshya Adhiniyam 2023 (BSA), I request that you consider the admissibility of the following pieces of evidence: (i) the fake ID displayed by the individual, (ii) any eyewitness accounts or testimony of the incident, and (iii) any corroborative evidence that may have been collected during the course of the alleged extortion.",123|308|141|342|217|135,308|204|319,1,0.1429,0.1667,0.3333,0.2222,1,0,0,0.3333,1,6.549,0.115,109.188,115.852,1,0.8,0.2727,0.5,0.0762,0.0661,262,0
+38,"Armed robbers hijacked a delivery truck on the highway, tied the driver, and stole the entire consignment of electronics.",highway robbery,"Pursuant to Article 321, Sub-section I, BNS 2023, is the hijacking of a delivery truck on the highway an offence of 'Dacoity' as defined under Article 322, Sub-section II, BNS 2023?
+
+Further, under Article 401, Sub-section II, BNSS 2023, what are the prescribed procedures for the registration of a First Information Report (FIR) in this incident, and what are the requisite steps for the police to take in the initial stages of investigation?
+
+Additionally, under Article 503, Sub-section III, BSA 2023, what are the admissibility and relevance of the tied driver's statement as an eyewitness account in the trial, considering the driver was allegedly under duress at the time of the incident?",253|340|58|109|231|254,309|311|127|303,0,0.0,0.0,0.0,0.0,1,0,0,1.0,0,5.779,0.093,76.103,81.975,1,0.6,0.1818,0.5,0.0568,0.0812,258,0
+39,My servant stole cash and gold ornaments from my almirah using a duplicate key he had secretly made.,theft by servant,"**Complaint for Theft under the Bharatiya Nyaya Sanhita 2023 (BNS)**
+
+To Whom It May Concern,
+
+I, [Name], a resident of [Address], lodged a complaint under Article 318(1) of the Bharatiya Nyaya Sanhita 2023 (BNS) against my servant, [Servant's Name], for the commission of the offence of theft.
+
+**Facts of the Case:**
+
+It is alleged that on or about [Date], my servant, [Servant's Name], knowingly and fraudulently used a duplicate key he had secretly made to gain unauthorized access to my almirah and thereby committed the offence of theft, as defined under Article 318(1) of the BNS.
+
+**Particulars of the Offence:**
+
+The stolen items include cash and gold ornaments, the total value of which is estimated to be [Amount]. I request that an investigation be conducted under Article 35 of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS) to determine the extent of the theft and to recover the stolen property.
+
+**Request for Relief:**
+
+I pray that the Honourable Court may take cognizance of the offence committed by my servant and proceed to try him in accordance with the provisions of the BNS. I also request that the Court may grant such relief as may be deemed fit and proper, including but not limited to, compensation for the loss suffered by me.
+
+**Verification:**
+
+I hereby verify that the contents of this complaint are true to the best of my knowledge and belief.
+
+**Signature of Complainant:**
+
+[Signature of Complainant]
+
+**Date:**
+
+[Date]",303|306,306|303|305,1,1.0,1.0,0.6667,0.8,1,0,0,1.0,0,6.865,0.191,99.507,106.563,1,0.8,0.7273,0.75,0.1364,0.0511,159,0
+40,"A known criminal gang has been robbing buses on rural roads; they stop the bus, beat passengers, and take all valuables.",belonging to gang of robbers,"Pursuant to Article 45 of the Bharatiya Nyaya Sanhita 2023 (BNS), we seek an opinion on whether the activities of the known criminal gang constitute the commission of a cognizable offence under Chapter 3, 'Offences Affecting the Human Body', Section 14 (1) (g) read with Section 14 (2) (h), BNS, which deals with 'Grievous Hurt' and 'Causing Hurt by Dangerous Weapons or Means', respectively.
+
+Furthermore, under Article 23 of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), we request a clarification on the procedure for arresting and detaining the suspects, considering that the offence is likely to be punishable under Section 21 (1) (a) BNSS, relating to 'Arrest without Warrant'.
+
+Additionally, under Article 11 of the Bharatiya Sakshya Adhiniyam 2023 (BSA), we seek guidance on the admissibility of evidence collected from the crime scene, including any statements made by eyewitnesses, in light of the provisions governing 'Relevant Evidence' and 'Relevant Facts' within Chapter 2, 'General Principles of Evidence', BSA.",113|14|148|111,313|309|310,0,0.0,0.0,0.0,0.0,1,0,0,0.75,0,5.054,0.134,57.823,63.011,1,0.6667,0.4545,1.0,0.0515,0.1172,304,0
+41,A real-estate agent collected advance money for a flat that he had already sold to someone else.,cheating,"Under the provisions of the Bharatiya Nyaya Sanhita 2023 (BNS), please clarify whether the actions of the real-estate agent in collecting advance money for a flat that he had already sold to someone else would constitute an offence under Article 123 (Cheating) or Article 125 (Punishment for fraud or deceit by a person in authority).
+
+Additionally, under the provisions of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), what would be the procedure for registering a First Information Report (FIR) against the real-estate agent, and what would be the powers of the police in investigating this case, specifically under Section 13 (Power to investigate cognizable offences) and Section 20 (Police officer's power to record statement of victims).
+
+Furthermore, under the provisions of the Bharatiya Sakshya Adhiniyam 2023 (BSA), what would be the standard of proof required to establish the guilt of the real-estate agent, specifically under Article 45 (Burden of proof), and how would the court evaluate the credibility of the evidence presented, including any documents or witnesses, under Article 67 (Evaluation of evidence).",123|125|314,318|319,0,0.0,0.0,0.0,0.0,1,0,0,0.3333,1,10.954,0.113,94.602,105.669,1,0.8,0.0,0.0,0.1081,0.0979,290,0
+42,An accountant in our company siphoned off funds by creating fake invoices and transferring money to his personal account.,criminal breach of trust and falsification of accounts,"Pursuant to Article 12 of the Bharatiya Nyaya Sanhita 2023 (BNS), it is reported that a case of misappropriation of company funds is suspected against an accountant. The alleged perpetrator is believed to have perpetrated this offense by creating fictitious invoices and thereby diverting company funds into his personal account, violating the principles of honesty and accountability.
+
+In conformity with the provisions of Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), it is requested to initiate an investigation to ascertain the veracity of the allegations and to determine the extent of the misappropriation. Further, under Section 96 of BNSS, it is necessary to identify and seize relevant financial records, documents, and evidence related to the alleged offense, including bank statements and invoices.
+
+Pursuant to Article 23 of the Bharatiya Sakshya Adhiniyam 2023 (BSA), we request that you consider the admissibility of the evidence collected, including electronic records and witness statements, in accordance with the principles of relevance, reliability, and authenticity.",339|344|335|303|314,314|344|316,1,1.0,0.4,0.6667,0.5,1,0,0,1.0,0,6.553,0.119,107.818,114.49,1,0.2,0.25,0.75,0.2407,0.0338,97,0
+43,I purchased a used car online; the seller provided forged RC and insurance documents and the car turned out to be stolen.,cheating and forgery,"In light of the provisions of the Bharatiya Nyaya Sanhita 2023 (BNS), I request clarification on the following:
+
+Pursuant to Article 256 of BNS, whether the act of providing forged Registration Certificate (Article 101, BNS) and forged insurance documents (Article 102, BNS) to induce the sale of a vehicle constitutes an offence under BNS.
+
+Furthermore, in view of the provisions of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), Article 123, whether the complainant's rights under BNSS have been violated, and whether a First Information Report (FIR) needs to be registered in this case.
+
+Additionally, under the provisions of the Bharatiya Sakshya Adhiniyam 2023 (BSA), Article 201, what is the admissibility of the forged documents as evidence (Article 205, BSA), and whether the stolen status of the vehicle can be established as a fact (Article 203, BSA).",338|339|335|341|340|303,318|336|340,1,0.3333,0.1667,0.3333,0.2222,1,0,0,1.0,0,3.272,0.095,92.682,96.049,1,0.6,0.7273,1.0,0.1053,0.1352,414,0
+44,A courier agent collected valuables for delivery but never delivered them and switched off his phone.,criminal misappropriation,"Pursuant to the provisions of Bharatiya Nyaya Sanhita 2023 (BNS), whether the actions of the courier agent constitute an offence under Article 279(1)(a) of BNS, specifically theft or misappropriation of entrusted property, by virtue of Section 2(f) of BNS, defined as ""property"" including any valuable security or document or any other valuable thing.
+
+Further, whether the subsequent conduct of the courier agent in switching off his phone, as per Article 279(2) of BNS, amounts to an obstruction of justice or concealment of evidence, thereby attracting the penal provisions of Article 279(3) of BNS.
+
+Additionally, under the framework of Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), what is the appropriate course of action for the complainant to register a First Information Report (FIR) and initiate the investigation process as mandated by Article 14(1) of BNSS, specifically in light of Section 2(b) of BNSS, which defines a 'reportable offence'.
+
+Lastly, in the context of Bharatiya Sakshya Adhiniyam 2023 (BSA), how does the burden of proof and the standard of proof apply to the prosecution in this case, particularly considering the principles enshrined in Article 5(1) of BSA, which states that the burden of proof lies on the prosecution, and Article 7(1) of BSA, which requires the prosecution to prove the guilt of the accused beyond reasonable doubt.",1|59|46|253,314|318,0,0.0,0.0,0.0,0.0,1,0,0,1.0,0,7.165,0.146,65.489,72.799,1,0.8,0.4444,1.0,0.1062,0.0881,338,0
+45,A man called my elderly mother pretending to be a bank officer and got her to share OTP; Rs 2 lakh was withdrawn from her account.,cyber fraud / cheating by personation,"Pursuant to Article 420 of the Bharatiya Nyaya Sanhita 2023, a complaint is lodged against an individual for allegedly committing the offence of cheating by impersonation. The accused allegedly made a false representation to the complainant's elderly mother, impersonating a bank officer, thereby inducing her to disclose her One-Time Password (OTP) and resulting in an unauthorized withdrawal of Rs 2 lakh from her account. This incident is sought to be investigated under Article 102(1) of the Bharatiya Nagarik Suraksha Sanhita 2023, and evidence is required to be collected and presented in conformity with the provisions of Chapter III, Section 12 of the Bharatiya Sakshya Adhiniyam 2023.",2|339|335|12|314,319|318|351,0,0.0,0.0,0.0,0.0,1,0,0,0.8,0,10.555,0.07,72.223,82.848,1,0.4,0.2667,0.75,0.0989,0.0769,197,0
+46,My business partner secretly transferred company funds to his personal account and denied any knowledge of it.,criminal breach of trust,"Pursuant to Article 320(1) of the Bharatiya Nyaya Sanhita 2023 (BNS) - ""Fraudulent dealings and misappropriation of property"" - and Section 123 of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS) - ""Cognizance of offences by Magistrate"", whether a Magistrate shall take cognizance of the alleged offence of misappropriation of company funds by my business partner, where the accused has denied any knowledge of the transaction and its subsequent transfer to his personal account, and if so, under what conditions and procedure as per Article 456(3) of the Bharatiya Nyaya Sanhita 2023 (BNS) - ""Investigation and inquiry"" and Section 245 of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS) - ""Investigation""?
+
+
+Additionally, under Article 190 of the Bharatiya Sakshya Adhiniyam 2023 (BSA) - ""Burden of proof"", what is the burden of proof on the prosecution to establish the guilt of the accused in this case, and under what circumstances, if any, can the accused's denial of knowledge be considered as evidence under Article 127 of the Bharatiya Sakshya Adhiniyam 2023 (BSA) - ""Evidence of good faith"".",339|335|1|303|314,314|316,1,1.0,0.2,0.5,0.2857,1,0,0,1.0,0,5.087,0.136,69.911,75.134,1,0.6,0.3333,0.6667,0.1212,0.0914,324,0
+47,A fake charity collected donations from the public for flood relief but used all the money for personal expenses.,cheating and misappropriation,"Petition for Relief: 
+
+Seeking direction under Bharatiya Nyaya Sanhita 2023 (BNS), whether the acts of the accused constitute an offence punishable under Article 228(B) ""Misappropriation of Charitable Donations"" (pertaining to fraudulent collection of funds for a public cause).
+
+In this context, seeking clarification on the applicability of BNSS Section 45(2), which pertains to the procedure for registration of charities, and the subsequent steps to be taken under BNSS Section 46(1) for investigation and prosecution of the accused.
+
+Further, under Bharatiya Sakshya Adhiniyam 2023 (BSA), seeking guidance on the admissibility of documentary evidence, as per Article 21(A) ""Bank Statements and Transaction Records as Evidence"", to establish the accused's misappropriation of charitable donations.",197|45|1|228|46,318|314,0,0.0,0.0,0.0,0.0,1,0,0,0.4,1,0.979,0.094,84.338,85.412,1,0.2,0.1,0.3333,0.1235,0.0676,211,0
+48,A jeweller replaced my real diamond with a fake one during a repair and returned the fake stone claiming it was mine.,cheating,"**Complaint under Section 384 of Bharatiya Nyaya Sanhita 2023 (BNS)**
+
+To the Hon'ble Magistrate,
+
+I, [Name], a citizen of India, herein submit a complaint against [Jeweller's Name], a jeweller by profession, for committing an offence under Section 384 of Bharatiya Nyaya Sanhita 2023 (BNS).
+
+**Facts of the Case:**
+
+On [Date], I entrusted [Jeweller's Name] with my diamond for repair and cleaning. However, upon receiving the item back from him, I discovered that the diamond had been replaced with a fake stone. When I brought this to his notice, he falsely claimed that the fake stone was indeed my original diamond.
+
+**Request for Action:**
+
+I respectfully request that an FIR be registered against [Jeweller's Name] under Section 384 of Bharatiya Nyaya Sanhita 2023 (BNS) for cheating and dishonestly inducing delivery of my property. I also request that necessary proceedings be initiated against him for his alleged wrongful act, as per the provisions of Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS).
+
+**Supporting Evidence:**
+
+I am prepared to provide any additional evidence as may be required to support my complaint, in accordance with the provisions of Bharatiya Sakshya Adhiniyam 2023 (BSA).
+
+**Verification:**
+
+I hereby verify that the facts stated in this complaint are true to the best of my knowledge and belief.
+
+**Signature:**
+[Your Signature]
+[Date]",338|356|1|341|384|303|247|314,318|314,1,1.0,0.125,0.5,0.2,1,0,1,0.875,0,5.734,0.167,103.46,109.363,1,0.5,0.625,1.0,0.117,0.0814,213,0
+49,I paid a travel agent Rs 3 lakh for a holiday package but no bookings were ever made and he is now unreachable.,cheating and absconding,"Complaint under Section 403, BNS (Cheating by a person in authority), alleging commission of offence by the travel agent for causing a loss of Rs 3,00,000 (three lakhs) to the complainant. 
+
+Pursuant to Section 202, BNSS, pray that the police conduct an investigation into the disappearance of the travel agent and take measures to secure his presence to face the legal proceedings, as his unavailability appears to be a deliberate attempt to evade the law.
+
+Under Section 60, BSA (Burden of proof), request that the burden of proving the travel agent's innocence be shifted to him, as the complainant has already provided sufficient evidence to demonstrate that the travel agent committed the offence of cheating.
+
+Additionally, under Section 32, BSA (Opinion and reputation), pray that the court admit the complainant's testimony regarding the travel agent's unprofessional conduct and the resultant loss suffered by the complainant.",403|202|60|32,318|314,1,1.0,0.0,0.0,0.0,1,0,1,0.0,1,6.14,0.101,56.628,62.869,1,0.4,0.1,0.3333,0.0506,0.0459,204,0
+50,A builder collected money from twenty buyers for the same ten flats by showing forged allotment letters.,cheating and forgery,"Pursuant to Section 409 of Bharatiya Nyaya Sanhita 2023 (BNS), a case of criminal breach of trust has been committed by the builder, as he collected money from twenty buyers on the pretext of allotting them ten flats, utilizing the allotment letters which were forged. 
+
+We request clarification on the following:
+- Whether the builder's actions amount to cheating under Section 417 of BNS, specifically in relation to the buyers who were shown forged allotment letters, and
+- Whether the BNSS (Bharatiya Nagarik Suraksha Sanhita 2023) provisions regarding the lodging of FIR and the subsequent investigation procedure will be applicable in this case, specifically section Article 159 of BNSS regarding the duty of the police to investigate criminal offenses.
+
+Furthermore, we seek clarification on the admissibility of the forged allotment letters as evidence under Bharatiya Sakshya Adhiniyam 2023 (BSA), specifically Section 60 regarding the admissibility of documents and electronic records as evidence, and Article 87 regarding the proof of documents.",2|60|417|1|409|334|314,318|336|338,0,0.0,0.0,0.0,0.0,1,0,2,0.5714,0,11.467,0.091,98.114,109.672,1,0.6,0.4286,0.75,0.131,0.0548,220,0
+51,"A person published a false article in the newspaper accusing me of corruption without any evidence, damaging my reputation.",defamation,"Pursuant to the provisions of the Bharatiya Nyaya Sanhita 2023 (BNS), the complainant seeks to initiate an action against an individual who, in a publication, made a knowingly false accusation of corruption against the complainant Article 123(1)(iii) of BNS, thereby causing harm to the complainant's reputation. 
+
+The complainant seeks to invoke the provisions of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS) for the purpose of registering a complaint and obtaining relief, specifically in relation to the sections governing the protection of reputation and the prevention of harm caused by false information (Article 47 of BNSS).
+
+The complainant also seeks to apply the relevant principles of evidence as enshrined in the Bharatiya Sakshya Adhiniyam 2023 (BSA), particularly with respect to the admissibility and evaluation of evidence in support of the complaint, including the burden of proof and the standard of proof required to establish the commission of the alleged offense (Article 11 of BSA).",197|355|232|353,356,0,0.0,0.0,0.0,0.0,1,0,0,1.0,0,5.003,0.088,77.821,82.913,1,0.6,0.375,0.6667,0.0526,0.0443,91,0
+52,A factory in our residential area releases toxic fumes every night causing breathing problems for all the residents.,public nuisance,"To: Hon'ble Magistrate, 
+
+Pursuant to Article 123(1) of the Bharatiya Nyaya Sanhita 2023 (BNS), it is submitted that a grievous offence under Article 45(2)(a) of the BNS is being committed by the factory in our residential area, resulting in harm to the residents, specifically causing respiratory distress. 
+
+Under Article 17(3) of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), an FIR is hereby requested to be registered against the factory owner for violating the Environmental Protection Act, 1986 and endangering the health, safety, and well-being of the residents. 
+
+Pursuant to Article 31(2) of the BNSS, an investigation under the direction of a Magistrate is sought to be initiated to determine the culpability of the factory owner. 
+
+Furthermore, it is prayed that the Magistrate may consider issuing an interim order under Article 42(4) of the BNSS to direct the factory to immediately cease operations and install appropriate pollution control measures. 
+
+It is also requested that the Magistrate may direct the concerned authorities to conduct a thorough investigation under Article 51(1) of the BNS to ascertain the extent of environmental damage caused by the factory. 
+
+Please consider this prayer and direct the respondents to comply with the orders of this Hon'ble Court. 
+
+Thank you.",1|118|324|314,270|280|292,0,0.0,0.0,0.0,0.0,1,0,0,1.0,0,5.341,0.119,105.355,110.814,1,0.8,0.25,0.6667,0.131,0.0509,217,0
+53,Someone is running an illegal lottery office in our neighborhood and many people have lost money.,keeping lottery office,"Under the aegis of the Bharatiya Nyaya Sanhita 2023, whether the operation of an unlawful lottery office constitutes an offence under Article 123(1)(a), and whether Section 14 of the Bharatiya Nagarik Suraksha Sanhita 2023 empowers the local authorities to seize the assets and documents of the said office, and whether Section 25 of the Bharatiya Sakshya Adhiniyam 2023 permits the admission of evidence of financial losses incurred by the victims in establishing the guilt of the perpetrators.",47|297|25|111|45|48,297,1,0.25,0.1667,1.0,0.2857,1,0,0,0.8333,0,0.814,2.167,66.854,69.835,1,0.6,0.4444,0.6667,0.0435,0.0795,146,0
+54,A person was singing obscene songs and making vulgar gestures in a public park in front of women and children.,obscene acts in public,"Is the accused liable under BNS, 2023 for the offence of outraging the modesty of a woman, as defined under Article 228B(1) of BNS, 2023, coupled with the breach of public decency as per Article 228C(2) of BNS, 2023, in view of the alleged obscene songs and lewd gestures committed in a public park where women and children were present, thereby potentially causing distress or harm to them?
+
+Please note: 
+- The definition of 'public place' under BNSS, 2023, Article 17(3) would be relevant in determining the jurisdiction of the case.
+- Appropriate sections of BNSS, 2023, specifically Articles 228A (Public Nuisance) and 228D (Disorderly Conduct in a Public Place) may also be applicable depending on the specifics of the incident.
+- Relevant sections of BSA, 2023, such as Article 34 (Burden of Proof) and Article 37 (Presumption of Guilt) may be considered during the trial.",52|270|51|75,296|79,0,0.0,0.0,0.0,0.0,1,0,0,1.0,0,4.007,0.104,84.352,88.463,1,0.8,0.5556,1.0,0.1392,0.0969,196,0
+55,My ex-boyfriend shared my private photographs on social media and created a fake profile using my pictures.,defamation and voyeurism,"Pursuant to Section 499 of the Bharatiya Nyaya Sanhita 2023 (BNS), does the creation and dissemination of private photographs of an individual by another person, without their consent, and with the intention of causing harm to their reputation, constitute the offence of defamation? 
+
+Furthermore, does the creation of a fake social media profile using the private photographs of another individual, as described, contravene Article 10 of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), specifically the provisions related to creating or operating a fake digital identity?",356|353,356|77|294,1,1.0,0.5,0.3333,0.4,1,0,0,1.0,0,4.808,0.059,57.19,62.059,1,0.6,0.6154,0.75,0.0933,0.0402,167,0
+56,A shop is openly selling obscene magazines and DVDs to school children near a school campus.,sale of obscene material to children,"Pursuant to Article 226(1) of the Bharatiya Nyaya Sanhita 2023 (BNS), it is respectfully submitted to seek a legal opinion on whether the sale of obscene materials, as defined under Article 117(5) of BNS, to school children near a school campus constitutes an offence under Article 117(1)(d) of BNS.
+
+Further, under Article 33(2) of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), it is requested to determine the appropriate procedure for seizure of the obscene materials and the subsequent action to be taken against the shop owner under Article 33(3) of BNSS.
+
+Additionally, under Section 23 of the Bharatiya Sakshya Adhiniyam 2023 (BSA), we seek clarification on the admissibility of evidence in court, specifically with regards to the testimony of school children as witnesses, and the application of Section 24(2)(a) of BSA on the reliability of such evidence.",24|84|33|295|209|294,294|295,1,0.3333,0.3333,1.0,0.5,1,0,0,0.6667,0,1.418,0.092,85.314,86.824,1,0.8,0.5556,1.0,0.0566,0.0868,292,0
+57,A man standing on the road deliberately shows obscene images on his phone to women passing by.,sexual harassment and obscene acts,"Under the provisions of the Bharatiya Nyaya Sanhita 2023 (BNS), whether the act of a man displaying obscene images on his phone to women passing by constitutes an offence under Article 321(1)(a) of BNS, specifically an act intended to outrage the modesty of a woman, and if so, what are the corresponding legal consequences under the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS) for the perpetrator, including the provisions for arrest, detention, and trial, as per Section 43(2)(a)(i) of BNSS. Additionally, what are the admissibility and evidentiary requirements under the Bharatiya Sakshya Adhiniyam 2023 (BSA) for proof of the said offence, including the burden of proof and the standard of proof, as per Article 91(3) of BSA.",48|43|75|74|296,75|296|79,1,0.3333,0.4,0.6667,0.5,1,0,0,0.8,0,5.691,0.082,46.651,52.425,1,0.8,0.3333,0.6667,0.0745,0.1335,251,0
+58,A woman was raped by a man who broke into her house late at night when she was alone.,rape and housebreaking,"Whether the act constituting aggravated assault under Article 321(1)(b) of the Bharatiya Nyaya Sanhita 2023, committed by the perpetrator who broke into the complainant's residence in contravention of Article 153(2) of the Bharatiya Nagarik Suraksha Sanhita 2023, and subsequently engaged in non-consensual sexual conduct with the complainant, constitutes the offence of sexual assault under Article 456(1) of the Bharatiya Nyaya Sanhita 2023, and if so, what is the relevant burden of proof and standard of proof to be applied in the trial, as per Article 278 of the Bharatiya Sakshya Adhiniyam 2023.",24|248|76|1|74|78,63|65|330,0,0.0,0.0,0.0,0.0,1,0,0,0.8333,0,3.172,0.064,76.43,79.666,1,0.2,0.5,1.0,0.0427,0.1265,316,0
+59,A college professor asked a female student for sexual favours in exchange for better grades.,sexual harassment and abuse of authority,"Whether the act of a college professor soliciting a female student for sexual favours in exchange for better academic grades falls within the scope of the offence defined under Article 377 of the Bharatiya Nyaya Sanhita 2023 (BNS), specifically in relation to 'exploitation of a vulnerable individual', and whether such act would be considered an act of 'coercion' or 'undue influence' under Article 13 of the Bharatiya Nyaya Sanhita 2023 (BNS), thus attracting the provisions of the BNSS (Bharatiya Nagarik Suraksha Sanhita 2023) for 'criminal conspiracy', and what evidence can be adduced to support the prosecution's case under the provisions of the Bharatiya Sakshya Adhiniyam 2023 (BSA) to establish the guilt of the accused.",68|98|76|75|77,75|68,1,0.3333,0.4,1.0,0.5714,1,0,0,1.0,0,6.343,0.083,81.841,88.267,1,0.8,0.5,1.0,0.0989,0.0919,288,0
+60,"A man has been following a woman from her office to her home daily, sending unwanted gifts, and watching her through binoculars.",stalking and voyeurism,"**Bharatiya Nyaya Sanhita 2023 (BNS) Query**
+
+The following incident is reported: A person has been continuously following another individual, a woman, from her place of work to her residence, on multiple occasions. He has also been dispatching unwarranted gifts to her residence. Furthermore, he has been observing her through a pair of binoculars on various instances.
+
+**Bharatiya Nyaya Sanhita 2023 (BNS) relevant provisions:**
+
+- Has the perpetrator committed the offence of stalking under Article 234(1)(a) of the BNS, which defines stalking as 'continuously following or attempting to gain access to a person with a view to engaging in non-consensual conduct'?
+- Has the accused's actions constituted a 'criminal intimidation' offence under Article 292(2)(a) of the BNS, given the unwarranted gifts and observation through binoculars?
+- Are there sufficient grounds to suspect the perpetrator of committing a 'harassment by use of surveillance device' offence under Article 314(1) of the BNS, considering the use of binoculars to observe the woman?
+- What preliminary investigation and evidence collection procedures should be undertaken as per Article 43(1) of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS) to gather evidence and determine the extent of the perpetrator's involvement in the alleged offences?
+
+**Evidence Requirements:**
+
+- What documentary and physical evidence should be collected and preserved, as per Article 18(2) of the Bharatiya Sakshya Adhiniyam 2023 (BSA), to support or refute the allegations made against the perpetrator?
+- Should the victim's statements and testimony be recorded, as per Article 31(1) of the Bharatiya Sakshya Adhiniyam 2023 (BSA), to document her account of the incidents and provide corroborative evidence?",84|209|292|78|314,78|77,1,0.5,0.2,0.5,0.2857,1,0,0,0.6,0,6.957,0.198,89.1,96.255,1,0.8,0.1818,0.5,0.1412,0.0692,218,0
+61,A man grabbed a woman's dupatta and tried to disrobe her in a market while others watched.,assault to disrobe woman,"Pursuant to Bharatiya Nyaya Sanhita 2023 (BNS), an application is sought for the registration of a criminal complaint under offences related to outraging a woman's modesty and assault, as per Article 321, BNS. 
+
+Under what circumstances would a case be made out under BNS Article 321, BNS, and what would be the admissibility of evidence under Bharatiya Sakshya Adhiniyam 2023 (BSA) in establishing the accused's guilt and the complainant's testimony? Furthermore, what provisions of Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS) would be applicable in the matter of investigation, trial, and disposal of the complaint, particularly with regard to the duty of the police under BNSS Article 45, and the powers of the Magistrate under BNSS Article 62?",74|76|62,76|74,1,0.1667,0.6667,1.0,0.8,1,0,0,1.0,0,4.637,0.08,49.962,54.678,1,0.6,0.8889,1.0,0.1205,0.1005,214,0
+62,A married man had sexual intercourse with his wife during judicial separation against her will.,sexual intercourse during separation,"Whether the act of the married man having sexual intercourse with his wife during the pendency of judicial separation (as per BNS, Article 123) against her will, constitutes an act of sexual assault under BNS, Article 221(1)(d), and if so, whether the said act would be a cognizable offence under BNSS, Article 53(1)(a), and whether the burden of proof would shift to the accused under BSA, Article 21(1), and whether the said act would be considered as rape under BNS, Article 218(1)(b) in view of the absence of her consent.",63|67|76|74|77|129,67,1,1.0,0.1667,1.0,0.2857,1,0,0,1.0,0,10.643,0.065,67.523,78.232,1,1.0,0.75,1.0,0.1447,0.1125,335,0
+63,A man secretly installed a hidden camera in the women's changing room of a gym to record videos.,voyeurism,"Under the Bharatiya Nyaya Sanhita 2023 (BNS), a complaint is sought to be lodged against an individual who allegedly committed the offence of secretly installing a hidden camera in the women's changing room of a gym to record videos, thereby violating Article 23 of the BNS, which prohibits voyeurism and other forms of unwarranted surveillance, and potentially engaging in an act amounting to the offence of stalking or harassment under Article 24 of the BNS.
+
+Furthermore, under the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), the complainant seeks an order for the registration of a First Information Report (FIR) under Article 42 of the BNSS, and a subsequent investigation be conducted to gather evidence, including the seizure of the hidden camera and any recorded videos, in accordance with the provisions of Sections 156 and 157 of the BNSS.
+
+Additionally, under the Bharatiya Sakshya Adhiniyam 2023 (BSA), the complainant seeks to rely on the provisions of Article 13, which deals with the admissibility of electronic evidence, and Article 20, which pertains to the burden of proof, to establish the guilt of the accused and to secure a conviction under the BNS.",353|24|23|355|292,77,0,0.0,0.0,0.0,0.0,1,0,0,0.6,0,7.78,0.116,76.276,84.172,1,0.8,0.0,0.0,0.1111,0.0871,260,0
+64,A man deceived a woman into believing they were lawfully married and cohabited with her for months.,deceitful cohabitation,"Petition for Deception and Cohabitation under the Bharatiya Nyaya Sanhita 2023 (BNS) and Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS):
+
+To the Hon'ble Magistrate of this Court,
+
+Whether the accused, by virtue of Article 17(1) of the BNS, has committed the offence of Deception, as defined under Article 17(2)(a) of the BNS, by inducing the complainant to cohabit with him with the false representation that they were lawfully married?
+
+Whether the complainant's prolonged cohabitation with the accused, subsequent to the deception, constitutes sufficient prima facie evidence to establish the offence of Cohabitation by Deception, as per Article 25(3) of the BNS?
+
+Whether the accused's actions, as alleged by the complainant, amount to an offence punishable under Article 34(1) of the BNS, and thus, warrants an investigation under Section 37(2) of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS)?
+
+Whether the complainant's testimony, as corroborated by material evidence, satisfies the requirements of Section 10(1) of the Bharatiya Sakshya Adhiniyam 2023 (BSA) to establish the alleged offence, and thus, warrants further investigation and proceedings?
+
+Please advise.",2|197|263|37|303|81,81|83,1,1.0,0.1667,0.5,0.25,1,0,0,0.8333,0,5.55,0.154,61.262,66.966,1,0.4,0.5,1.0,0.0918,0.0965,248,0
+65,A man who is already married performed a second marriage with another woman without disclosing his first marriage.,bigamy,"Pursuant to the Bharatiya Nyaya Sanhita 2023 (BNS), whether the act of a man who has entered into a second marriage without disclosing his existing marital status to the second spouse, constitutes an offence under Article 494 of the BNS, specifically ""Marrying again during the lifetime of a husband or wife.""",2|56|82,82,1,0.3333,0.3333,1.0,0.5,1,0,0,0.6667,0,0.605,0.067,65.989,66.661,1,0.2,0.6667,1.0,0.0984,0.1,151,0
+66,A woman left her newborn baby in a dustbin near the hospital and disappeared.,exposure and abandonment of child,"Pursuant to the provisions of the Bharatiya Nyaya Sanhita 2023 (BNS), a query arises as to whether the act of abandoning a newborn child in a public place, specifically a dustbin near a hospital, constitutes the offence of ""Negligent Homicide or Culpable Homicide"" under Article 304 of the BNS. Furthermore, under the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), it is pertinent to inquire as to the manner in which the police shall investigate this incident, specifically whether a magisterial inquiry under Section 176 of the BNSS is warranted to determine the cause of death and the circumstances surrounding the abandonment of the newborn child.
+
+Additionally, under the provisions of the Bharatiya Sakshya Adhiniyam 2023 (BSA), it is necessary to consider the admissibility of evidence in this case, particularly whether the testimony of any witnesses or the medical examination of the newborn child's body shall be admissible under Article 60 of the BSA as relevant to the case.",229|109|101|176,93|94,0,0.0,0.0,0.0,0.0,1,0,0,0.75,0,6.858,0.117,91.838,98.813,1,0.6,0.125,0.6667,0.0978,0.0595,233,0
+67,A begging ring operator hired several children aged 7-10 to beg at traffic signals and took all the money they collected.,employing children to commit offence,"Can you please clarify the age range of the children involved in this incident, as your statement mentions 7-10 years, while typically in many jurisdictions, children under 7 are considered minors. Assuming the age range is indeed 7-10, here is a rewritten query based on the new laws:
+
+Whether the actions of the begging ring operator constitute an offence under Article 321 (BNS) - Child Labour, and if so, what provisions of Article 321 (BNS) are applicable to this situation? 
+
+Additionally, what are the obligations of the authorities under Article 234 (BNSS) - Duties of Police Officers, in relation to the welfare and protection of the children involved in this incident? 
+
+Lastly, what evidence, if any, can be relied upon under Article 109 (BSA) - Types of Evidence, to prove the guilt of the begging ring operator, and what is the admissibility of testimony from the children in this regard, especially considering their age and potential vulnerability?",139|109|234|21,95|139,1,1.0,0.25,0.5,0.3333,1,0,0,0.5,0,6.14,0.083,50.608,56.832,1,0.8,0.4,0.6667,0.2162,0.0545,186,0
+68,A couple secretly delivered a baby and disposed of the body to conceal the birth from neighbours.,concealment of birth,"Whether the actions of the couple constitute an offence under the provisions of Section 312, BNS (Abortion not permitted), read with Section 201, BNS (Causing disappearance of evidence of offence, or giving false information to screen offender), and Section 203, BNS (Giving false information respecting an offence committed), in conjunction with Section 34, BNS (Acts done by several persons in furtherance of common intention).
+
+Further, whether the couple can be held liable under Section 174, BNSS (Police inquest) for concealing the birth and disposing of the body, and if so, what are the consequences of their actions under the provisions of Section 176, BNSS (Magistrate inquest)?
+
+Additionally, whether the prosecution can rely on the circumstantial evidence gathered in this case, and if so, what provisions of the BSA (Bharatiya Sakshya Adhiniyam 2023) would be applicable in establishing the guilt of the couple, particularly Section 30, BSA (Burden of proof), and Section 105, BSA (Presumption as to abetment of offence).",90|55|89|105|113|92|30,94,0,0.0,0.0,0.0,0.0,1,0,0,0.7143,0,3.783,0.093,90.226,94.103,0,0.5,0.5,1.0,0.1154,0.113,206,0
+69,A minor girl aged 14 was procured by a broker and supplied to a client for sexual exploitation.,procuration of minor,"Pursuant to the provisions of the Bharatiya Nyaya Sanhita 2023 (BNS), it is respectfully requested to clarify the following legal issue:
+
+Whether, under Article 372(2) of the BNS, the procurement and supply of a minor girl (aged 14) for the purpose of sexual exploitation, perpetrated by a broker and a client, constitutes an offence punishable under Article 456(1) BNS, and if so, what are the consequent penal consequences for the abovementioned accused parties?
+
+Additionally, please provide guidance on the applicability of Article 234 of the Bharatiya Sakshya Adhiniyam 2023 (BSA) in admissibility of evidence in respect of the minor girl's age and the procurement and supply of her services for sexual exploitation.
+
+Furthermore, it is requested to clarify the procedural aspects of this case under the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), specifically with regard to the requirements of Article 278(1) BNSS for registration of the offence, and the provisions of Article 321(3) BNSS for investigation and gathering of evidence.",139|84|56|209|456,96|98,0,0.0,0.0,0.0,0.0,1,0,1,0.8,0,4.081,0.115,54.471,58.667,1,0.6,0.3,0.6667,0.0776,0.1462,320,0
+70,"A doctor performed an abortion on a woman in her eighth month of pregnancy without medical justification, and the baby died.",causing death of unborn child,"Is the doctor liable under Section 316(1) of the Bharatiya Nyaya Sanhita 2023 (BNS) for causing the death of the foetus, and if so, can they be prosecuted under Article 173 of the BNSS 2023 for causing death or injury contrary to section 316(1) BNS 2023? 
+
+Furthermore, under Section 53(2) of the Bharatiya Sakshya Adhiniyam 2023 (BSA), can the prosecution rely on circumstantial evidence to establish the doctor's criminal liability for the death of the foetus, given that they performed the abortion without medical justification?",90|53|89|92|316,92|88,1,0.3333,0.2,0.5,0.2857,1,0,0,0.8,0,5.21,0.076,76.111,81.397,1,1.0,1.0,1.0,0.1477,0.1372,302,0
+71,A woman was forcibly given medicine by her mother-in-law to cause a miscarriage because the family wanted a boy child.,causing miscarriage without consent,"Pursuant to Section 322 of the Bharatiya Nyaya Sanhita 2023 (BNS), a formal complaint is lodged against the mother-in-law for alleged commission of the offence of voluntarily causing miscarriage, with the intention of causing the unborn child to be born dead, or of causing the woman to miscarry her unborn child.
+
+Further, under Section 498 of the Bharatiya Nyaya Sanhita 2023 (BNS), the husband and other relatives of the accused are also implicated for allegedly subjecting the woman to cruelty, amounting to an offence under this provision.
+
+Additionally, under Article 12 of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), the investigating officer is directed to take cognizance of the case and initiate an inquiry into the allegations of the offence, as the same appears to be a cognizable offence.
+
+Lastly, under Article 15 of the Bharatiya Sakshya Adhiniyam 2023 (BSA), the burden of proof of the accused's intention to cause the miscarriage shall lie on the prosecution, as the accused is presumed to be innocent until proven guilty.",89|88|1|209|113,89|85,1,0.3333,0.2,0.5,0.2857,1,0,0,1.0,0,1.01,0.134,70.835,71.979,1,0.6,0.5455,0.6667,0.1071,0.0675,170,0
+72,A 5-year-old child was enticed with chocolates by a neighbour who then kept the child locked in his house for two days.,kidnapping of minor,"Petition under Bharatiya Nyaya Sanhita 2023 (BNS) for commission of the offence(s) punishable under Article 226 (Kidnapping) and/or Article 245 (False Imprisonment) against the neighbour in question.
+
+Query: 
+
+Whether the actions of the neighbour, involving enticing a minor into his house with the promise of chocolates and subsequently detaining the child for a period of two days, constitute a criminal offence under the BNS, and if so, what are the requisite elements for proving such an offence, as per Article 226 and/or Article 245 of the BNS. 
+
+Additionally, a question under Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS) regarding the lawful procedure for the filing of a First Information Report (FIR) and/or the manner in which the investigation should be conducted, as well as the procedural safeguards available to the minor victim under Article 35 (Protection of Vulnerable Witnesses) of the BNSS.
+
+Further, a query under Bharatiya Sakshya Adhiniyam 2023 (BSA) regarding the admissibility of evidence, specifically with regard to the testimony of the minor victim, under Article 27 (Relevancy of Facts) of the BSA, and/or the admissibility of physical evidence collected from the neighbour's house, as per Article 39 (Proof of Documents) of the BSA.",139|245|332,137|127,0,0.0,0.0,0.0,0.0,1,0,0,0.6667,0,11.16,0.15,77.266,88.576,1,0.6,0.25,0.6667,0.0532,0.0742,213,0
+73,A group posted online manifestos calling people to take up arms against the Indian government.,waging war against government,"**Petition for Investigation and Prosecution under Bharatiya Nyaya Sanhita 2023 (BNS)**
+
+To the Honorable Magistrate,
+
+I humbly submit this application seeking a formal investigation into a serious incident where a group of individuals posted online manifestos, inciting citizens to take up arms against the Government of India, thereby allegedly committing an act of sedition under Article 16, Section 2, Sub-Section 1 of Bharatiya Nyaya Sanhita 2023 (BNS).
+
+**Pursuant to Section 10, Sub-Section 3 of BNSS**, I request that the Honorable Magistrate initiate a preliminary inquiry to determine whether the aforesaid group has committed any cognizable offenses under BNS.
+
+**Pursuant to Section 20, Sub-Section 2 of BNSS**, I request that the Honorable Magistrate direct the investigating officer to collect relevant evidence, including digital records and online content, to establish the identity of the individuals involved and the extent of their involvement in the aforesaid incident.
+
+**Pursuant to Section 60, Sub-Section 1 of BSA**, I request that the Honorable Magistrate ensure that the investigation is conducted in accordance with the principles of natural justice and that the rights of the accused are protected at all stages of the proceedings.
+
+I request that the Honorable Magistrate take necessary action to ensure that the aforesaid group is brought to justice and that the rights of the citizens of India are safeguarded against such incitement to violence and sedition.",1|60|2|10|20|209|3|4,147|152,0,0.0,0.0,0.0,0.0,1,0,0,0.375,1,1.604,2.441,41.384,45.429,1,0.6,0.6154,1.0,0.072,0.0892,313,0
+74,"During a village election, a candidate distributed cash and liquor to voters to get their votes.",electoral bribery,"Application under Bharatiya Nyaya Sanhita 2023 (BNS), to determine whether the actions of the candidate constitute the offence of 'corrupt practice' as defined under Article 11(1)(d) of BNS, and whether the distribution of cash and liquor to voters amounts to 'undue influence' under Article 11(1)(e) of BNS.
+
+Further, in light of the aforesaid alleged offence, it is requested to provide directions for the conduct of proceedings under Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), specifically to determine the procedure for summoning the candidate and witnesses under Section 59 of BNSS, and for the preservation and production of evidence under Section 65 of BNSS.
+
+Additionally, it is requested to consider the admissibility and relevance of evidence in accordance with the provisions of Bharatiya Sakshya Adhiniyam 2023 (BSA), particularly with respect to the proof of 'corrupt practice' and 'undue influence' as defined under BNS.",65|171|59|176,170|173,0,0.0,0.0,0.0,0.0,1,0,0,0.5,0,0.595,0.089,51.404,52.088,1,0.6,0.4444,1.0,0.0882,0.0593,332,0
+75,A mob of about 200 people armed with sticks and swords attacked shops belonging to a particular community after a rumour spread on social media.,rioting and promoting enmity,"Petition for Legal Redressal: 
+
+In light of the recent communal violence, we respectfully submit the following query for interpretation under the Bharatiya Nyaya Sanhita 2023 (BNS) and Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS):
+
+Whether the actions of the mob, comprising approximately 200 individuals armed with sticks and swords, who assaulted and damaged shops belonging to a particular community following a social media-borne rumour, constitute an offence under Article 124(B) of the BNS, which pertains to 'Unlawful Assembly Causing Disruption to Public Order' and 'Incitement of Communal Violence'? 
+
+Furthermore, under Article 35(2) of the BNSS, what steps can be taken by the authorities to prevent and control such violence, and what provisions of the law can be invoked to prosecute the perpetrators? 
+
+Additionally, under the framework of the Bharatiya Sakshya Adhiniyam 2023 (BSA), what is the admissibility of social media posts as evidence in proving the inciting rumour and the subsequent violence?",1|196,189|191|196,1,0.2,0.5,0.3333,0.4,1,0,0,1.0,0,5.495,0.06,66.949,72.503,1,0.8,0.5,0.75,0.0811,0.1291,368,0
+76,A man voted in the election using someone else's identity card and later the real voter was turned away at the booth.,personation at election,"Subject: Alleged Offence Under the Bharatiya Nyaya Sanhita 2023 (BNS) - Article 123(1)(c) - Impersonation at a Voting Station
+
+Query:
+
+Whether the act of a person voting in an election using someone else's identity card, with the intent to deceive the election officials and the other person (the genuine voter), constitutes an offence under Article 123(1)(c) of the Bharatiya Nyaya Sanhita 2023 (BNS), and whether the act of turning away the genuine voter at the voting station constitutes a separate offence under the BNSS, specifically under the provisions governing obstruction of lawful proceedings, and whether the BNSS provides for the admissibility of electronic evidence, such as voting records and surveillance footage, under Article 43 of the Bharatiya Sakshya Adhiniyam 2023 (BSA), in proving the alleged offence and identifying the perpetrator.",172|337,172|174,1,0.3333,0.5,0.5,0.5,1,0,0,1.0,0,4.335,0.078,76.874,81.288,1,0.8,0.5,1.0,0.1233,0.0808,189,0
+77,A political leader gave a speech asking Hindus and Muslims to fight each other and burn each other's shops.,promoting enmity between groups,"Whether the acts and statements attributed to the political leader constitute a cognizable offence under Article 123 of Bharatiya Nyaya Sanhita 2023, specifically Section 2 of that Article, which pertains to promoting communal discord, and whether the same may be prosecuted under Section 7 of Bharatiya Nagarik Suraksha Sanhita 2023, which deals with public order, and whether any statements made by the political leader may be admitted as evidence under Article 17 of Bharatiya Sakshya Adhiniyam 2023, specifically Section 2 thereof, which relates to statements against the interest of the party making them, and whether the same may be used to establish the intent and knowledge of the accused under Article 15 of Bharatiya Sakshya Adhiniyam 2023.",1|353|2|17|5|7,196|197|353,1,0.2,0.1667,0.3333,0.2222,1,0,0,0.6667,0,5.593,0.048,102.026,107.667,0,0.4,0.5455,0.6667,0.0909,0.0867,317,0
+78,Two groups had a public brawl in the market with sticks and stones causing panic among bystanders.,affray,"Pursuant to Section 299 of Bharatiya Nyaya Sanhita 2023, it is requested to clarify whether the actions of the individuals involved in the public brawl in the market, wherein they inflicted bodily harm upon each other using sticks and stones, would constitute culpable homicide not amounting to murder. Furthermore, under Section 141 of Bharatiya Nagarik Suraksha Sanhita 2023, it is sought to determine whether the participants in the brawl would be held criminally liable for the disturbance of public peace and tranquility. In addition, under Section 6 of Bharatiya Sakshya Adhiniyam 2023, it is requested to clarify the burden of proof and the admissibility of evidence in relation to the identification of the perpetrators and the extent of their involvement in the incident.",1|353|109|6|141|113|292|299|4,194|131,0,0.0,0.0,0.0,0.0,1,0,0,0.6667,0,5.364,0.069,89.884,95.317,1,0.8333,0.4286,1.0,0.0796,0.0845,338,0
+79,A man wearing a police uniform set up a fake checkpoint and was collecting fines from truck drivers on a national highway.,impersonation of public servant,"Pursuant to Section 145(1), Bharatiya Nyaya Sanhita 2023, what constitutes a punishable offense under Article 12(3), Bharatiya Nyaya Sanhita 2023, when a person, impersonating a public servant, sets up a fake checkpoint and extorts money from truck drivers on a national highway, thereby usurping the authority of a legitimate public servant and committing an act of cheating and dishonesty?
+
+Further, under Section 42(2), Bharatiya Nagarik Suraksha Sanhita 2023, what is the lawful procedure for dealing with such an offender, including the powers of the police and the jurisdiction of the Magistrate in investigating and prosecuting this offense?
+
+Lastly, pursuant to Articles 27(5) and 31(7), Bharatiya Sakshya Adhiniyam 2023, what is the admissibility of evidence collected during the investigation of this offense, particularly with regards to the testimony of eyewitnesses, documentary evidence, and any other relevant proof?",56|353|231|195|59|42,204|205|308,0,0.0,0.0,0.0,0.0,1,0,0,0.8333,0,7.221,0.061,83.275,90.557,1,0.6,0.5,1.0,0.0818,0.2196,431,0
+80,A government clerk intentionally prepared a false caste certificate for someone in exchange for a bribe.,public servant making false document,"Whether the actions of the government clerk constitute an offence under Article 167(1) of the Bharatiya Nyaya Sanhita 2023 (issuance of a false document) read with Article 174(2) of the Bharatiya Nyaya Sanhita 2023 (accepting a bribe), and whether the same can be prosecuted under Chapter III of the Bharatiya Nagarik Suraksha Sanhita 2023 (Public Servants: Misconduct and Corruption) in light of Article 23(1) of the Bharatiya Nagarik Suraksha Sanhita 2023 (preliminary inquiry and investigation) and Article 31(3) of the Bharatiya Nagarik Suraksha Sanhita 2023 (power to arrest).",1|199|31|23|195|113|59,201|336|170,0,0.0,0.0,0.0,0.0,1,0,0,0.7143,0,6.304,0.07,92.307,98.681,1,0.6,0.1667,0.5,0.1389,0.0799,199,0
+81,Someone entered the temple at night and smeared black paint on the idol and wrote offensive graffiti on the walls.,defiling place of worship,"Complaint under the Bharatiya Nyaya Sanhita 2023 (BNS) for the alleged commission of an offence under Article 279(1) of the BNS, which reads:
+
+""Whoever intentionally causes any permanent or irreparable damage to or destruction of any deity, idol, temple or any other place of worship by defacing, disfiguring, or otherwise damaging the same, shall be punished with imprisonment for a term which shall not be less than one year but which may extend to five years.""
+
+Under the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), a First Information Report (FIR) may be registered under Section 154 of the BNSS, which requires the informant to provide a written complaint to the officer-in-charge of the nearest police station.
+
+In addition, this incident may also be a case of intentional destruction or damage of property under Article 284(2) of the BNS, which requires the accused to be punished with imprisonment for a term which shall not be less than two years but which may extend to ten years, and also liable to fine.
+
+The accused may also be liable for the offence of making a public mischief under Article 299(1) of the BNS, which requires the accused to be punished with imprisonment for a term which shall not be less than one year but which may extend to three years.
+
+The Bharatiya Sakshya Adhiniyam 2023 (BSA) may be applicable in this case for the collection and preservation of evidence, including photographs, videos, and other materials that may be relevant to the investigation.
+
+It is also necessary to inquire into the possibility of the accused being motivated by any prejudice or hatred against the particular deity or the community that worships it, which may amount to an offence under Article 289(1) of the BNS.",279|154,298|299|329,0,0.0,0.0,0.0,0.0,1,0,0,0.0,1,2.288,2.546,38.216,43.05,1,0.8,0.2222,0.3333,0.1304,0.0735,190,0
+82,A person loudly abused and mocked the religious practices of another community during their festival procession.,wounding religious feelings,"Complaint under Section 295-B of Bharatiya Nyaya Sanhita 2023 (BNS) for the commission of an offence of outraging the religious feelings of any class of citizens, read with Section 509(1)(d) of BNS, in view of the alleged abusive and mocking behaviour towards another community's religious practices during their festival procession, and to seek redress under the provisions of Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS) for initiating an inquiry and investigation into the incident, while also seeking to invoke the provisions of Bharatiya Sakshya Adhiniyam 2023 (BSA) for the admissibility and weightage of evidence in support of the complaint.",295|299|1|209|84|3|509,302|299,1,0.1667,0.1429,0.5,0.2222,1,0,1,0.5714,0,10.699,0.1,62.876,73.675,1,0.8,0.5,1.0,0.0789,0.1081,338,0
+83,"A group of boys trespassed into a graveyard at night, dug up a grave, and stole jewellery from the corpse.",trespass on burial place and theft,"Pursuant to the Bharatiya Nyaya Sanhita 2023, an inquiry is sought regarding potential commission of the offences under Section 420 of BNS (Cheating and dishonestly inducing delivery of property) and/or Section 442 of BNS (Trespassing into a place of burial), as well as Section 447 of BNS (Punishment for criminal trespass), in connection with the alleged act of a group of boys who, on a night, trespassed into a graveyard, dug up a grave, and stole jewellery from the corpse. 
+
+Furthermore, an investigation is also warranted under the Bharatiya Nagarik Suraksha Sanhita 2023 to determine whether any provisions under Article 174 of BNSS (Cognizance of offences by Executive Magistrate) or Article 175 of BNSS (Cognizance of offences by Police Officer) have been breached, especially in light of the fact that the jewellery was stolen from a corpse, potentially amounting to desecration of a grave.
+
+Additionally, an analysis of the evidence gathered is required under the Bharatiya Sakshya Adhiniyam 2023, specifically Article 15 of BSA (Relevancy of facts), Article 16 of BSA (Relevancy of electronic records), and Article 28 of BSA (Relevancy of statements made to police).",447,301|303|329,0,0.0,0.0,0.0,0.0,1,0,1,0.0,1,9.157,0.157,75.074,84.388,1,1.0,0.4545,0.75,0.1594,0.0636,159,0
+84,A man disrupted a prayer meeting in a mosque by shouting slogans and throwing shoes inside.,disturbing religious assembly,"Pursuant to Article 123(1) of the Bharatiya Nyaya Sanhita 2023 (BNS), we seek an interpretation of the liability of the accused for allegedly committing the offense under Section 290 of BNS (Wilful Obstruction or Disruption of a Public Meeting or Procession), in addition to the offense under Section 292 of BNS (Voluntarily Causing Hurt by Harming Person or Property), specifically where the incident involved disruption of a prayer meeting at a mosque, by shouting slogans and throwing shoes inside, thereby potentially causing hurt to the person or damage to the property of the mosque, and thus falling under the purview of Section 300 of BNS (Criminal Negligence).",1|4|300|290|292,300|298,0,0.0,0.2,0.5,0.2857,1,0,0,0.4,1,7.608,0.09,90.226,97.924,1,0.8,0.0,0.0,0.1235,0.049,218,0
+85,My neighbour entered my house without permission while I was away and rearranged furniture and left a threatening note.,criminal trespass and intimidation,"Complaint under Section 427 of the Bharatiya Nyaya Sanhita 2023 (BNS) - Criminal Misappropriation of Property, and Section 448 of the Bharatiya Nyaya Sanhita 2023 (BNS) - House-Trespass, and Section 506 of the Bharatiya Nyaya Sanhita 2023 (BNS) - Criminal Intimidation.
+
+Pursuant to Section 154 of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), a First Information Report (FIR) is requested to be registered for the commission of the aforesaid offenses.
+
+As per Section 27 of the Bharatiya Sakshya Adhiniyam 2023 (BSA), documentary evidence of the threatening note and any other relevant proof is to be collected and preserved, and the same shall be made available to the investigating authorities for the purpose of investigation and prosecution.
+
+Request for investigation and preservation of evidence under Section 100 of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS).",1|27|506|4|427|100|448,329|332|351,0,0.0,0.0,0.0,0.0,1,0,3,0.2857,1,1.119,0.116,92.563,93.798,1,1.0,0.4286,0.6667,0.1169,0.0404,165,0
+86,"A drunk man created a ruckus at a railway station, used filthy language, and urinated on the platform in front of passengers.",misconduct by drunken person,"Pursuant to Article 279(1)(a) of the Bharatiya Nyaya Sanhita 2023 (BNS), a complaint is sought to be registered under Section 189(B)(i) of the BNS, against the accused for allegedly causing a disturbance and obstructing the public passage, while being intoxicated (Article 191(2)(b) of the BNS). Furthermore, the accused may be liable under Article 213(2) of the BNS for using obscene language (Section 189(B)(ii) of the BNS), and under Section 198(B)(i) of the BNS for urinating in public, thereby causing nuisance and discomfort to the passengers present at the railway station. 
+
+In accordance with Article 21(3) of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), it is requested to invoke provisions for the accused's arrest and detention under Section 22(4) of the BNSS, as well as to direct the issuance of a notice under Section 15(3) of the BNSS to the accused, requiring him to appear before the magistrate within a stipulated timeframe.
+
+Additionally, evidence of the incident is sought to be collected, and it is proposed to examine the passengers present at the railway station who witnessed the incident, in accordance with the provisions of Article 35(1) of the Bharatiya Sakshya Adhiniyam 2023 (BSA), and to admit any relevant video or audio recordings, photographs, or other documentary evidence that may be available, as per the guidelines laid down in Section 28(2) of the BSA.",189|355|198|213,355|270|296,1,0.25,0.25,0.3333,0.2857,1,0,0,0.25,1,4.498,0.169,83.073,87.74,1,1.0,0.625,1.0,0.0435,0.0625,191,0
+87,"During a quarrel over water, my neighbour intentionally insulted me in front of the entire colony trying to provoke me to fight.",intentional insult to provoke breach of peace,"Pursuant to the provisions of the Bharatiya Nyaya Sanhita 2023, an Incident Report is submitted under Article 12(1) of the BNS to enquire into the commission of an offence under Article 174(1)(b) of the BNS, read with Article 176(2)(c) of the BNSS, wherein an individual has been made the subject of a public insult or provocation with intent to provoke a breach of peace, as described under Article 176(1)(a) of the BNSS, allegedly perpetrated by the neighbour, thereby requiring the Collector or Magistrate as per Article 174(4) of the BNS to initiate an investigation under Article 176(10) of the BNSS, and to gather evidence in accordance with the procedures specified under the Bharatiya Sakshya Adhiniyam 2023.",47|248|195|48,352,0,0.0,0.0,0.0,0.0,1,0,0,1.0,0,5.542,0.08,45.899,51.521,1,0.4,0.5556,0.6667,0.0649,0.0751,155,0
+88,Police found a printing press in my area that was producing fake two-thousand rupee notes.,counterfeiting currency,"Pursuant to Article 226, Section 2(a) of the Bharatiya Nyaya Sanhita 2023 (Manufacture of Counterfeit Currency), it is respectfully submitted that there appears to be a case of producing counterfeit currency at a printing press situated in the vicinity. 
+
+To this effect, we seek to know the course of action to be taken under Article 226, Section 2(b) of the Bharatiya Nyaya Sanhita 2023 in order to seize the said printing press, the equipment used therein, and the counterfeit currency printed, and to initiate proceedings for the commission of the aforementioned offense.
+
+Additionally, we request guidance on the procedures to be followed under Article 312, Section 4 of the Bharatiya Nagarik Suraksha Sanhita 2023 (Search and Seizure) for conducting a thorough search of the premises, and to collect evidence to be used in the trial.
+
+Furthermore, we seek clarity on the admissibility of documents and records seized from the printing press under Article 214, Section 3 of the Bharatiya Sakshya Adhiniyam 2023 (Relevant Documents and Facts), and whether the same can be used as evidence to establish the commission of the offense.",1|4|341|178|182|342,178|181,1,0.2,0.1667,0.5,0.25,1,0,0,1.0,0,11.055,0.136,86.839,98.03,1,0.8,0.5714,1.0,0.0932,0.1107,351,1
+89,A person paid me with fake five-hundred rupee notes for goods I sold; I realized later when the bank rejected them.,using counterfeit currency,"Petition for prosecution under Section 427 of the Bharatiya Nyaya Sanhita 2023 (BNS), read with Section 120 of the Bharatiya Nyaya Sanhita 2023 (BNS), for the offence of cheating and using forged currency. 
+
+Requesting an investigation under Chapter X of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS) to identify the perpetrator and recover the proceeds of the offence. 
+
+Requesting the court to admit the bank's communication rejecting the forged currency notes as a relevant document under Section 59 of the Bharatiya Sakshya Adhiniyam 2023 (BSA).",179|59|427|120,179|180,1,0.125,0.25,0.5,0.3333,1,0,1,0.25,1,6.616,0.081,53.172,59.869,0,1.0,0.4444,1.0,0.2,0.0331,153,0
+90,A man forged a court order and used it to claim ownership of my ancestral property at the registrar's office.,forgery of court record,"Pursuant to Article 32(1) of the Bharatiya Nyaya Sanhita 2023 (BNS), it is respectfully prayed that a complaint be registered under Article 123(1)(a) of BNS against the perpetrator for committing the offence of 'Forgery of a Court Document' and 'Cheating by Personation'. 
+
+Further, it is requested to seek an investigation into this matter under Article 44(2) of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS) to determine the perpetrator's culpability and to ensure that the ancestral property is secured and protected from any further unauthorized transactions.
+
+Additionally, a request is made to invoke the provisions of Article 17(1) of the Bharatiya Sakshya Adhiniyam 2023 (BSA) to collect and preserve evidence related to this incident, including but not limited to, the forged court order, the registration documents, and any other relevant documents or records.",339,336|337|340,0,0.0,0.0,0.0,0.0,1,0,0,1.0,0,3.679,0.08,85.137,88.896,1,0.8,0.3636,0.6667,0.15,0.0424,135,0
+91,"Someone created a fake will in my deceased father's name to claim his property, forging his signature and a witness's signature.",forgery of will,"**Formal Legal Query**
+
+Pursuant to Article 123(1) of the Bharatiya Nyaya Sanhita 2023, can you please advise on the legal consequences and remedies available to me, as a legitimate heir and beneficiary, in relation to the commission of the offence under Article 45(2) and Article 46(1) of the Bharatiya Nyaya Sanhita 2023, which involves creating a forged document (Article 2(3) BNS) in the form of a will, purportedly signed by my deceased father and a witness, with the intention of deceiving and defrauding the legal heirs, including myself, of my father's property?
+
+Furthermore, under the provisions of Article 56(2) of the Bharatiya Nagarik Suraksha Sanhita 2023, what steps can I take to initiate a criminal investigation and prosecution in this matter, including the filing of a First Information Report (Article 3(1) BNSS) and the subsequent steps to be taken by the investigating agency (Article 14(2) BNSS)?
+
+Additionally, can you advise on the admissibility and probative value of the forged document in a court of law, in light of Article 34(1) and Article 35(2) of the Bharatiya Sakshya Adhiniyam 2023?",1|335|111|2|339,336|338|335,1,0.5,0.2,0.3333,0.25,1,0,0,1.0,0,4.076,0.138,109.639,113.853,1,0.8,0.6,1.0,0.1009,0.0764,250,0
+92,A shopkeeper in our area has been using fake stamp papers for executing property agreements.,counterfeiting government stamps,"Petition for Investigation into Alleged Offense under Section 420 of Bharatiya Nyaya Sanhita 2023 and Section 204 of Bharatiya Nagarik Suraksha Sanhita 2023.
+
+Whether the actions of the shopkeeper in utilizing forged stamp papers for execution of property agreements constitute a cognizable offense, and if so, whether a Magistrate's Order under Section 155 of Bharatiya Nagarik Suraksha Sanhita 2023 is warranted for initiating an investigation into this alleged offense.
+
+Further, what evidence is required to establish the commission of this offense under Article 15 of Bharatiya Sakshya Adhiniyam 2023, and what procedural safeguards must be observed during the investigation and subsequent trial to ensure the rights of the accused are protected as enshrined in Article 20 of Bharatiya Sakshya Adhiniyam 2023.",209|341|230|84|338|155|46,178|179,0,0.0,0.0,0.0,0.0,1,0,0,0.8571,0,4.911,0.095,52.228,57.234,1,1.0,0.5455,0.6667,0.0748,0.114,265,0
+93,An employee of a firm altered financial records in the company's accounting software to hide his embezzlement.,falsification of accounts,"Pursuant to Article 225 of the Bharatiya Nyaya Sanhita 2023 (BNS), we seek clarification on the following:
+
+Whether the act of an employee in altering financial records in the company's accounting software, with the intention of concealing embezzlement, amounts to an offence under BNS, Article 225, which deals with 'Cheating' by personation, or any other relevant provision of BNS, and whether this act can be prosecuted under the said statute.
+
+Furthermore, we seek guidance on the procedure to be followed for the registration and investigation of this offence, as per the provisions of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), specifically Section 155 thereof, which deals with 'Police to enquire and report'.
+
+Additionally, we request clarification on the admissibility of electronic records as evidence in this case, in light of the provisions of the Bharatiya Sakshya Adhiniyam 2023 (BSA), specifically Section 64 thereof, which deals with 'Admissibility of electronic records'.",1|64|340|314|155|210|339,344|314,1,0.25,0.1429,0.5,0.2222,1,0,0,0.7143,0,3.174,0.112,90.924,94.21,1,0.4,0.25,0.6667,0.0796,0.0963,332,0
+94,A drug dealer was caught selling narcotic substances near a school and was also found with a licensed firearm which he used to threaten buyers who owed him money.,drug offences with extortion,"Pursuant to the Bharatiya Nyaya Sanhita 2023 (BNS), a formal complaint is being lodged against an individual for alleged commission of the offence of ""Trafficking in Narcotic Substances"" under Article 304-A of the BNS, read with Article 309 of the BNS, for selling narcotic substances within a prohibited area, specifically near a school. 
+
+Furthermore, the individual is also being charged with the offence of ""Unlawful Possession of a Firearm"" under Article 517 of the BNS, as he was found in possession of a licensed firearm, which was allegedly used to threaten and intimidate individuals who owed him money.
+
+Under the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), it is requested that a Magistrate take cognizance of this case and direct the registration of an FIR (First Information Report) under Article 101-A of the BNSS, and subsequently initiate an investigation into the allegations levelled against the individual.
+
+Additionally, in accordance with the Bharatiya Sakshya Adhiniyam 2023 (BSA), it is requested that the court direct the collection and preservation of evidence, including but not limited to, any records of transactions, witness statements, and any other relevant material that may be pertinent to the investigation, in order to ensure a fair and just trial.",47|56|111|229,308|351|270,0,0.0,0.0,0.0,0.0,1,0,0,1.0,0,6.649,0.164,81.874,88.687,1,0.3333,0.3846,0.75,0.1566,0.069,185,0
+95,"An organized gang has been operating a fake call center, impersonating tax officials, and extorting money from people threatening them with arrest.",organised crime / cheating / extortion,"Pursuant to the provisions of Bharatiya Nyaya Sanhita 2023 (BNS) and Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), the following formal legal query is framed:
+
+Whether the activities of the organized gang constitute an offense under BNS Article 145(1) (Unlawful and fraudulent activities), specifically by virtue of Article 145(2)(i) (Impersonation of public servants), Article 145(2)(ii) (Extortion), and Article 145(2)(v) (Menace and threat of arrest or other penal consequences), and whether the same can be investigated and prosecuted under BNSS, specifically under Section 19(1) (Power to investigate cognizable offenses) in conjunction with Section 20(1) (Police officer's power to arrest without warrant in certain cases)?
+
+Further, whether the evidence collected during the investigation can be used as admissible evidence under Bharatiya Sakshya Adhiniyam 2023 (BSA), particularly under Article 15(1) (Relevant evidence), and whether the same can be relied upon to establish the guilt of the accused under BSA Article 25(2) (Presumption of guilt in cases of extortion and impersonation)?",1|112|19|111|148|20,111|319|308|318,1,0.3333,0.1667,0.25,0.2,1,0,0,0.6667,0,5.201,0.201,95.644,101.047,1,0.8,0.1818,0.25,0.1389,0.0832,237,0
+96,"During communal riots, a mob set fire to several houses and a member of the mob raped a woman whose family was fleeing.","rioting, arson, and rape","In light of the recent amendment to the Bharatiya Nyaya Sanhita 2023 (BNS) and Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), please clarify the following:
+
+Whether the act of setting fire to several houses by a mob constitutes the offence of 'Promoting or attempting to promote communal disharmony or on grounds of religion, caste, community, language, region, or any of them' under Article 13(1)(a) of BNS, coupled with the offence of 'Mischief causing damage to property', and whether such acts can be considered as 'Cognizable Offences' as per Section 2(1)(ii) of BNSS.
+
+Additionally, whether the act of rape committed by a member of the mob during the communal riots constitutes the offence of 'Sexual Assault' as defined under Article 17(2) of BNS, and whether the victim can seek relief under Section 14(1)(iii) of BNSS, considering the aggravating circumstances of the riot. 
+
+Lastly, please clarify the admissibility of evidence collected from the scene of the crime, including footage from any CCTV cameras, under the provisions of the Bharatiya Sakshya Adhiniyam 2023 (BSA), particularly in relation to Section 23(3)(b) thereof.",1|195|4|2|353|23|113|46|14|44,191|326|63|65,0,0.0,0.0,0.0,0.0,1,0,0,0.7,0,4.292,0.21,92.784,97.286,1,0.8,0.5833,0.75,0.0769,0.0675,255,0
+97,A known terrorist group planted a bomb in a market killing five people and injuring dozens.,terrorist act,"Pursuant to Article 13(1) of the Bharatiya Nyaya Sanhita 2023 (BNS), a formal complaint is hereby lodged against the individuals or entities responsible for the commission of the offense under Section 121, 121A, and/or 302 of the BNS, in relation to the planting of an explosive device in a public place resulting in the loss of five lives and grievous injuries to numerous individuals.
+
+Furthermore, an application is made to invoke the provisions of Article 12(2) of the BNSS, to direct the investigating agency to register an FIR under Section 154 of the BNSS and to initiate prompt and thorough investigation as per Chapter VII of the BNSS, with a view to apprehend the perpetrators and bring them to justice.
+
+Additionally, it is requested to examine the admissibility of evidence under Section 60 of the Bharatiya Sakshya Adhiniyam 2023 (BSA) and to consider the applicability of the provisions related to 'relevant evidence' under Section 3 of the BSA, in relation to the collection, preservation, and production of evidence in this case.",1|4|48|60|121A|47|302|3|154|121,113|101|103,0,0.0,0.0,0.0,0.0,1,0,0,0.4,1,6.051,0.077,79.734,85.861,1,0.4,0.0833,0.25,0.1286,0.0403,241,0
+98,"A doctor at a government hospital demanded Rs 50,000 from a poor patient's family to perform an emergency surgery and refused to treat without payment.",non-treatment of victim and extortion,"Whether the actions of the doctor, a public servant rendering medical services at a government hospital, constitute an offence under Article 321(2)(a) of the Bharatiya Nyaya Sanhita 2023, specifically with regard to the offence of demanding gratification for official acts (BNS, 2023), and Article 421(1) of the Bharatiya Nyaya Sanhita 2023, pertaining to refusal to render services due to non-payment (BNS, 2023), thereby attracting provisions of the Public Servants (Prevention of Disqualification) Act, 2006, as may be applicable.
+
+Furthermore, whether the actions of the doctor are violative of Article 17 of the Bharatiya Nagarik Suraksha Sanhita 2023, which deals with the right to receive medical care without discrimination (BNSS, 2023), and whether the family of the patient has a right to approach the appropriate authorities under the provisions of Article 42 of the Bharatiya Nagarik Suraksha Sanhita 2023 for redressal of their grievance (BNSS, 2023).
+
+Additionally, whether the burden of proof in establishing the aforesaid offences lies on the family of the patient, and whether any specific provision of the Bharatiya Sakshya Adhiniyam 2023 is applicable in this regard, specifically Article 9, which deals with the burden of proof (BSA, 2023).",127|200|59|199|198,200|308,1,0.25,0.2,0.5,0.2857,1,0,0,1.0,0,4.142,0.104,81.634,85.88,1,0.8,0.3077,0.3333,0.1978,0.0699,220,0
+99,A woman mixed poison into her husband's food intending to kill him but he survived after being rushed to hospital; she was also found to have taken a large life insurance policy on him a week before.,attempt to murder and poisoning,"Pursuant to Section 302 of the Bharatiya Nyaya Sanhita 2023, whether the acts of the woman, involving the intentional administration of a poisonous substance with the intent to cause the death of her husband, and concurrently, procuring a life insurance policy on him, thereby creating a motive for the alleged act, amount to the offence of murder or attempted murder, and if so, whether she can be held liable for the same under Section 306 BNS 2023, read with Article 304 BNS 2023.",90|304|306|55,109|123|61,0,0.0,0.0,0.0,0.0,1,0,0,0.5,0,2.07,0.047,72.731,74.847,1,0.4,0.6667,0.75,0.1881,0.0819,277,0
+100,"A group of men forcibly entered a Dalit family's home, beat them severely for drawing water from the village well, destroyed their household items, and hurled casteist slurs at them in front of the village.",caste violence / rioting / mischief / hurt,"Petition for Investigation and Prosecution under the Bharatiya Nyaya Sanhita 2023 (BNS) and Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS):
+
+To the Hon'ble Magistrate,
+
+Pursuant to Article 21 of the Constitution of India and under the provisions of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS), I humbly submit the following petition for investigation and prosecution of the perpetrators involved in the following incident:
+
+On [date], a group of men forcibly entered the residence of a Dalit family at [village name], and subjected them to severe physical assault, rendering them vulnerable to physical harm and endangering their life under Article 21 of the Constitution of India. The assailants also destroyed the household items of the victims, thereby causing damage to their property.
+
+Furthermore, the perpetrators hurled casteist slurs at the victims, which amounts to an offense under Article 3 of the Bharatiya Nyaya Sanhita 2023 (BNS), thereby perpetuating social disharmony and violating the fundamental rights of the victims.
+
+The victims' action of drawing water from the village well does not constitute any offense, and the perpetrators' actions were, therefore, unjustified and arbitrary.
+
+In light of the above, I respectfully request that the Magistrate initiate a thorough investigation under Section 96 of the Bharatiya Nagarik Suraksha Sanhita 2023 (BNSS) and take necessary steps to prosecute the perpetrators under the relevant provisions of the Bharatiya Nyaya Sanhita 2023 (BNS).
+
+The evidence collected during the investigation may be admitted under Article 2 of the Bharatiya Sakshya Adhiniyam 2023 (BSA) to ensure that justice is served to the victims.
+
+Please find attached the requisite documents, including the First Information Report (FIR), statements of the witnesses, and medical reports of the victims.
+
+Thank you for your immediate attention to this matter.
+
+Sincerely,
+[Your Name]
+Petitioner.",229|356|96,189|191|117|324|196,0,0.0,0.0,0.0,0.0,1,0,0,0.6667,0,6.017,0.151,102.296,108.463,1,0.1667,0.0,0.0,0.2857,0.0561,163,0
