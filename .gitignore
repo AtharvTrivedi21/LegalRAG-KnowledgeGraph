@@ -27,6 +27,16 @@ Datasets/
 phase1_output/
 phase3_embeddings/output/
 phase3_embeddings/models/
+phase3_embeddings/bge-legal-bns-groq/
+phase3_embeddings/bge-legal-bns-groq_checkpoints/
+phase3_embeddings/model_backups/
+evaluation/results/backups/
+bns_comparison/faiss_bns_only/faiss.index
+bns_comparison/faiss_bns_only/chunk_metadata.pkl
+*.safetensors
+*.bin
+*.pt
+*.pth
 
 # Large CSV data files (exceed GitHub 100 MB limit)
 phase1_output_v2/cases_sc.csv
