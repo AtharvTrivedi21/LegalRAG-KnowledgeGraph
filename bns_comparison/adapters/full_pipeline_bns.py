@@ -130,8 +130,8 @@ class FullPipelineBNSAdapter(BaseAdapter):
         self._index = faiss.read_index(str(BNS_FAISS_INDEX_PATH))
         with open(BNS_CHUNK_METADATA_PATH, "rb") as f:
             self._metadata = pickle.load(f)
-        # Force CPU so GPU is free for Ollama llama3:8b
-        self._model = SentenceTransformer(str(FINE_TUNED_MODEL_DIR), device="cpu")
+        embed_device = os.getenv("SYS3_EMBED_DEVICE", "cpu").strip() or "cpu"
+        self._model = SentenceTransformer(str(FINE_TUNED_MODEL_DIR), device=embed_device)
         self._loaded = True
 
     def _retrieve_diverse(self, query: str, k: int = TOP_K, min_sections: int = 3) -> List[Dict]:

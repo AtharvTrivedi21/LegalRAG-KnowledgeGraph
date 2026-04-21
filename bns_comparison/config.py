@@ -41,10 +41,10 @@ OLLAMA_LLM_MODEL = "llama3:8b"
 OLLAMA_EMBED_MODEL = "nomic-embed-text"
 OLLAMA_TIMEOUT = 300
 
-# Groq Cloud settings (single key or rotating pool: GROQ_API_KEY_1..N)
+# Groq Cloud settings (use only the last configured key)
 import os
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")
-GROQ_API_KEYS = [
+_GROQ_KEY_CANDIDATES = [
     v for v in (
         os.environ.get("GROQ_API_KEY_1", "").strip(),
         os.environ.get("GROQ_API_KEY_2", "").strip(),
@@ -54,8 +54,12 @@ GROQ_API_KEYS = [
     )
     if v
 ]
-if not GROQ_API_KEYS and GROQ_API_KEY:
+if _GROQ_KEY_CANDIDATES:
+    GROQ_API_KEYS = [_GROQ_KEY_CANDIDATES[-1]]
+elif GROQ_API_KEY:
     GROQ_API_KEYS = [GROQ_API_KEY]
+else:
+    GROQ_API_KEYS = []
 GROQ_MODEL = "llama-3.1-8b-instant"  # same family as llama3:8b (Llama 3.1 8B)
 GROQ_RPM_LIMIT = 30  # free tier: 30 requests per minute
 
