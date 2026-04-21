@@ -2,9 +2,11 @@
 
 All figures below are **row-wise means** over `n=100` cases in the exported CSVs (computed with pandas on the same machine as the development logs). Slight floating-point display differences are normal.
 
-## Baseline vs Groq-supervised embedding (primary comparison)
+## S1 vs S2 (primary comparison)
 
-| Metric | Baseline `system3_results_100_baseline.csv` | Groq FT `system3_results_100_groq_ft.csv` | Delta |
+Naming reference: `evaluation/SYSTEM_NAMES.md`
+
+| Metric | S1 — Legacy Baseline RAG (`system3_results_100_baseline.csv`) | S2 — Groq-Synthetic FT RAG (`system3_results_100_groq_ft.csv`) | Delta |
 |--------|---------------------------------------------|-------------------------------------------|-------|
 | `hit_rate` | 0.460 | 0.590 | **+0.130** |
 | `mrr` | 0.192785 | 0.345011 | **+0.152226** |
@@ -23,8 +25,9 @@ All figures below are **row-wise means** over `n=100` cases in the exported CSVs
 
 | File | Role |
 |------|------|
-| `system3_results_100.csv` | Often the “current default” run; compare filenames before treating as baseline |
-| `system3_results_100_rerank_smoke.csv` | Tiny smoke test (not statistically meaningful) |
+| `system3_results_100.csv` | Legacy default export (same run family as S1; confirm naming before publication) |
+| `system3_results_100_nonft_bge_dedup.csv` | S3 — Base-BGE Non-FT RAG (clean deduplicated artifact) |
+| `system3_results_100_rerank_smoke.csv` | S4 smoke test only (not statistically meaningful) |
 | `backups/` | Timestamped copies of important runs—use if primary CSV was overwritten |
 
 ## Reranker experiment

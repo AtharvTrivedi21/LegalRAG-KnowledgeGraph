@@ -1,0 +1,101 @@
+case_id,answer_relevance,context_relevance,groundedness,avg_relevance,justification
+1,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+2,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+3,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+4,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+5,1.0,1.0,1.0,1.0,Answer directly addresses query topics and procedures; retrieved context contains the requested BNS sections; citations in the answer are present in the retrieved context.
+6,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+7,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+8,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+9,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+10,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+11,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+12,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+13,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+14,1.0,1.0,1.0,1.0,Answer directly addresses query topics and procedures; retrieved context contains the requested BNS sections; citations in the answer are present in the retrieved context.
+15,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+16,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+17,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+18,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+19,1.0,1.0,1.0,1.0,Answer directly addresses query topics and procedures; retrieved context contains the requested BNS sections; citations in the answer are present in the retrieved context.
+20,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+21,1.0,0.8,0.3,0.7,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; answer contains unsupported or fabricated claims.
+22,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+23,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+24,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+25,0.8,0.8,1.0,0.9,Answer mostly addresses the query with relevant guidance; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+26,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+27,1.0,1.0,1.0,1.0,Answer directly addresses query topics and procedures; retrieved context contains the requested BNS sections; citations in the answer are present in the retrieved context.
+28,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+29,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+30,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+31,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+32,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+33,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+34,0.8,0.8,0.3,0.6,Answer mostly addresses the query with relevant guidance; most retrieved sections are relevant to the query; answer contains unsupported or fabricated claims.
+35,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+36,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+37,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+38,0.8,0.5,1.0,0.8,Answer mostly addresses the query with relevant guidance; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+39,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+40,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+41,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+42,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+43,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+44,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+45,0.8,0.5,1.0,0.8,Answer mostly addresses the query with relevant guidance; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+46,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+47,0.8,0.8,1.0,0.9,Answer mostly addresses the query with relevant guidance; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+48,0.8,0.5,1.0,0.8,Answer mostly addresses the query with relevant guidance; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+49,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+50,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+51,1.0,1.0,1.0,1.0,Answer directly addresses query topics and procedures; retrieved context contains the requested BNS sections; citations in the answer are present in the retrieved context.
+52,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+53,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+54,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+55,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+56,0.8,0.5,1.0,0.8,Answer mostly addresses the query with relevant guidance; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+57,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+58,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+59,0.8,1.0,1.0,0.9,Answer mostly addresses the query with relevant guidance; retrieved context contains the requested BNS sections; citations in the answer are present in the retrieved context.
+60,0.8,0.8,1.0,0.9,Answer mostly addresses the query with relevant guidance; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+61,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+62,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+63,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+64,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+65,0.8,0.5,1.0,0.8,Answer mostly addresses the query with relevant guidance; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+66,0.8,0.8,1.0,0.9,Answer mostly addresses the query with relevant guidance; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+67,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+68,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+69,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+70,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+71,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+72,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+73,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+74,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+75,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+76,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+77,0.8,0.8,1.0,0.9,Answer mostly addresses the query with relevant guidance; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+78,0.8,1.0,1.0,0.9,Answer mostly addresses the query with relevant guidance; retrieved context contains the requested BNS sections; citations in the answer are present in the retrieved context.
+79,0.8,0.8,1.0,0.9,Answer mostly addresses the query with relevant guidance; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+80,0.8,0.8,1.0,0.9,Answer mostly addresses the query with relevant guidance; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+81,1.0,1.0,1.0,1.0,Answer directly addresses query topics and procedures; retrieved context contains the requested BNS sections; citations in the answer are present in the retrieved context.
+82,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+83,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+84,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+85,0.8,0.8,1.0,0.9,Answer mostly addresses the query with relevant guidance; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+86,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+87,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+88,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+89,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+90,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+91,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+92,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+93,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+94,1.0,0.5,0.3,0.6,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; answer contains unsupported or fabricated claims.
+95,1.0,0.8,0.3,0.7,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; answer contains unsupported or fabricated claims.
+96,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+97,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+98,1.0,0.5,1.0,0.8,Answer directly addresses query topics and procedures; context is mixed; some sections are tangential; citations in the answer are present in the retrieved context.
+99,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.
+100,1.0,0.8,1.0,0.9,Answer directly addresses query topics and procedures; most retrieved sections are relevant to the query; citations in the answer are present in the retrieved context.

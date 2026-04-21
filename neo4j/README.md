@@ -1,3 +1,18 @@
+# neo4j
+
+Purpose
+- Cypher scripts and import helpers for building a Neo4j knowledge graph from phase1 outputs.
+
+What’s here
+- `cypher/` — load scripts: `02_load_nodes.cypher`, `03_load_edges_v2.cypher`, smoke tests.
+- Import helpers and `neo4j_load.py`.
+
+How to run
+- Prepare CSVs from `phase1_output_v2/`, then run the cypher load scripts against a local Neo4j instance.
+
+Notes & results
+- Use `phase1_output_v2/validation_report.md` to verify node/edge counts before and after import.
+
 # Phase-2: Local Neo4j (Desktop) KG Build
 
 This folder contains the Cypher scripts to import Phase-1 outputs into a **local Neo4j Desktop** database using `LOAD CSV`.

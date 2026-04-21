@@ -27,6 +27,8 @@ python -m rerank_experiment.run_100 --start 1 --end 100 --raw-results evaluation
 - Uses current `bns_comparison` FAISS index and configured embedding model path.
 - Respects Groq/Ollama backend auto-selection from existing `_ollama.py` helper.
 - Designed for A/B comparison with:
-  - `evaluation/results/system3_results_100_baseline.csv`
-  - `evaluation/results/system3_results_100_groq_ft.csv`
+  - S1 — Legacy Baseline RAG: `evaluation/results/system3_results_100_baseline.csv`
+  - S2 — Groq-Synthetic FT RAG: `evaluation/results/system3_results_100_groq_ft.csv`
+  - S3 — Base-BGE Non-FT RAG: `evaluation/results/system3_results_100_nonft_bge_dedup.csv`
+- Naming reference: `evaluation/SYSTEM_NAMES.md`
 

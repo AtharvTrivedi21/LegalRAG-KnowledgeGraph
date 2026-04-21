@@ -1,3 +1,14 @@
+# sys4
+
+Purpose
+- Alternate system experiments (System4) and comparison scripts.
+
+What’s here
+- `run_compare_one.py`, `lqrag_adapter.py`, and comparison result CSVs under `results/`.
+
+Notes
+- Use comparison scripts to benchmark System3 vs System4 in relevant metrics.
+
 # sys4 — isolated System 4 (LQ-RAG-style + Neo4j graph)
 
 This folder is self-contained: it does **not** change `bns_comparison` defaults or `requirements.txt` at the repo root. Systems 1–3 keep working exactly as before via `python -m bns_comparison.compare_one`.

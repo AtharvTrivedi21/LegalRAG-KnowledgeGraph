@@ -1,0 +1,11 @@
+case_id,answer_relevance,context_relevance,groundedness,avg_relevance,justification
+31,0.9,0.8,0.8,0.9,"Answer identifies dacoity and gang liability and outlines arrest/evidence preservation steps; retrieved context supports dacoity and procedural sections."
+32,0.8,0.8,0.7,0.8,"Answer sensibly links robbery/dacoity and evidentiary preservation needs though some procedural detail is brief; context contains relevant provisions."
+33,0.9,0.9,0.9,0.9,"Answer applies trafficking/kidnapping-for-begging provisions accurately and recommends urgent investigation; retrieved context contains matching trafficking and child-protection sections."
+34,0.8,0.8,0.8,0.8,"Answer recommends FIR and outlines investigation steps for assault/abduction scenario; retrieved context supports custody and investigation provisions."
+35,0.9,0.8,0.8,0.9,"Answer appropriately frames sexual-harassment and wrongful-confinement issues and requests statements and protection; context contains sexual-offence and protective provisions."
+36,0.8,0.7,0.7,0.8,"Answer identifies negligence and regulatory remedies and suggests evidence collection; context partially matches with negligence and procedural sections."
+37,0.9,0.9,0.9,0.9,"Answer correctly invokes fraud/cheating and recommends freezing assets and investigation; retrieved context contains fraud and evidence-preservation sections."
+38,0.8,0.8,0.7,0.8,"Answer links illegal possession/unauthorised entry to theft-related offences and recommends police action; context contains theft/possession provisions."
+39,0.9,0.9,0.9,0.9,"Answer applies assault and grievous-hurt provisions with proper next steps for FIR and forensic collection; context contains matching sections and citations."
+40,0.8,0.8,0.8,0.8,"Answer recommends procedural remedies for consumer/business fraud and preservation of transactional evidence; retrieved context includes relevant evidence and fraud sections."

@@ -1,0 +1,11 @@
+case_id,answer_relevance,context_relevance,groundedness,avg_relevance,justification
+21,1.0,0.9,1.0,1.0,"Answer correctly instructs immediate FIR/ investigation for kidnapping and ransom; retrieved context contains kidnapping and extortion provisions and procedural guidance."
+22,0.9,0.8,0.8,0.8,"Answer reasonably applies forced-servitude/trafficking and reporting steps and flags digital evidence, though some evidentiary specifics are general; retrieved context partially matches."
+23,0.9,0.9,0.9,0.9,"Answer applies kidnapping/maiming-for-begging and gang provisions and outlines prosecution steps; retrieved context contains the relevant child-trafficking and punishment sections."
+24,0.9,0.9,0.9,0.9,"Answer properly frames the act as kidnapping/wrongful confinement, recommends immediate reporting and highlights admissibility of digital evidence; retrieved context supports those provisions."
+25,0.9,0.8,0.8,0.8,"Answer sensibly pursues sexual-harassment/kidnapping angles and asks for recorded statements and protection orders; retrieved context includes sexual-harassment and procedural sections."
+26,0.8,0.8,0.7,0.8,"Answer identifies kidnapping from guardianship and trafficking risks but mixes some unrelated homicide language; retrieved context contains relevant kidnapping/trafficking sections."
+27,0.9,0.8,0.8,0.8,"Answer correctly invokes trafficking statutes and police/magistrate remedies and treats worker testimony as relevant evidence; retrieved context supports trafficking and inquiry powers."
+28,0.9,0.9,0.9,0.9,"Answer correctly treats the forced removal as kidnapping from lawful guardianship and recommends search/recovery measures; retrieved context contains the applicable kidnapping and fugitive provisions."
+29,0.9,0.8,0.8,0.8,"Answer identifies commercial-sex-trafficking and FIR procedures and notes burden-of-proof responsibilities; retrieved context contains trafficking and procedural sections though evidentiary detail is general."
+30,0.9,0.8,0.8,0.8,"Answer requests injunction and investigation for sale of minor and preservation of evidence and outlines next steps; retrieved context supports injunction/investigation remedies though some citations are high-level."

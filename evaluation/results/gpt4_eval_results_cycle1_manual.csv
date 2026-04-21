@@ -1,0 +1,11 @@
+case_id,answer_relevance,context_relevance,groundedness,avg_relevance,justification
+1,0.9,0.8,1.0,0.9,"Answer addresses burden-of-proof, circumstantial evidence and reporting but omits some procedural detail; retrieved context includes relevant theft/evidence sections and cited sections appear in context."
+2,0.8,0.6,0.7,0.7,"Answer maps trespass/theft and investigative steps but is uncertain on exact applicability of Articles 321/322; context contains relevant theft provisions alongside tangential sections; most citations are supported."
+3,0.9,0.9,1.0,0.9,"Answer correctly identifies criminal intimidation and evidence admissibility and provides appropriate next steps; retrieved context contains matching intimidation and evidence sections and citations are grounded."
+4,1.0,0.9,1.0,1.0,"Answer clearly explains elements of voluntarily causing hurt, provocation and evidentiary considerations; retrieved context contains primary hurt/provocation sections and citations are present."
+5,1.0,0.9,1.0,1.0,"Answer directly addresses electronic harassment, applicable provisions and preservation of digital evidence; retrieved context contains stalking/harassment and electronic-evidence sections and citations match."
+6,1.0,0.9,1.0,1.0,"Answer identifies forgery and related offences and gives concrete procedural steps; retrieved context includes forgery/possession/falsification sections and cited provisions are present."
+7,0.9,0.8,1.0,0.9,"Answer reasonably applies house-trespass and criminal-breach/ theft concepts and recommends complaint/FIR steps; context contains the relevant sections and citations are grounded."
+8,0.9,0.8,0.8,0.8,"Answer attributes liability (abetment/mischief) and practical investigative steps; retrieved context contains abetment/mischief provisions though some cited sections are broader, giving moderate groundedness."
+9,1.0,0.9,1.0,1.0,"Answer directly addresses extortion/harassment, evidentiary preservation and reporting; retrieved context contains extortion/intimidation and evidence-preservation sections and citations align."
+10,1.0,0.8,0.9,0.9,"Answer covers hacking/defamation and suggests investigation and digital evidence collection; context contains defamation/forgery provisions though some citations are broader, most claims are supported."

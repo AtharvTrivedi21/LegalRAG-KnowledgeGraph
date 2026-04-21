@@ -1,3 +1,20 @@
+# phase3_embeddings
+
+Purpose
+- Scripts and data for generating embeddings, synthetic training pairs, and mapping between IPC/BNS sections.
+
+What’s here
+- `build_faiss.py`, `build_synthetic_jsonl.py`, and mapping pipeline under `bns_mapping_pipeline/`.
+- Config and experiment plans: `config.py`, `dataset_experiments_v2/`.
+- Results and logs: `results.txt`, various synthetic pairs CSV/JSONL.
+
+How to reproduce
+- Generate mappings: `python phase3_embeddings/bns_mapping_pipeline/build_mapping_pairs.py`
+- Build FAISS index: `python phase3_embeddings/build_faiss.py`
+
+Notes
+- Contains scripts used to prepare retrieval corpus and synthetic datasets for reranking/finetuning.
+
 # Phase 3: Embeddings and Vector Retrieval
 
 Phase 3 builds the embedding and vector retrieval layer for LegalRAG. It chunks the legal corpus (cases, sections, articles), fine-tunes BGE on IndicLegalQA, builds a FAISS index for semantic search, and provides a validation script to verify all outputs.
