@@ -26,3 +26,27 @@ flowchart LR
   graphRetriever --> vectorRetriever
   vectorRetriever --> answerGen
 ```
+
+## Optional: two-stage retrieval with cross-encoder (System S4)
+
+The default V3 flow above passes **FAISS-ranked chunks** straight to the answer generator. The **rerank experiment** (`rerank_experiment/adapter.py`) inserts a **cross-encoder** between dense retrieval and prompt construction:
+
+```mermaid
+flowchart LR
+  subgraph dense [Stage 1: bi-encoder]
+    V2[retrieve_chunks FAISS]
+    K2[top-K candidates]
+    V2 --> K2
+  end
+  subgraph rerank [Stage 2: cross-encoder]
+    CE[ms-marco-MiniLM cross-encoder]
+    S2[sort by rerank_score]
+    K2 --> CE --> S2
+  end
+  subgraph gen [Answer generation]
+    S2 --> P[build context top-k]
+    P --> LLM[LLM structured answer]
+  end
+```
+
+Use this block in the thesis as the **reranker architecture** figure (see `MTech Thesis/content/figures.md` Figure 6).
