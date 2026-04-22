@@ -3,6 +3,7 @@ Phase 4 V3: Streamlit UI with Act-aware disambiguation, Act classification, and 
 """
 from __future__ import annotations
 
+import os
 import textwrap
 from typing import Any, Dict, List
 
@@ -56,8 +57,18 @@ def main() -> None:
             st.error(f"FAISS index: not available\n\n{vs_status['error']}")
 
         st.header("LLM")
-        st.write(f"Model: `{settings.ollama.model}`")
-        st.write(f"Ollama base URL: `{settings.ollama.base_url}`")
+        groq_key_present = any(
+            (os.getenv(k) or "").strip()
+            for k in ["GROQ_API_KEY_1", "GROQ_API_KEY_2", "GROQ_API_KEY_3", "GROQ_API_KEY_4", "GROQ_API_KEY_5", "GROQ_API_KEY"]
+        )
+        if groq_key_present:
+            st.write("Backend: `Groq`")
+            st.write(f"Model: `{os.getenv('GROQ_MODEL', 'llama-3.1-8b-instant')}`")
+            st.write("Key source: `last configured GROQ_API_KEY_N`")
+        else:
+            st.write("Backend: `Ollama`")
+            st.write(f"Model: `{settings.ollama.model}`")
+            st.write(f"Ollama base URL: `{settings.ollama.base_url}`")
 
         st.header("Retrieval")
         top_k = st.slider(
@@ -69,8 +80,9 @@ def main() -> None:
 
     st.subheader("Query")
     query = st.text_area(
-        "Enter a legal question or describe an incident (e.g. 'Section 302 of BNS' or 'Article 14 Constitution')",
+        " ",
         height=120,
+        placeholder="Type your legal query here...",
     )
 
     if st.button("Run Graph-Constrained RAG (V3)", type="primary"):
@@ -128,6 +140,27 @@ def main() -> None:
                 st.info("Fallback: unconstrained retrieval used (no matching constrained hits).")
             else:
                 st.write("Fallback: not used.")
+
+        # Explicit Graph-RAG evidence panel for quick verification
+        graph_constraints = state.get("graph_constraints")
+        explicit_constraints = bool(state.get("explicit_constraints_from_query"))
+        derived_constraints = bool(state.get("derived_constraints_from_retrieval"))
+        graph_sections_n = len((graph_metadata.get("sections") or []))
+        graph_articles_n = len((graph_metadata.get("articles") or []))
+        graph_cases_n = len((graph_metadata.get("cases") or []))
+        with st.expander("Graph RAG Evidence", expanded=True):
+            if graph_error:
+                st.error("Graph retrieval unavailable for this run.")
+                st.caption(graph_error)
+            else:
+                st.success("Graph retrieval was used.")
+            st.write(f"- Graph constraints present: **{'Yes' if graph_constraints else 'No'}**")
+            st.write(f"- Explicit constraints from query parser: **{'Yes' if explicit_constraints else 'No'}**")
+            st.write(f"- Derived constraints from top retrieval: **{'Yes' if derived_constraints else 'No'}**")
+            st.write(f"- Neo4j sections resolved: **{graph_sections_n}**")
+            st.write(f"- Neo4j articles resolved: **{graph_articles_n}**")
+            st.write(f"- Neo4j cited cases resolved: **{graph_cases_n}**")
+            st.write(f"- Unconstrained fallback used: **{'Yes' if state.get('used_fallback_unconstrained') else 'No'}**")
 
         act_ids = []
         for sec in graph_metadata.get("sections") or []:

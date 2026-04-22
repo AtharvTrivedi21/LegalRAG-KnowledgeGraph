@@ -44,6 +44,8 @@ class WorkflowState(TypedDict, total=False):
     answer: Optional[str]
     answer_no_applicable_laws: bool
     answer_no_relevant_cases: bool
+    explicit_constraints_from_query: bool
+    derived_constraints_from_retrieval: bool
 
 
 def _parsed_query_to_dict(pq: ParsedQuery) -> Dict[str, Any]:
@@ -112,6 +114,8 @@ def node_graph_retriever(state: WorkflowState) -> WorkflowState:
             state["graph_constraints"] = None
         else:
             state["graph_constraints"] = asdict(constraints)
+        state["explicit_constraints_from_query"] = bool(state.get("graph_constraints"))
+        state["derived_constraints_from_retrieval"] = False
 
         state["graph_metadata"] = graph_metadata
         state["applicable_acts"] = _collect_applicable_acts(sections, articles)
@@ -122,6 +126,8 @@ def node_graph_retriever(state: WorkflowState) -> WorkflowState:
         state["graph_metadata"] = None
         state["applicable_acts"] = []
         state["graph_error"] = f"neo4j_unavailable: {exc}"
+        state["explicit_constraints_from_query"] = False
+        state["derived_constraints_from_retrieval"] = False
         return state
 
 
@@ -229,6 +235,50 @@ def node_vector_retriever(state: WorkflowState) -> WorkflowState:
     # Enrich graph_metadata from FAISS results for natural language queries
     _enrich_graph_metadata_from_chunks(state, grouped)
 
+    # If no explicit graph constraints from parser, derive constraints from top retrieved
+    # section/article source_ids and run a second constrained retrieval pass.
+    if not constraints:
+        section_items = sorted(
+            (grouped.get("section") or {}).items(),
+            key=lambda kv: kv[1].get("max_score", 0.0),
+            reverse=True,
+        )
+        article_items = sorted(
+            (grouped.get("article") or {}).items(),
+            key=lambda kv: kv[1].get("max_score", 0.0),
+            reverse=True,
+        )
+        top_section_ids = [sid for sid, _ in section_items[:3]]
+        top_article_ids = [aid for aid, _ in article_items[:1]]
+
+        if top_section_ids or top_article_ids:
+            derived_constraints = GraphConstraints(
+                allowed_case_ids=[],
+                allowed_section_ids=top_section_ids,
+                allowed_article_ids=top_article_ids,
+            )
+            rerun = retrieve_chunks(query, k=settings.retrieval.top_k, constraints=derived_constraints)
+            if not rerun.get("error") and rerun.get("chunks"):
+                rerun_chunks = rerun.get("chunks", [])
+                rerun_grouped = group_by_source(rerun_chunks)
+                state["retrieved_chunks"] = rerun_chunks
+                state["grouped_sources"] = rerun_grouped
+                state["graph_constraints"] = asdict(derived_constraints)
+                state["derived_constraints_from_retrieval"] = True
+                state["used_fallback_unconstrained"] = bool(rerun.get("used_fallback_unconstrained"))
+                state["top_faiss_similarity"] = rerun.get("top_faiss_similarity", state.get("top_faiss_similarity"))
+
+                # Refresh graph metadata/cases using derived IDs so case panel reflects GraphRAG path.
+                _enrich_graph_metadata_from_chunks(state, rerun_grouped)
+                try:
+                    derived_ids = top_section_ids + top_article_ids
+                    cases = get_cases_citing_ids(derived_ids) if derived_ids else []
+                    graph_metadata = state.get("graph_metadata") or {"sections": [], "articles": [], "cases": []}
+                    graph_metadata["cases"] = cases
+                    state["graph_metadata"] = graph_metadata
+                except Neo4jUnavailableError:
+                    pass
+
     return state
 
 
@@ -243,18 +293,28 @@ def _build_system_prompt_v3() -> str:
         "The Indian Penal Code (IPC), Code of Criminal Procedure (CrPC), and Indian Evidence Act (IEA) "
         "are REPEALED. Do NOT cite IPC, CrPC, or IEA sections — they no longer apply. "
         "Answer the user's question using ONLY the provided context (cases, sections, constitutional articles). "
+        "Write in clear, professional legal language suitable for a report screenshot. "
+        "Be concise and avoid repetition. "
         "Cite the relevant section_id, article_id, or case_id in your answer. "
         "Always include the parent Act name when citing sections or articles "
         "(e.g. 'Section 330, BNS_2023 (Bharatiya Nyaya Sanhita)' or 'Article 14, CONST_1950'). "
-        "Under 'Applicable laws / provisions', you MUST list and cite every section_id and article_id "
-        "from the context that is relevant to the question, with their Act name. "
+        "Under 'Applicable laws / provisions', list only the MOST RELEVANT laws for the incident. "
+        "Prefer 3 to 6 law bullets; do not dump long irrelevant lists. "
+        "Each bullet must include the law and one-line relevance. "
+        "Do not include constitutional articles unless the user query is constitutional in nature or the context strongly requires it. "
+        "For criminal incident queries, prefer substantive BNS provisions first; include BNSS/BSA only when directly needed. "
         "Do not say 'none stated' or 'none explicitly stated' if the context contains any SECTION or ARTICLE text"
         "—identify and cite the applicable ones. "
         "Only if the context truly contains no sections or articles may you state that no applicable laws were provided. "
         "Do not fabricate citations or legal provisions not present in the context. "
-        "Structure your answer with these markdown headings: ## Summary, ## Applicable laws / provisions, "
-        "## Relevant case law (if any), ## Recommendation / next steps. "
-        "Use brief bullets or short paragraphs under each. "
+        "Structure your answer with these markdown headings on separate lines only: "
+        "## Summary, ## Applicable laws / provisions, ## Relevant case law (if any), ## Recommendation / next steps. "
+        "Under each heading, use short bullet points. "
+        "In 'Applicable laws / provisions', each bullet must be one law line in this format: "
+        "'- Section <number>, <ACT_ID> (<Act Name>): <one-line relevance>' or "
+        "'- Article <number>, <ACT_ID> (<Act Name>): <one-line relevance>'. "
+        "For criminal incident questions, prioritize BNS_2023 provisions first; include BNSS/BSA only when directly necessary. "
+        "If many candidate laws are available, choose the ones that directly map to the incident facts (act, intent, harm, procedure). "
         "Do not include or repeat internal labels like [ARTICLE FROM KNOWLEDGE GRAPH] or [SECTION FROM KNOWLEDGE GRAPH] in your answer; "
         "cite sources by article_id, section_id, or case_id with their Act (e.g. BNS_2023_s330, CONST_1950_Art14).\n"
     )
@@ -325,16 +385,36 @@ def _build_context_block(grouped_sources: Dict[str, Dict[str, Any]], max_snippet
 
 
 def _strip_internal_labels(text: str) -> str:
-    text = text.replace("[ARTICLE FROM KNOWLEDGE GRAPH]", "")
-    text = text.replace("[SECTION FROM KNOWLEDGE GRAPH]", "")
-    text = re.sub(r"\s+", " ", text).strip()
-    return text
+    # Remove internal tags but preserve newlines/markdown structure.
+    text = text.replace("[ARTICLE FROM KNOWLEDGE GRAPH]", "").replace("[SECTION FROM KNOWLEDGE GRAPH]", "")
+    # Normalize trailing spaces per line without flattening paragraph breaks.
+    lines = [ln.rstrip() for ln in text.splitlines()]
+    text = "\n".join(lines)
+    text = re.sub(r"\n{3,}", "\n\n", text)
+    return text.strip()
 
 
 def _fix_markdown_layout(text: str) -> str:
-    if re.match(r"^Summary\s+", text, re.I):
-        text = "## " + text
-    text = re.sub(r"(##\s+[^\n#]+?)\s+(?=[A-Z])", r"\1\n\n", text)
+    # Ensure headings exist on their own lines.
+    heading_names = [
+        "Summary",
+        "Applicable laws / provisions",
+        "Relevant case law (if any)",
+        "Recommendation / next steps",
+    ]
+    for h in heading_names:
+        text = re.sub(rf"(?i)\s*##\s*{re.escape(h)}\s*", f"\n## {h}\n", text)
+        text = re.sub(rf"(?i)(^|\n)\s*{re.escape(h)}\s*[:\-]?\s*", f"\n## {h}\n", text)
+
+    # If first heading is missing but answer starts with prose, prefix summary.
+    if not re.search(r"(?m)^##\s+Summary\s*$", text):
+        text = "## Summary\n" + text.strip()
+
+    # Put law lines on bullets if model emitted inline separators.
+    text = re.sub(r"\s+\-\s+Section\s+", r"\n- Section ", text)
+    text = re.sub(r"\s+\-\s+Article\s+", r"\n- Article ", text)
+
+    # Keep markdown compact but readable.
     text = re.sub(r"\n{3,}", "\n\n", text)
     return text.strip()
 

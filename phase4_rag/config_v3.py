@@ -81,7 +81,7 @@ def load_settings() -> Phase4Settings:
         retrieval=retrieval,
         faiss_index_path=str(phase3_config.FAISS_INDEX_PATH),
         chunk_metadata_path=str(phase3_config.CHUNK_METADATA_PATH),
-        fine_tuned_model_dir=str(phase3_config.FINE_TUNED_MODEL_DIR),
+        fine_tuned_model_dir=_env("PHASE4_FINE_TUNED_MODEL_DIR", str(phase3_config.FINE_TUNED_MODEL_DIR)),
     )
 
 
